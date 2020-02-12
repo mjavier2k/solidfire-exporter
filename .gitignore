@@ -1,0 +1,7 @@
+.env
+.env_local
+main
+tmp
+./solidfire-exporter
+archive.tar.gz
+bin/*

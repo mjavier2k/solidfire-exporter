@@ -1,0 +1,30 @@
+{
+  "id": 1,
+  "result": {
+    "clusterCapacity": {
+      "activeBlockSpace": 31498466614271,
+      "activeSessions": 2464,
+      "averageIOPS": 13629,
+      "clusterRecentIOSize": 42414,
+      "currentIOPS": 12082,
+      "maxIOPS": 500000,
+      "maxOverProvisionableSpace": 5530688614543360,
+      "maxProvisionedSpace": 1106137722908672,
+      "maxUsedMetadataSpace": 8641700960255,
+      "maxUsedSpace": 180515531169792,
+      "nonZeroBlocks": 20761362794,
+      "peakActiveSessions": 2464,
+      "peakIOPS": 33373,
+      "provisionedSpace": 90665071411200,
+      "snapshotNonZeroBlocks": 1162948701,
+      "timestamp": "2020-01-31T02:31:56Z",
+      "totalOps": 422890150883,
+      "uniqueBlocks": 13185129121,
+      "uniqueBlocksUsedSpace": 32576721321384,
+      "usedMetadataSpace": 362528215040,
+      "usedMetadataSpaceInSnapshots": 178914279424,
+      "usedSpace": 32871314687336,
+      "zeroBlocks": 23508691606
+    }
+  }
+}
