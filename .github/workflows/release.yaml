@@ -49,7 +49,7 @@ jobs:
         GOARCH: amd64
         GOOS: darwin
         PACKAGE: "./cmd/solidfire-exporter/main.go"
-  release windows/386:
+  release-windows/386:
     name: release windows/386
     runs-on: ubuntu-latest
     steps:
