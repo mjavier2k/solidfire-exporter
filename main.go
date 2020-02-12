@@ -1,1 +1,0 @@
-cmd/solidfire-exporter/main.go
