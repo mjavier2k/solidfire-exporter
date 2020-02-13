@@ -5,7 +5,7 @@
 [Solidfire 11.3 API](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155)
 
 ## Goals
-- x Qos stats
+- Qos stats (not implemented)
 - Volume stats
 - Node stats
 - Fault stats
