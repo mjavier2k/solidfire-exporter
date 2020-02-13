@@ -7,11 +7,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: compile and release
-      uses: sqs/go-release.action@v1.1.0
+      uses: mjavier/go-release.action:d3138c2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: linux
+        EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
   release-linux-amd64:
@@ -20,11 +21,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: compile and release
-      uses: sqs/go-release.action@v1.1.0
+      uses: mjavier/go-release.action:d3138c2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: linux
+        EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
   release-darwin-386:
@@ -33,11 +35,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: compile and release
-      uses: sqs/go-release.action@v1.1.0
+      uses: mjavier/go-release.action:d3138c2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: darwin
+        EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
   release-darwin-amd64:
@@ -46,11 +49,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: compile and release
-      uses: sqs/go-release.action@v1.1.0
+      uses: mjavier/go-release.action:d3138c2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: darwin
+        EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
   release-windows-386:
@@ -59,11 +63,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: compile and release
-      uses: sqs/go-release.action@v1.1.0
+      uses: mjavier/go-release.action:d3138c2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: windows
+        EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
   release-windows-amd64:
@@ -72,10 +77,11 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: compile and release
-      uses: sqs/go-release.action@v1.1.0
+      uses: mjavier/go-release.action:d3138c2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: windows
+        EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
