@@ -22,6 +22,11 @@ SOLIDFIRE_RPC_ENDPOINT=https://192.168.1.1/json-rpc/11.3
 INSECURE_SKIP_VERIFY=false
 ```
 
+## Volume QoS
+
+As of Solidfire 11.3, SOLIDFIRE_USER must have administrator access to be able to gather volume qos data
+
+
 ## Using Docker
 
 Create an file with the environment variables set and pass it to docker run. 
