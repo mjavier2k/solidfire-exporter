@@ -20,6 +20,14 @@ var (
 	volumeNamesMux     sync.Mutex
 )
 
+func sumHistogram(m map[float64]uint64) (r uint64) {
+	r = 0
+	for _, val := range m {
+		r += val
+	}
+	return
+}
+
 func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ScrapeSuccessDesc
 
@@ -481,7 +489,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	for _, stats := range ClusterNodeStats.Result.NodeStats.Nodes {
-		node_ssload_histogram_data := map[float64]uint64{
+		nodeStatsLoadHistogramData := map[float64]uint64{
 			0:   stats.SsLoadHistogram.Bucket0,
 			19:  stats.SsLoadHistogram.Bucket1To19,
 			39:  stats.SsLoadHistogram.Bucket20To39,
@@ -491,14 +499,14 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 		var sum uint64 = 0
-		for _, val := range node_ssload_histogram_data {
+		for _, val := range nodeStatsLoadHistogramData {
 			sum += val
 		}
 		ch <- prometheus.MustNewConstHistogram(
 			MetricDescriptions.NodeStatsLoadHistogram,
 			stats.Count,
 			float64(sum),
-			node_ssload_histogram_data,
+			nodeStatsLoadHistogramData,
 			strconv.Itoa(stats.NodeID),
 		)
 
@@ -597,6 +605,118 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			prometheus.GaugeValue,
 			stats.WriteOps,
 			strconv.Itoa(stats.NodeID))
+	}
+
+	// ListVolumeQoSHistograms
+	VolumeQoSHistograms, err := c.client.ListVolumeQoSHistograms()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+
+	for _, h := range VolumeQoSHistograms.Result.QosHistograms {
+
+		// Below Min IOPS Percentage
+		BelowMinIopsPercentages := map[float64]uint64{
+			1:  h.Histograms.BelowMinIopsPercentages.Bucket1To19,
+			20: h.Histograms.BelowMinIopsPercentages.Bucket20To39,
+			40: h.Histograms.BelowMinIopsPercentages.Bucket40To59,
+			60: h.Histograms.BelowMinIopsPercentages.Bucket60To79,
+			80: h.Histograms.BelowMinIopsPercentages.Bucket80To100,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSBelowMinIopsPercentagesHistogram,
+			0,
+			float64(sumHistogram(BelowMinIopsPercentages)),
+			BelowMinIopsPercentages,
+			strconv.Itoa(h.VolumeID),
+		)
+
+		MinToMaxIopsPercentages := map[float64]uint64{
+			1:   h.Histograms.MinToMaxIopsPercentages.Bucket1To19,
+			20:  h.Histograms.MinToMaxIopsPercentages.Bucket20To39,
+			40:  h.Histograms.MinToMaxIopsPercentages.Bucket40To59,
+			60:  h.Histograms.MinToMaxIopsPercentages.Bucket60To79,
+			80:  h.Histograms.MinToMaxIopsPercentages.Bucket80To100,
+			101: h.Histograms.MinToMaxIopsPercentages.Bucket101Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSMinToMaxIopsPercentagesHistogram,
+			0,
+			float64(sumHistogram(MinToMaxIopsPercentages)),
+			MinToMaxIopsPercentages,
+			strconv.Itoa(h.VolumeID),
+		)
+
+		ReadBlockSizes := map[float64]uint64{
+			4096:   h.Histograms.ReadBlockSizes.Bucket4096To8191,
+			8192:   h.Histograms.ReadBlockSizes.Bucket8192To16383,
+			16384:  h.Histograms.ReadBlockSizes.Bucket16384To32767,
+			32768:  h.Histograms.ReadBlockSizes.Bucket32768To65535,
+			64436:  h.Histograms.ReadBlockSizes.Bucket65536To131071,
+			131072: h.Histograms.ReadBlockSizes.Bucket131072Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSReadBlockSizesHistogram,
+			0,
+			float64(sumHistogram(ReadBlockSizes)),
+			ReadBlockSizes,
+			strconv.Itoa(h.VolumeID),
+		)
+
+		TargetUtilizationPercentages := map[float64]uint64{
+			1:   h.Histograms.TargetUtilizationPercentages.Bucket1To19,
+			20:  h.Histograms.TargetUtilizationPercentages.Bucket20To39,
+			40:  h.Histograms.TargetUtilizationPercentages.Bucket40To59,
+			60:  h.Histograms.TargetUtilizationPercentages.Bucket60To79,
+			80:  h.Histograms.TargetUtilizationPercentages.Bucket80To100,
+			101: h.Histograms.TargetUtilizationPercentages.Bucket101Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSTargetUtilizationPercentages,
+			0,
+			float64(sumHistogram(TargetUtilizationPercentages)),
+			TargetUtilizationPercentages,
+			strconv.Itoa(h.VolumeID),
+		)
+
+		ThrottlePercentages := map[float64]uint64{
+			0:  h.Histograms.ThrottlePercentages.Bucket0,
+			1:  h.Histograms.ThrottlePercentages.Bucket1To19,
+			20: h.Histograms.ThrottlePercentages.Bucket20To39,
+			40: h.Histograms.ThrottlePercentages.Bucket40To59,
+			60: h.Histograms.ThrottlePercentages.Bucket60To79,
+			80: h.Histograms.ThrottlePercentages.Bucket80To100,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSThrottlePercentages,
+			0,
+			float64(sumHistogram(ThrottlePercentages)),
+			ThrottlePercentages,
+			strconv.Itoa(h.VolumeID),
+		)
+
+		WriteBlockSizes := map[float64]uint64{
+			4096:   h.Histograms.WriteBlockSizes.Bucket4096To8191,
+			8192:   h.Histograms.WriteBlockSizes.Bucket8192To16383,
+			16384:  h.Histograms.WriteBlockSizes.Bucket16384To32767,
+			32768:  h.Histograms.WriteBlockSizes.Bucket32768To65535,
+			64436:  h.Histograms.WriteBlockSizes.Bucket65536To131071,
+			131072: h.Histograms.WriteBlockSizes.Bucket131072Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSWriteBlockSizes,
+			0,
+			float64(sumHistogram(WriteBlockSizes)),
+			WriteBlockSizes,
+			strconv.Itoa(h.VolumeID),
+		)
 	}
 
 	// Set scrape success metric to scrapeSuccess

@@ -37,6 +37,10 @@ type ListNodeStatsRPCParams struct {
 	// No params needed
 }
 
+type ListVolumeQoSHistogramsRPCParams struct {
+	VolumeIDs []int `json:"volumeIDs"`
+}
+
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
 	Result struct {
@@ -222,5 +226,65 @@ type ListNodeStatsResponse struct {
 				WriteOps              float64   `json:"writeOps"`
 			} `json:"nodes"`
 		} `json:"nodeStats"`
+	} `json:"result"`
+}
+
+type ListVolumeQoSHistogramsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		QosHistograms []struct {
+			Histograms struct {
+				BelowMinIopsPercentages struct {
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"belowMinIopsPercentages"`
+				MinToMaxIopsPercentages struct {
+					Bucket101Plus uint64 `json:"Bucket101Plus"`
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"minToMaxIopsPercentages"`
+				ReadBlockSizes struct {
+					Bucket131072Plus    uint64 `json:"Bucket131072Plus"`
+					Bucket16384To32767  uint64 `json:"Bucket16384To32767"`
+					Bucket32768To65535  uint64 `json:"Bucket32768To65535"`
+					Bucket4096To8191    uint64 `json:"Bucket4096To8191"`
+					Bucket65536To131071 uint64 `json:"Bucket65536To131071"`
+					Bucket8192To16383   uint64 `json:"Bucket8192To16383"`
+				} `json:"readBlockSizes"`
+				TargetUtilizationPercentages struct {
+					Bucket0       uint64 `json:"Bucket0"`
+					Bucket101Plus uint64 `json:"Bucket101Plus"`
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"targetUtilizationPercentages"`
+				ThrottlePercentages struct {
+					Bucket0       uint64 `json:"Bucket0"`
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"throttlePercentages"`
+				WriteBlockSizes struct {
+					Bucket131072Plus    uint64 `json:"Bucket131072Plus"`
+					Bucket16384To32767  uint64 `json:"Bucket16384To32767"`
+					Bucket32768To65535  uint64 `json:"Bucket32768To65535"`
+					Bucket4096To8191    uint64 `json:"Bucket4096To8191"`
+					Bucket65536To131071 uint64 `json:"Bucket65536To131071"`
+					Bucket8192To16383   uint64 `json:"Bucket8192To16383"`
+				} `json:"writeBlockSizes"`
+			} `json:"histograms"`
+			Timestamp time.Time `json:"timestamp"`
+			VolumeID  int       `json:"volumeID"`
+		} `json:"qosHistograms"`
 	} `json:"result"`
 }

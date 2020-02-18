@@ -25,6 +25,9 @@ func NewSolidfireClient() *Client {
 	if insecure {
 		log.Warningln("TLS certificate verification is currently disabled - This is not recommended.")
 	}
+
+	log.Infoln("RPC Server:", os.Getenv("SOLIDFIRE_RPC_ENDPOINT"))
+
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecure},
 	}
@@ -99,6 +102,7 @@ func (s *Client) ListVolumeStats() (ListVolumeStatsResponse, error) {
 		return r, err
 	}
 	err = json.Unmarshal(bodyBytes, &r)
+
 	if err != nil {
 		return r, err
 	}
@@ -141,6 +145,7 @@ func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
 		return r, err
 	}
 	err = json.Unmarshal(bodyBytes, &r)
+
 	if err != nil {
 		return r, err
 	}
@@ -161,6 +166,30 @@ func (s *Client) ListNodeStats() (ListNodeStatsResponse, error) {
 		return r, err
 	}
 	err = json.Unmarshal(bodyBytes, &r)
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, error) {
+	payload := &RPCBody{
+		Method: "ListVolumeQoSHistograms",
+		Params: ListVolumeQoSHistogramsRPCParams{
+			VolumeIDs: []int{}, // blank gives us all of them
+		},
+		ID: 1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListVolumeQoSHistogramsResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
 	if err != nil {
 		return r, err
 	}
