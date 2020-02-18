@@ -4,7 +4,7 @@ Prometheus NetApp solidfire-exporter queries the Solidfire API and exports the r
 
 ![Go](https://github.com/mjavier2k/solidfire-exporter/workflows/Go/badge.svg?event=push)
 
-[Solidfire 11.3 API](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155)
+Implementation is based on [Solidfire 11.3 API](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155)
 
 ## Goals
 - Qos stats (not implemented)
