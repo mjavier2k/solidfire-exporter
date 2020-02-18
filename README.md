@@ -24,7 +24,7 @@ INSECURE_SKIP_VERIFY=false
 
 ## Volume QoS
 
-As of Solidfire 11.3, SOLIDFIRE_USER must have administrator access to be able to gather volume qos data
+SOLIDFIRE_USER must have administrator access to be able to gather volume qos data
 
 
 ## Using Docker
