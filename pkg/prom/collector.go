@@ -699,11 +699,11 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		WriteBlockSizes := map[float64]uint64{
-			4096:        h.Histograms.WriteBlockSizes.Bucket4096To8191,
-			8192:        h.Histograms.WriteBlockSizes.Bucket8192To16383,
-			16384:       h.Histograms.WriteBlockSizes.Bucket16384To32767,
-			32768:       h.Histograms.WriteBlockSizes.Bucket32768To65535,
-			64436:       h.Histograms.WriteBlockSizes.Bucket65536To131071,
+			8191:        h.Histograms.WriteBlockSizes.Bucket4096To8191,
+			16383:       h.Histograms.WriteBlockSizes.Bucket8192To16383,
+			32767:       h.Histograms.WriteBlockSizes.Bucket16384To32767,
+			65535:       h.Histograms.WriteBlockSizes.Bucket32768To65535,
+			131071:      h.Histograms.WriteBlockSizes.Bucket65536To131071,
 			math.Inf(1): h.Histograms.WriteBlockSizes.Bucket131072Plus,
 		}
 
