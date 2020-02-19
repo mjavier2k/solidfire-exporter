@@ -490,7 +490,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	for _, stats := range ClusterNodeStats.Result.NodeStats.Nodes {
-		NodeStatsLoadHistogram := map[float64]uint64{
+		SsLoadHistogram := map[float64]uint64{
 			0:   stats.SsLoadHistogram.Bucket0,
 			19:  stats.SsLoadHistogram.Bucket1To19,
 			39:  stats.SsLoadHistogram.Bucket20To39,
@@ -502,8 +502,8 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstHistogram(
 			MetricDescriptions.NodeStatsLoadHistogram,
 			stats.Count,
-			float64(sumHistogram(NodeStatsLoadHistogram)),
-			NodeStatsLoadHistogram,
+			float64(sumHistogram(SsLoadHistogram)),
+			SsLoadHistogram,
 			strconv.Itoa(stats.NodeID),
 		)
 
