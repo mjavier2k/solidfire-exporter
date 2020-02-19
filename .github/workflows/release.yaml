@@ -12,6 +12,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: linux
+        CGO_ENABLED: "0"  
         EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
@@ -26,6 +27,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: linux
+        CGO_ENABLED: "0"
         EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
@@ -40,6 +42,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: darwin
+        CGO_ENABLED: "0" 
         EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
@@ -54,6 +57,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: darwin
+        CGO_ENABLED: "0"
         EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
@@ -68,6 +72,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: windows
+        CGO_ENABLED: "0"
         EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
@@ -82,6 +87,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: windows
+        CGO_ENABLED: "0"
         EXECUTABLE_NAME: "solidfire-exporter"
         EXECUTABLE_PATH: "./cmd/solidfire-exporter"
         PACKAGE: "./cmd/solidfire-exporter/main.go"
