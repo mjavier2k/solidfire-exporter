@@ -1,6 +1,7 @@
 package prom
 
 import (
+	"math"
 	"strconv"
 	"sync"
 
@@ -614,11 +615,11 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 		// Below Min IOPS Percentage
 		BelowMinIopsPercentages := map[float64]uint64{
-			1:  h.Histograms.BelowMinIopsPercentages.Bucket1To19,
-			20: h.Histograms.BelowMinIopsPercentages.Bucket20To39,
-			40: h.Histograms.BelowMinIopsPercentages.Bucket40To59,
-			60: h.Histograms.BelowMinIopsPercentages.Bucket60To79,
-			80: h.Histograms.BelowMinIopsPercentages.Bucket80To100,
+			19:  h.Histograms.BelowMinIopsPercentages.Bucket1To19,
+			39:  h.Histograms.BelowMinIopsPercentages.Bucket20To39,
+			59:  h.Histograms.BelowMinIopsPercentages.Bucket40To59,
+			79:  h.Histograms.BelowMinIopsPercentages.Bucket60To79,
+			100: h.Histograms.BelowMinIopsPercentages.Bucket80To100,
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
@@ -630,12 +631,12 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		MinToMaxIopsPercentages := map[float64]uint64{
-			1:   h.Histograms.MinToMaxIopsPercentages.Bucket1To19,
-			20:  h.Histograms.MinToMaxIopsPercentages.Bucket20To39,
-			40:  h.Histograms.MinToMaxIopsPercentages.Bucket40To59,
-			60:  h.Histograms.MinToMaxIopsPercentages.Bucket60To79,
-			80:  h.Histograms.MinToMaxIopsPercentages.Bucket80To100,
-			101: h.Histograms.MinToMaxIopsPercentages.Bucket101Plus,
+			19:          h.Histograms.MinToMaxIopsPercentages.Bucket1To19,
+			39:          h.Histograms.MinToMaxIopsPercentages.Bucket20To39,
+			59:          h.Histograms.MinToMaxIopsPercentages.Bucket40To59,
+			79:          h.Histograms.MinToMaxIopsPercentages.Bucket60To79,
+			100:         h.Histograms.MinToMaxIopsPercentages.Bucket80To100,
+			math.Inf(1): h.Histograms.MinToMaxIopsPercentages.Bucket101Plus,
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
@@ -647,12 +648,12 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ReadBlockSizes := map[float64]uint64{
-			4096:   h.Histograms.ReadBlockSizes.Bucket4096To8191,
-			8192:   h.Histograms.ReadBlockSizes.Bucket8192To16383,
-			16384:  h.Histograms.ReadBlockSizes.Bucket16384To32767,
-			32768:  h.Histograms.ReadBlockSizes.Bucket32768To65535,
-			64436:  h.Histograms.ReadBlockSizes.Bucket65536To131071,
-			131072: h.Histograms.ReadBlockSizes.Bucket131072Plus,
+			8191:        h.Histograms.ReadBlockSizes.Bucket4096To8191,
+			16383:       h.Histograms.ReadBlockSizes.Bucket8192To16383,
+			32767:       h.Histograms.ReadBlockSizes.Bucket16384To32767,
+			65535:       h.Histograms.ReadBlockSizes.Bucket32768To65535,
+			131071:      h.Histograms.ReadBlockSizes.Bucket65536To131071,
+			math.Inf(1): h.Histograms.ReadBlockSizes.Bucket131072Plus,
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
@@ -664,12 +665,12 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		TargetUtilizationPercentages := map[float64]uint64{
-			1:   h.Histograms.TargetUtilizationPercentages.Bucket1To19,
-			20:  h.Histograms.TargetUtilizationPercentages.Bucket20To39,
-			40:  h.Histograms.TargetUtilizationPercentages.Bucket40To59,
-			60:  h.Histograms.TargetUtilizationPercentages.Bucket60To79,
-			80:  h.Histograms.TargetUtilizationPercentages.Bucket80To100,
-			101: h.Histograms.TargetUtilizationPercentages.Bucket101Plus,
+			19:          h.Histograms.TargetUtilizationPercentages.Bucket1To19,
+			39:          h.Histograms.TargetUtilizationPercentages.Bucket20To39,
+			59:          h.Histograms.TargetUtilizationPercentages.Bucket40To59,
+			79:          h.Histograms.TargetUtilizationPercentages.Bucket60To79,
+			100:         h.Histograms.TargetUtilizationPercentages.Bucket80To100,
+			math.Inf(1): h.Histograms.TargetUtilizationPercentages.Bucket101Plus,
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
@@ -681,12 +682,12 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ThrottlePercentages := map[float64]uint64{
-			0:  h.Histograms.ThrottlePercentages.Bucket0,
-			1:  h.Histograms.ThrottlePercentages.Bucket1To19,
-			20: h.Histograms.ThrottlePercentages.Bucket20To39,
-			40: h.Histograms.ThrottlePercentages.Bucket40To59,
-			60: h.Histograms.ThrottlePercentages.Bucket60To79,
-			80: h.Histograms.ThrottlePercentages.Bucket80To100,
+			0:   h.Histograms.ThrottlePercentages.Bucket0,
+			19:  h.Histograms.ThrottlePercentages.Bucket1To19,
+			39:  h.Histograms.ThrottlePercentages.Bucket20To39,
+			59:  h.Histograms.ThrottlePercentages.Bucket40To59,
+			79:  h.Histograms.ThrottlePercentages.Bucket60To79,
+			100: h.Histograms.ThrottlePercentages.Bucket80To100,
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
@@ -698,12 +699,12 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		WriteBlockSizes := map[float64]uint64{
-			4096:   h.Histograms.WriteBlockSizes.Bucket4096To8191,
-			8192:   h.Histograms.WriteBlockSizes.Bucket8192To16383,
-			16384:  h.Histograms.WriteBlockSizes.Bucket16384To32767,
-			32768:  h.Histograms.WriteBlockSizes.Bucket32768To65535,
-			64436:  h.Histograms.WriteBlockSizes.Bucket65536To131071,
-			131072: h.Histograms.WriteBlockSizes.Bucket131072Plus,
+			4096:        h.Histograms.WriteBlockSizes.Bucket4096To8191,
+			8192:        h.Histograms.WriteBlockSizes.Bucket8192To16383,
+			16384:       h.Histograms.WriteBlockSizes.Bucket16384To32767,
+			32768:       h.Histograms.WriteBlockSizes.Bucket32768To65535,
+			64436:       h.Histograms.WriteBlockSizes.Bucket65536To131071,
+			math.Inf(1): h.Histograms.WriteBlockSizes.Bucket131072Plus,
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
