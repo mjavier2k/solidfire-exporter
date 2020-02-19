@@ -1,0 +1,61 @@
+{
+  "id": 1,
+  "result": {
+    "qosHistograms": [
+      {
+        "histograms": {
+          "belowMinIopsPercentages": {
+            "Bucket1To19": 2406,
+            "Bucket20To39": 3,
+            "Bucket40To59": 0,
+            "Bucket60To79": 4,
+            "Bucket80To100": 0
+          },
+          "minToMaxIopsPercentages": {
+            "Bucket101Plus": 0,
+            "Bucket1To19": 0,
+            "Bucket20To39": 0,
+            "Bucket40To59": 2,
+            "Bucket60To79": 0,
+            "Bucket80To100": 0
+          },
+          "readBlockSizes": {
+            "Bucket131072Plus": 0,
+            "Bucket16384To32767": 0,
+            "Bucket32768To65535": 0,
+            "Bucket4096To8191": 0,
+            "Bucket65536To131071": 0,
+            "Bucket8192To16383": 0
+          },
+          "targetUtilizationPercentages": {
+            "Bucket0": 134943,
+            "Bucket101Plus": 0,
+            "Bucket1To19": 2409,
+            "Bucket20To39": 4,
+            "Bucket40To59": 0,
+            "Bucket60To79": 2,
+            "Bucket80To100": 0
+          },
+          "throttlePercentages": {
+            "Bucket0": 137358,
+            "Bucket1To19": 0,
+            "Bucket20To39": 0,
+            "Bucket40To59": 0,
+            "Bucket60To79": 0,
+            "Bucket80To100": 0
+          },
+          "writeBlockSizes": {
+            "Bucket131072Plus": 0,
+            "Bucket16384To32767": 0,
+            "Bucket32768To65535": 0,
+            "Bucket4096To8191": 0,
+            "Bucket65536To131071": 0,
+            "Bucket8192To16383": 0
+          }
+        },
+        "timestamp": "2018-06-21T18:45:52.010844Z",
+        "volumeID": 1
+      }
+    ]
+  }
+}

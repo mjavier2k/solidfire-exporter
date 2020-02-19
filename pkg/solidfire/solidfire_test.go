@@ -258,3 +258,50 @@ func TestClient_ListNodeStats(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_ListVolumeQoSHistograms(t *testing.T) {
+	fixture, err := ioutil.ReadFile("../../test/fixtures/listvolumeqoshistograms.json")
+	if err != nil {
+		panic(err)
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    int
+		wantErr bool
+	}{
+		{
+			name: "ListVolumeQoSHistograms Response should match fixture",
+			want: 1,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: "ListVolumeQoSHistograms",
+					Params: solidfire.ListVolumeQoSHistogramsRPCParams{
+						VolumeIDs: []int{}, // blank gives us all of them
+					}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.ListVolumeQoSHistograms()
+			got := gotRaw.Result.QosHistograms[0].VolumeID
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListNodeStats() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListNodeStats() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
