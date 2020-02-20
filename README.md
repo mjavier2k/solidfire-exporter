@@ -7,7 +7,7 @@ Prometheus NetApp solidfire-exporter queries the Solidfire API and exports the r
 Implementation is based on [Solidfire 11.3 API](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155)
 
 ## Goals
-- Qos stats (not implemented)
+- Volume Qos stats
 - Volume stats
 - Node stats
 - Fault stats
