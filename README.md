@@ -20,6 +20,7 @@ SOLIDFIRE_USER=monitoring_user
 SOLIDFIRE_PASS=monitoring_password
 SOLIDFIRE_RPC_ENDPOINT=https://192.168.1.1/json-rpc/11.3
 INSECURE_SKIP_VERIFY=false
+PORT=9987
 ```
 
 ## Volume QoS
