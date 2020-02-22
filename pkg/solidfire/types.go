@@ -41,6 +41,10 @@ type ListVolumeQoSHistogramsRPCParams struct {
 	VolumeIDs []int `json:"volumeIDs"`
 }
 
+type ListAllNodesRPCParams struct {
+	// No params needed
+}
+
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
 	Result struct {
@@ -183,7 +187,7 @@ type ListClusterFaultsResponse struct {
 			ExternalSource      string        `json:"externalSource"`
 			NetworkInterface    string        `json:"networkInterface"`
 			NodeHardwareFaultID float64       `json:"nodeHardwareFaultID"`
-			NodeID              float64       `json:"nodeID"`
+			NodeID              int           `json:"nodeID"`
 			Resolved            bool          `json:"resolved"`
 			ResolvedDate        interface{}   `json:"resolvedDate"`
 			ServiceID           float64       `json:"serviceID"`
@@ -286,5 +290,39 @@ type ListVolumeQoSHistogramsResponse struct {
 			Timestamp time.Time `json:"timestamp"`
 			VolumeID  int       `json:"volumeID"`
 		} `json:"qosHistograms"`
+	} `json:"result"`
+}
+type ListAllNodesResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Nodes []struct {
+			AssociatedFServiceID      int `json:"associatedFServiceID"`
+			AssociatedMasterServiceID int `json:"associatedMasterServiceID"`
+			Attributes                struct {
+			} `json:"attributes"`
+			ChassisName                 string      `json:"chassisName"`
+			Cip                         string      `json:"cip"`
+			Cipi                        string      `json:"cipi"`
+			FibreChannelTargetPortGroup interface{} `json:"fibreChannelTargetPortGroup"`
+			Mip                         string      `json:"mip"`
+			Mipi                        string      `json:"mipi"`
+			Name                        string      `json:"name"`
+			NodeID                      int         `json:"nodeID"`
+			NodeSlot                    string      `json:"nodeSlot"`
+			PlatformInfo                struct {
+				ChassisType           string `json:"chassisType"`
+				CPUModel              string `json:"cpuModel"`
+				NodeMemoryGB          int    `json:"nodeMemoryGB"`
+				NodeType              string `json:"nodeType"`
+				PlatformConfigVersion string `json:"platformConfigVersion"`
+			} `json:"platformInfo"`
+			Sip             string        `json:"sip"`
+			Sipi            string        `json:"sipi"`
+			SoftwareVersion string        `json:"softwareVersion"`
+			UUID            string        `json:"uuid"`
+			VirtualNetworks []interface{} `json:"virtualNetworks"`
+		} `json:"nodes"`
+		PendingActiveNodes []interface{} `json:"pendingActiveNodes"`
+		PendingNodes       []interface{} `json:"pendingNodes"`
 	} `json:"result"`
 }
