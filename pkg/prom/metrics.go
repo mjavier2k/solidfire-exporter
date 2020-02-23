@@ -96,6 +96,9 @@ type Descriptions struct {
 	VolumeQoSTargetUtilizationPercentages     *prometheus.Desc
 	VolumeQoSThrottlePercentages              *prometheus.Desc
 	VolumeQoSWriteBlockSizes                  *prometheus.Desc
+
+	// ListAllNodes
+	Node *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -464,161 +467,168 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	d.NodeStatsCBytesIn = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cbytes_in"),
 		"Bytes in on the cluster interface",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsCBytesOut = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cbytes_out"),
 		"Bytes out on the cluster interface",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsCount = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_count"),
 		"Node stat sample count", // Undocumented metric
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsCPUPercentage = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cpu_percentage"),
 		"CPU usage in percent.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsCPUTotalSeconds = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cpu_total_seconds"),
 		"CPU usage in seconds since last boot.", // undocumented metric
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsMBytesIn = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_mbytes_in"),
 		"Bytes in on the management interface.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsMBytesOut = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_mbytes_out"),
 		"Bytes out on the management interface.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsNetworkUtilizationCluster = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_network_utilization_cluster_percentage"),
 		"Network interface utilization (in percent) for the cluster network interface.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsNetworkUtilizationStorage = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_network_utilization_storage_percentage"),
 		"Network interface utilization (in percent) for the storage network interface.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsReadLatencyUSecTotal = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_read_latency_usec_total"),
 		"The number, in milliseconds, of read latency between clusters.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsReadOps = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_read_ops"),
 		"Read Operations", // undocumented metric
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsWriteOps = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_write_ops"),
 		"Write Operations", // undocumented metric
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsSBytesIn = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_sbytes_in"),
 		"Bytes in on the storage interface.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsSBytesOut = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_sbytes_out"),
 		"Bytes out on the storage interface.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsUsedMemory = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_used_memory"),
 		"Total memory usage in bytes.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsWriteLatencyUSecTotal = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_write_latency_usec_total"),
 		"The number, in milliseconds, of read latency between clusters.",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsLoadHistogram = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_node_stats_load_histogram"),
 		"System load histogram",
-		[]string{"node_id"},
+		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.VolumeQoSBelowMinIopsPercentagesHistogram = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_below_min_iops_percentage"),
 		"Volume QoS Below minimum IOPS percentage",
-		[]string{"volume_id"},
+		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
 	d.VolumeQoSMinToMaxIopsPercentagesHistogram = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_min_to_max_iops_percentage"),
 		"Volume QoS min to max IOPS percentage",
-		[]string{"volume_id"},
+		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
 	d.VolumeQoSReadBlockSizesHistogram = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_read_block_sizes"),
 		"Volume QoS read block sizes",
-		[]string{"volume_id"},
+		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
 	d.VolumeQoSTargetUtilizationPercentages = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_target_utilization_percentage"),
 		"Volume QoS target utilization percentage",
-		[]string{"volume_id"},
+		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
 	d.VolumeQoSThrottlePercentages = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_throttle_percentage"),
 		"Volume QoS throttle percentage",
-		[]string{"volume_id"},
+		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
 	d.VolumeQoSWriteBlockSizes = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_write_block_sizes"),
 		"Volume QoS write block sizes",
-		[]string{"volume_id"},
+		[]string{"volume_id", "volume_name"},
+		nil,
+	)
+
+	d.Node = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_name"),
+		"Cluster Node Name",
+		[]string{"node_id", "node_name", "chassis_name"},
 		nil,
 	)
 

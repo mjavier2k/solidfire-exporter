@@ -195,3 +195,25 @@ func (s *Client) ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, err
 	}
 	return r, nil
 }
+
+func (s *Client) ListAllNodes() (ListAllNodesResponse, error) {
+	payload := &RPCBody{
+		Method: "ListAllNodes",
+		Params: ListAllNodesRPCParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListAllNodesResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}

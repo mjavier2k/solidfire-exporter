@@ -19,7 +19,7 @@ var (
 func resolvePort() string {
 	port, ok := os.LookupEnv("PORT")
 	if !ok {
-		port = "8080"
+		port = "9987"
 	}
 	return port
 }

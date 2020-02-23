@@ -1,189 +1,35 @@
 {
-  "id": 1,
-  "result": {
-    "nodes": [
-      {
-        "associatedFServiceID": 0,
-        "associatedMasterServiceID": 4,
-        "attributes": {},
-        "chassisName": "BY06XM2",
-        "cip": "10.198.245.11",
-        "cipi": "Bond10G.245",
-        "customProtectionDomainName": "__default__",
-        "fibreChannelTargetPortGroup": null,
-        "mip": "10.198.4.186",
-        "mipi": "Bond1G",
-        "name": "teststorsfcl01n01",
-        "nodeID": 1,
-        "nodeSlot": "",
-        "platformInfo": {
-          "chassisType": "R630",
-          "cpuModel": "Intel(R) Xeon(R) CPU E5-2697 v3 @ 2.60GHz",
-          "nodeMemoryGB": 768,
-          "nodeType": "SF38410",
-          "platformConfigVersion": "0.0.0.0"
-        },
-        "sip": "10.198.245.11",
-        "sipi": "Bond10G.245",
-        "softwareVersion": "11.3.1.5",
-        "uuid": "4C4C4544-0059-3010-8036-C2C04F584D32",
-        "virtualNetworks": [
-          {
-            "address": "10.198.246.2",
-            "virtualNetworkID": 1
-          },
-          {
-            "address": "10.198.248.2",
-            "virtualNetworkID": 2
-          }
-        ]
-      },
-      {
-        "associatedFServiceID": 0,
-        "associatedMasterServiceID": 2,
-        "attributes": {},
-        "chassisName": "BXW6XM2",
-        "cip": "10.198.245.14",
-        "cipi": "Bond10G.245",
-        "customProtectionDomainName": "__default__",
-        "fibreChannelTargetPortGroup": null,
-        "mip": "10.198.4.189",
-        "mipi": "Bond1G",
-        "name": "teststorsfcl01n04",
-        "nodeID": 4,
-        "nodeSlot": "",
-        "platformInfo": {
-          "chassisType": "R630",
-          "cpuModel": "Intel(R) Xeon(R) CPU E5-2697 v3 @ 2.60GHz",
-          "nodeMemoryGB": 768,
-          "nodeType": "SF38410",
-          "platformConfigVersion": "0.0.0.0"
-        },
-        "sip": "10.198.245.14",
-        "sipi": "Bond10G.245",
-        "softwareVersion": "11.3.1.5",
-        "uuid": "4C4C4544-0058-5710-8036-C2C04F584D32",
-        "virtualNetworks": [
-          {
-            "address": "10.198.246.5",
-            "virtualNetworkID": 1
-          },
-          {
-            "address": "10.198.248.3",
-            "virtualNetworkID": 2
-          }
-        ]
-      },
-      {
-        "associatedFServiceID": 0,
-        "associatedMasterServiceID": 61,
-        "attributes": {},
-        "chassisName": "4N351Q2",
-        "cip": "10.198.245.13",
-        "cipi": "Bond10G.245",
-        "customProtectionDomainName": "__default__",
-        "fibreChannelTargetPortGroup": null,
-        "mip": "10.198.4.188",
-        "mipi": "Bond1G",
-        "name": "teststorsfcl01n03",
-        "nodeID": 5,
-        "nodeSlot": "",
-        "platformInfo": {
-          "chassisType": "R630",
-          "cpuModel": "Intel(R) Xeon(R) CPU E5-2697 v3 @ 2.60GHz",
-          "nodeMemoryGB": 768,
-          "nodeType": "SF38410",
-          "platformConfigVersion": "0.0.0.0"
-        },
-        "sip": "10.198.245.13",
-        "sipi": "Bond10G.245",
-        "softwareVersion": "11.3.1.5",
-        "uuid": "4C4C4544-004E-3310-8035-B4C04F315132",
-        "virtualNetworks": [
-          {
-            "address": "10.198.246.4",
-            "virtualNetworkID": 1
-          },
-          {
-            "address": "10.198.248.4",
-            "virtualNetworkID": 2
-          }
-        ]
-      },
-      {
-        "associatedFServiceID": 0,
-        "associatedMasterServiceID": 131,
-        "attributes": {},
-        "chassisName": "JN8NBM2",
-        "cip": "10.198.245.12",
-        "cipi": "Bond10G.245",
-        "customProtectionDomainName": "__default__",
-        "fibreChannelTargetPortGroup": null,
-        "mip": "10.198.4.187",
-        "mipi": "Bond1G",
-        "name": "teststorsfcl01n02",
-        "nodeID": 6,
-        "nodeSlot": "",
-        "platformInfo": {
-          "chassisType": "R630",
-          "cpuModel": "Intel(R) Xeon(R) CPU E5-2697 v3 @ 2.60GHz",
-          "nodeMemoryGB": 768,
-          "nodeType": "SF38410",
-          "platformConfigVersion": "0.0.0.0"
-        },
-        "sip": "10.198.245.12",
-        "sipi": "Bond10G.245",
-        "softwareVersion": "11.3.1.5",
-        "uuid": "4C4C4544-004E-3810-804E-CAC04F424D32",
-        "virtualNetworks": [
-          {
-            "address": "10.198.246.3",
-            "virtualNetworkID": 1
-          },
-          {
-            "address": "10.198.248.5",
-            "virtualNetworkID": 2
-          }
-        ]
-      },
-      {
-        "associatedFServiceID": 0,
-        "associatedMasterServiceID": 159,
-        "attributes": {},
-        "chassisName": "QTFCR290801F8",
-        "cip": "10.198.245.15",
-        "cipi": "Bond10G.245",
-        "customProtectionDomainName": "__default__",
-        "fibreChannelTargetPortGroup": null,
-        "mip": "10.198.4.192",
-        "mipi": "Bond1G",
-        "name": "teststorsfcl01n05",
-        "nodeID": 7,
-        "nodeSlot": "",
-        "platformInfo": {
-          "chassisType": "QS52B",
-          "cpuModel": "Intel(R) Xeon(R) Gold 5120 CPU @ 2.20GHz",
-          "nodeMemoryGB": 736,
-          "nodeType": "H610S4",
-          "platformConfigVersion": "0.0.0.0"
-        },
-        "sip": "10.198.245.15",
-        "sipi": "Bond10G.245",
-        "softwareVersion": "11.3.1.5",
-        "uuid": "361C6626-E5CE-11E8-98C2-D8C497D01BB6",
-        "virtualNetworks": [
-          {
-            "address": "10.198.246.6",
-            "virtualNetworkID": 1
-          },
-          {
-            "address": "10.198.248.6",
-            "virtualNetworkID": 2
-          }
-        ]
-      }
-    ],
-    "pendingActiveNodes": [],
-    "pendingNodes": []
-  }
+    "id": 1,
+    "result": {
+        "nodes": [
+            {
+                "associatedFServiceID": 0,
+                "associatedMasterServiceID": 1,
+                "attributes": {},
+                "chassisName": "CT5TV12",
+                "cip": "10.1.1.1",
+                "cipi": "Bond10G",
+                "fibreChannelTargetPortGroup": null,
+                "mip": "10.1.1.1",
+                "mipi": "Bond1G",
+                "name": "NLABP0704",
+                "nodeID": 1,
+                "nodeSlot": "",
+                "platformInfo": {
+                    "chassisType": "R620",
+                    "cpuModel": "Intel",
+                    "nodeMemoryGB": 72,
+                    "nodeType": "SF3010",
+                    "platformConfigVersion": "0.0.0.0"
+                },
+                "sip": "10.1.1.1",
+                "sipi": "Bond10G",
+                "softwareVersion": "11.0",
+                "uuid": "4C4C4544-0054",
+                "virtualNetworks": []
+            }
+        ],
+        "pendingActiveNodes": [],
+        "pendingNodes": []
+    }
 }
