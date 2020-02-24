@@ -723,6 +723,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		TargetUtilizationPercentages := map[float64]uint64{
+			0:           h.Histograms.TargetUtilizationPercentages.Bucket0,
 			19:          h.Histograms.TargetUtilizationPercentages.Bucket1To19,
 			39:          h.Histograms.TargetUtilizationPercentages.Bucket20To39,
 			59:          h.Histograms.TargetUtilizationPercentages.Bucket40To59,
