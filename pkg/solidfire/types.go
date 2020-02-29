@@ -44,6 +44,9 @@ type ListVolumeQoSHistogramsRPCParams struct {
 type ListAllNodesRPCParams struct {
 	// No params needed
 }
+type GetClusterStatsRPCParams struct {
+	// No params needed
+}
 
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
@@ -324,5 +327,36 @@ type ListAllNodesResponse struct {
 		} `json:"nodes"`
 		PendingActiveNodes []interface{} `json:"pendingActiveNodes"`
 		PendingNodes       []interface{} `json:"pendingNodes"`
+	} `json:"result"`
+}
+type GetClusterStatsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		ClusterStats struct {
+			ActualIOPS           float64 `json:"actualIOPS"`
+			AverageIOPSize       float64 `json:"averageIOPSize"`
+			ClientQueueDepth     float64 `json:"clientQueueDepth"`
+			ClusterUtilization   float64 `json:"clusterUtilization"`
+			LatencyUSec          float64 `json:"latencyUSec"`
+			NormalizedIOPS       float64 `json:"normalizedIOPS"`
+			ReadBytes            float64 `json:"readBytes"`
+			ReadBytesLastSample  float64 `json:"readBytesLastSample"`
+			ReadLatencyUSec      float64 `json:"readLatencyUSec"`
+			ReadLatencyUSecTotal float64 `json:"readLatencyUSecTotal"`
+			ReadOps              float64 `json:"readOps"`
+			ReadOpsLastSample    float64 `json:"readOpsLastSample"`
+			SamplePeriodMsec     float64 `json:"samplePeriodMsec"`
+			ServicesCount        float64 `json:"servicesCount"`
+			ServicesTotal        float64 `json:"servicesTotal"`
+			// Timestamp             time.Time `json:"timestamp"`
+			UnalignedReads        float64 `json:"unalignedReads"`
+			UnalignedWrites       float64 `json:"unalignedWrites"`
+			WriteBytes            float64 `json:"writeBytes"`
+			WriteBytesLastSample  float64 `json:"writeBytesLastSample"`
+			WriteLatencyUSec      float64 `json:"writeLatencyUSec"`
+			WriteLatencyUSecTotal float64 `json:"writeLatencyUSecTotal"`
+			WriteOps              float64 `json:"writeOps"`
+			WriteOpsLastSample    float64 `json:"writeOpsLastSample"`
+		} `json:"clusterStats"`
 	} `json:"result"`
 }

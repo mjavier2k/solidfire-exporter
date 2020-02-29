@@ -111,6 +111,31 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 
 	ch <- MetricDescriptions.Node
 
+	ch <- MetricDescriptions.ClusterStatsActualIOPS
+	ch <- MetricDescriptions.ClusterStatsAverageIOPSize
+	ch <- MetricDescriptions.ClusterStatsClientQueueDepth
+	ch <- MetricDescriptions.ClusterUtilization
+	ch <- MetricDescriptions.LatencyUSec
+	ch <- MetricDescriptions.NormalizedIOPS
+	ch <- MetricDescriptions.ReadBytes
+	ch <- MetricDescriptions.ReadBytesLastSample
+	ch <- MetricDescriptions.ReadLatencyUSec
+	ch <- MetricDescriptions.ReadLatencyUSecTotal
+	ch <- MetricDescriptions.ReadOps
+	ch <- MetricDescriptions.ReadOpsLastSample
+	ch <- MetricDescriptions.SamplePeriodMsec
+	ch <- MetricDescriptions.ServicesCount
+	ch <- MetricDescriptions.ServicesTotal
+	ch <- MetricDescriptions.Timestamp
+	ch <- MetricDescriptions.UnalignedReads
+	ch <- MetricDescriptions.UnalignedWrites
+	ch <- MetricDescriptions.WriteBytes
+	ch <- MetricDescriptions.WriteBytesLastSample
+	ch <- MetricDescriptions.WriteLatencyUSec
+	ch <- MetricDescriptions.WriteLatencyUSecTotal
+	ch <- MetricDescriptions.WriteOps
+	ch <- MetricDescriptions.WriteOpsLastSample
+
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -777,6 +802,149 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			volumeNamesByID[h.VolumeID],
 		)
 	}
+
+	clusterStats, err := c.client.GetClusterStats()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsActualIOPS,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ActualIOPS,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsAverageIOPSize,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.AverageIOPSize,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsClientQueueDepth,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ClientQueueDepth,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterUtilization,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ClusterUtilization,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.LatencyUSec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.LatencyUSec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.NormalizedIOPS,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.NormalizedIOPS,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ReadBytes,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadBytes,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ReadBytesLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadBytesLastSample,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ReadLatencyUSec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadLatencyUSec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ReadLatencyUSecTotal,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadLatencyUSecTotal,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ReadOps,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadOps,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ReadOpsLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadOpsLastSample,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.SamplePeriodMsec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.SamplePeriodMsec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ServicesCount,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ServicesCount,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ServicesTotal,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ServicesTotal,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.UnalignedReads,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.UnalignedReads,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.UnalignedWrites,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.UnalignedWrites,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.WriteBytes,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteBytes,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.WriteBytesLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteBytesLastSample,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.WriteLatencyUSec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteLatencyUSec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.WriteLatencyUSecTotal,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteLatencyUSecTotal,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.WriteOps,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteOps,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.WriteOpsLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteOpsLastSample,
+	)
 
 	// Set scrape success metric to scrapeSuccess
 	ch <- prometheus.MustNewConstMetric(MetricDescriptions.ScrapeSuccessDesc, prometheus.GaugeValue, scrapeSuccess)

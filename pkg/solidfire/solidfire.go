@@ -217,3 +217,25 @@ func (s *Client) ListAllNodes() (ListAllNodesResponse, error) {
 	}
 	return r, nil
 }
+
+func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
+	payload := &RPCBody{
+		Method: "GetClusterStats",
+		Params: GetClusterStatsRPCParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := GetClusterStatsResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
