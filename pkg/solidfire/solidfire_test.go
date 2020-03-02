@@ -350,3 +350,48 @@ func TestClient_ListAllNodes(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_GetClusterStats(t *testing.T) {
+	fixture, err := ioutil.ReadFile("../../test/fixtures/getclusterstats.json")
+	if err != nil {
+		panic(err)
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    float64
+		wantErr bool
+	}{
+		{
+			name: "GetClusterStats Response should match fixture",
+			want: 7964,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: "GetClusterStats",
+					Params: solidfire.GetClusterStatsRPCParams{}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.GetClusterStats()
+			got := gotRaw.Result.ClusterStats.ActualIOPS
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListAllNodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

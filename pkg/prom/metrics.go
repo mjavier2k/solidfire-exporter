@@ -99,6 +99,31 @@ type Descriptions struct {
 
 	// ListAllNodes
 	Node *prometheus.Desc
+
+	// GetClusterStats
+	ClusterStatsActualIOPS            *prometheus.Desc
+	ClusterStatsAverageIOPSize        *prometheus.Desc
+	ClusterStatsClientQueueDepth      *prometheus.Desc
+	ClusterStatsClusterUtilization    *prometheus.Desc
+	ClusterStatsLatencyUSec           *prometheus.Desc
+	ClusterStatsNormalizedIOPS        *prometheus.Desc
+	ClusterStatsReadBytes             *prometheus.Desc
+	ClusterStatsReadBytesLastSample   *prometheus.Desc
+	ClusterStatsReadLatencyUSec       *prometheus.Desc
+	ClusterStatsReadLatencyUSecTotal  *prometheus.Desc
+	ClusterStatsReadOps               *prometheus.Desc
+	ClusterStatsReadOpsLastSample     *prometheus.Desc
+	ClusterStatsSamplePeriodMsec      *prometheus.Desc
+	ClusterStatsServicesCount         *prometheus.Desc
+	ClusterStatsServicesTotal         *prometheus.Desc
+	ClusterStatsUnalignedReads        *prometheus.Desc
+	ClusterStatsUnalignedWrites       *prometheus.Desc
+	ClusterStatsWriteBytes            *prometheus.Desc
+	ClusterStatsWriteBytesLastSample  *prometheus.Desc
+	ClusterStatsWriteLatencyUSec      *prometheus.Desc
+	ClusterStatsWriteLatencyUSecTotal *prometheus.Desc
+	ClusterStatsWriteOps              *prometheus.Desc
+	ClusterStatsWriteOpsLastSample    *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -627,8 +652,169 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 
 	d.Node = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "node_name"),
-		"Cluster Node Name",
+		"Cluster node name",
 		[]string{"node_id", "node_name", "chassis_name"},
+		nil,
+	)
+
+	d.ClusterStatsActualIOPS = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_actual_iops"),
+		"Current actual IOPS for the entire cluster in the last 500 milliseconds.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsAverageIOPSize = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_average_iops_size"),
+		"Average size in bytes of recent I/O to the cluster in the last 500 milliseconds.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsClientQueueDepth = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_client_queue_depth"),
+		"The number of outstanding read and write operations to the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsClusterUtilization = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_utilization"),
+		"The cluster capacity being utilized.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsLatencyUSec = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_latency_usec"),
+		"The average time, in microseconds, to complete operations to a cluster in the last 500 milliseconds.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsNormalizedIOPS = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_normalized_iops"),
+		"Average number of IOPS for the entire cluster in the last 500 milliseconds.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsReadBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_bytes"),
+		"The total cumulative bytes read from the cluster since the creation of the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsReadBytesLastSample = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_bytes_last_sample"),
+		"The total number of bytes read from the cluster during the last sample period.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsReadLatencyUSec = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_latency_usec"),
+		"The average time, in microseconds, to complete read operations to the cluster in the last 500 milliseconds.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsReadLatencyUSecTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_read_latency_usec_total"),
+		"The total time spent performing read operations since the creation of the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsReadOps = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_ops"),
+		"The total cumulative read operations to the cluster since the creation of the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsReadOpsLastSample = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_ops_last_sample"),
+		"The total number of read operations during the last sample period.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsSamplePeriodMsec = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_sample_period_msec"),
+		"The length of the sample period, in milliseconds.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsServicesCount = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_services_count"),
+		"The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsServicesTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_services_total"),
+		"The total number of expected services running on the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsUnalignedReads = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_unaligned_reads"),
+		"The total cumulative unaligned read operations to a cluster since the creation of the cluster",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsUnalignedWrites = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_unaligned_writes"),
+		"The total cumulative unaligned write operations to a cluster since the creation of the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsWriteBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_bytes"),
+		"The total cumulative bytes written to the cluster since the creation of the cluster",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsWriteBytesLastSample = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_bytes_last_sample"),
+		"The total number of bytes written to the cluster during the last sample period.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsWriteLatencyUSec = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_latency_usec"),
+		"The average time, in microseconds, to complete write operations to a cluster in the last 500 milliseconds.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsWriteLatencyUSecTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_latency_usec_total"),
+		"The total time spent performing write operations since the creation of the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsWriteOps = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_ops"),
+		"The total cumulative write operations to the cluster since the creation of the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterStatsWriteOpsLastSample = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_ops_last_sample"),
+		"The total number of write operations during the last sample period.",
+		nil,
 		nil,
 	)
 
