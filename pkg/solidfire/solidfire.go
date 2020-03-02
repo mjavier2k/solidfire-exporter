@@ -233,7 +233,7 @@ func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
 		return r, err
 	}
 	err = json.Unmarshal(bodyBytes, &r)
-
+	log.Infoln(r)
 	if err != nil {
 		return r, err
 	}
