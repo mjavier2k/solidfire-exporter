@@ -3,6 +3,7 @@ package prom
 import (
 	"math"
 	"strconv"
+	"strings"
 	"sync"
 
 	log "github.com/amoghe/distillog"
@@ -135,6 +136,23 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ClusterStatsWriteOps
 	ch <- MetricDescriptions.ClusterStatsWriteOpsLastSample
 
+	ch <- MetricDescriptions.ClusterThresholdBlockFullness
+	ch <- MetricDescriptions.ClusterThresholdFullness
+	ch <- MetricDescriptions.ClusterThresholdMaxMetadataOverProvisionFactor
+	ch <- MetricDescriptions.ClusterThresholdMetadataFullness
+	ch <- MetricDescriptions.ClusterThresholdSliceReserveUsedThresholdPct
+	ch <- MetricDescriptions.ClusterThresholdStage2AwareThreshold
+	ch <- MetricDescriptions.ClusterThresholdStage2BlockThresholdBytes
+	ch <- MetricDescriptions.ClusterThresholdStage3BlockThresholdBytes
+	ch <- MetricDescriptions.ClusterThresholdStage3BlockThresholdPercent
+	ch <- MetricDescriptions.ClusterThresholdStage3LowThreshold
+	ch <- MetricDescriptions.ClusterThresholdStage4BlockThresholdBytes
+	ch <- MetricDescriptions.ClusterThresholdStage4CriticalThreshold
+	ch <- MetricDescriptions.ClusterThresholdStage5BlockThresholdBytes
+	ch <- MetricDescriptions.ClusterThresholdSumTotalClusterBytes
+	ch <- MetricDescriptions.ClusterThresholdSumTotalMetadataClusterBytes
+	ch <- MetricDescriptions.ClusterThresholdSumUsedClusterBytes
+	ch <- MetricDescriptions.ClusterThresholdSumUsedMetadataClusterBytes
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -944,6 +962,47 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		MetricDescriptions.ClusterStatsWriteOpsLastSample,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.WriteOpsLastSample,
+	)
+
+	clusterFullThreshold, err := c.client.GetClusterFullThreshold()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterThresholdBlockFullness,
+		prometheus.GaugeValue,
+		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage1Happy")),
+		"stage1Happy",
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterThresholdBlockFullness,
+		prometheus.GaugeValue,
+		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage2Aware")),
+		"stage2Aware",
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterThresholdBlockFullness,
+		prometheus.GaugeValue,
+		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage3Low")),
+		"stage3Low",
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterThresholdBlockFullness,
+		prometheus.GaugeValue,
+		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage4Critical")),
+		"stage4Critical",
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterThresholdBlockFullness,
+		prometheus.GaugeValue,
+		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage5CompletelyConsumed")),
+		"stage5CompletelyConsumed",
 	)
 
 	// Set scrape success metric to scrapeSuccess

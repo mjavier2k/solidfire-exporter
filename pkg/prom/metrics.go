@@ -124,6 +124,24 @@ type Descriptions struct {
 	ClusterStatsWriteLatencyUSecTotal *prometheus.Desc
 	ClusterStatsWriteOps              *prometheus.Desc
 	ClusterStatsWriteOpsLastSample    *prometheus.Desc
+
+	ClusterThresholdBlockFullness                  *prometheus.Desc
+	ClusterThresholdFullness                       *prometheus.Desc
+	ClusterThresholdMaxMetadataOverProvisionFactor *prometheus.Desc
+	ClusterThresholdMetadataFullness               *prometheus.Desc
+	ClusterThresholdSliceReserveUsedThresholdPct   *prometheus.Desc
+	ClusterThresholdStage2AwareThreshold           *prometheus.Desc
+	ClusterThresholdStage2BlockThresholdBytes      *prometheus.Desc
+	ClusterThresholdStage3BlockThresholdBytes      *prometheus.Desc
+	ClusterThresholdStage3BlockThresholdPercent    *prometheus.Desc
+	ClusterThresholdStage3LowThreshold             *prometheus.Desc
+	ClusterThresholdStage4BlockThresholdBytes      *prometheus.Desc
+	ClusterThresholdStage4CriticalThreshold        *prometheus.Desc
+	ClusterThresholdStage5BlockThresholdBytes      *prometheus.Desc
+	ClusterThresholdSumTotalClusterBytes           *prometheus.Desc
+	ClusterThresholdSumTotalMetadataClusterBytes   *prometheus.Desc
+	ClusterThresholdSumUsedClusterBytes            *prometheus.Desc
+	ClusterThresholdSumUsedMetadataClusterBytes    *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -814,6 +832,125 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	d.ClusterStatsWriteOpsLastSample = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_stats_write_ops_last_sample"),
 		"The total number of write operations during the last sample period.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdBlockFullness = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_block_fullness"),
+		"The current computed level of block fullness of the cluster.",
+		[]string{"level"},
+		nil,
+	)
+
+	d.ClusterThresholdFullness = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_fullness"),
+		"Reflects the highest level of fullness between 'blockFullness' and 'metadataFullness'.",
+		[]string{"level"},
+		nil,
+	)
+
+	d.ClusterThresholdMaxMetadataOverProvisionFactor = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_max_metadata_over_provision_factor"),
+		"A value representative of the number of times metadata space can be over provisioned relative to the amount of space available.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdMetadataFullness = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_metadata_fullness"),
+		"The current computed level of metadata fullness of the cluster.",
+		[]string{"level"},
+		nil,
+	)
+
+	d.ClusterThresholdSliceReserveUsedThresholdPct = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_slice_reserve_used_threshold_percentage"),
+		"Error condition. A system alert is triggered if the reserved slice utilization is greater than the sliceReserveUsedThresholdPct value returned.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage2AwareThreshold = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage2_aware_threshold"),
+		"Awareness condition. The value that is set for 'Stage 2' cluster threshold level.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage2BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage2_block_threshold_bytes"),
+		"Number of bytes being used by the cluster at which a stage2 condition will exist.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage3BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage3_block_threshold_bytes"),
+		"Number of bytes being used by the cluster at which a stage3 condition will exist.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage3BlockThresholdPercent = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage3_block_threshold_percentage"),
+		"Percent value set for stage3. At this percent full, a warning is posted in the Alerts log.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage3LowThreshold = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage3_low_threshold"),
+		"Error condition. The threshold at which a system alert is created due to low capacity on a cluster",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage4BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage4_block_threshold_bytes"),
+		"Number of bytes being used by the cluster at which a stage4 condition will exist",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage4CriticalThreshold = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage4_critical_threshold"),
+		"Error condition. The threshold at which a system alert is created to warn about critically low capacity on a cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdStage5BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage5_block_threshold_bytes"),
+		"The number of bytes being used by the cluster at which a stage5 condition will exist.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdSumTotalClusterBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_total_cluster_bytes"),
+		"Physical capacity of the cluster, measured in bytes.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdSumTotalMetadataClusterBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_total_metadata_cluster_bytes"),
+		"Total amount of space that can be used to store metadata",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdSumUsedClusterBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_used_cluster_bytes"),
+		"Number of bytes used on the cluster.",
+		nil,
+		nil,
+	)
+
+	d.ClusterThresholdSumUsedMetadataClusterBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_used_metadata_cluster_bytes"),
+		"Amount of space used on volume drives to store metadata.",
 		nil,
 		nil,
 	)

@@ -395,3 +395,48 @@ func TestClient_GetClusterStats(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_GetClusterFullThreshold(t *testing.T) {
+	fixture, err := ioutil.ReadFile("../../test/fixtures/getclusterfullthreshold.json")
+	if err != nil {
+		panic(err)
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    int
+		wantErr bool
+	}{
+		{
+			name: "GetClusterFullThreshold Response should match fixture",
+			want: 3,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: "GetClusterFullThreshold",
+					Params: solidfire.GetClusterFullThresholdParams{}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.GetClusterFullThreshold()
+			got := gotRaw.Result.Stage2AwareThreshold
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListAllNodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -48,6 +48,10 @@ type GetClusterStatsRPCParams struct {
 	// No params needed
 }
 
+type GetClusterFullThresholdParams struct {
+	// No params needed
+}
+
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
 	Result struct {
@@ -358,5 +362,28 @@ type GetClusterStatsResponse struct {
 			WriteOps              float64 `json:"writeOps"`
 			WriteOpsLastSample    float64 `json:"writeOpsLastSample"`
 		} `json:"clusterStats"`
+	} `json:"result"`
+}
+
+type GetClusterFullThresholdResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		BlockFullness                  string  `json:"blockFullness"`
+		Fullness                       string  `json:"fullness"`
+		MaxMetadataOverProvisionFactor int     `json:"maxMetadataOverProvisionFactor"`
+		MetadataFullness               string  `json:"metadataFullness"`
+		SliceReserveUsedThresholdPct   int     `json:"sliceReserveUsedThresholdPct"`
+		Stage2AwareThreshold           int     `json:"stage2AwareThreshold"`
+		Stage2BlockThresholdBytes      float64 `json:"stage2BlockThresholdBytes"`
+		Stage3BlockThresholdBytes      float64 `json:"stage3BlockThresholdBytes"`
+		Stage3BlockThresholdPercent    int     `json:"stage3BlockThresholdPercent"`
+		Stage3LowThreshold             int     `json:"stage3LowThreshold"`
+		Stage4BlockThresholdBytes      float64 `json:"stage4BlockThresholdBytes"`
+		Stage4CriticalThreshold        int     `json:"stage4CriticalThreshold"`
+		Stage5BlockThresholdBytes      float64 `json:"stage5BlockThresholdBytes"`
+		SumTotalClusterBytes           float64 `json:"sumTotalClusterBytes"`
+		SumTotalMetadataClusterBytes   float64 `json:"sumTotalMetadataClusterBytes"`
+		SumUsedClusterBytes            float64 `json:"sumUsedClusterBytes"`
+		SumUsedMetadataClusterBytes    float64 `json:"sumUsedMetadataClusterBytes"`
 	} `json:"result"`
 }
