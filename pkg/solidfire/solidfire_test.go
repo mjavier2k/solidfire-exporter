@@ -258,3 +258,140 @@ func TestClient_ListNodeStats(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_ListVolumeQoSHistograms(t *testing.T) {
+	fixture, err := ioutil.ReadFile("../../test/fixtures/listvolumeqoshistograms.json")
+	if err != nil {
+		panic(err)
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    int
+		wantErr bool
+	}{
+		{
+			name: "ListVolumeQoSHistograms Response should match fixture",
+			want: 1,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: "ListVolumeQoSHistograms",
+					Params: solidfire.ListVolumeQoSHistogramsRPCParams{
+						VolumeIDs: []int{}, // blank gives us all of them
+					}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.ListVolumeQoSHistograms()
+			got := gotRaw.Result.QosHistograms[0].VolumeID
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListVolumeQoSHistograms() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListVolumeQoSHistograms() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClient_ListAllNodes(t *testing.T) {
+	fixture, err := ioutil.ReadFile("../../test/fixtures/listallnodes.json")
+	if err != nil {
+		panic(err)
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    int
+		wantErr bool
+	}{
+		{
+			name: "ListAllNodes Response should match fixture",
+			want: 1,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: "ListAllNodes",
+					Params: solidfire.ListAllNodesRPCParams{}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.ListAllNodes()
+			got := gotRaw.Result.Nodes[0].NodeID
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListAllNodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClient_GetClusterStats(t *testing.T) {
+	fixture, err := ioutil.ReadFile("../../test/fixtures/getclusterstats.json")
+	if err != nil {
+		panic(err)
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    float64
+		wantErr bool
+	}{
+		{
+			name: "GetClusterStats Response should match fixture",
+			want: 7964,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: "GetClusterStats",
+					Params: solidfire.GetClusterStatsRPCParams{}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.GetClusterStats()
+			got := gotRaw.Result.ClusterStats.ActualIOPS
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListAllNodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

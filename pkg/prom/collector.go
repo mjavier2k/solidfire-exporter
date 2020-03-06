@@ -1,6 +1,7 @@
 package prom
 
 import (
+	"math"
 	"strconv"
 	"sync"
 
@@ -17,8 +18,18 @@ type solidfireCollector struct {
 var (
 	MetricDescriptions = NewMetricDescriptions("solidfire")
 	volumeNamesByID    = make(map[int]string)
+	nodesNamesByID     = make(map[int]string)
 	volumeNamesMux     sync.Mutex
+	nodeNamesMux       sync.Mutex
 )
+
+func sumHistogram(m map[float64]uint64) (r uint64) {
+	r = 0
+	for _, val := range m {
+		r += val
+	}
+	return
+}
 
 func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ScrapeSuccessDesc
@@ -98,6 +109,32 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.NodeStatsWriteOps
 	ch <- MetricDescriptions.NodeStatsLoadHistogram
 
+	ch <- MetricDescriptions.Node
+
+	ch <- MetricDescriptions.ClusterStatsActualIOPS
+	ch <- MetricDescriptions.ClusterStatsAverageIOPSize
+	ch <- MetricDescriptions.ClusterStatsClientQueueDepth
+	ch <- MetricDescriptions.ClusterStatsClusterUtilization
+	ch <- MetricDescriptions.ClusterStatsLatencyUSec
+	ch <- MetricDescriptions.ClusterStatsNormalizedIOPS
+	ch <- MetricDescriptions.ClusterStatsReadBytes
+	ch <- MetricDescriptions.ClusterStatsReadBytesLastSample
+	ch <- MetricDescriptions.ClusterStatsReadLatencyUSec
+	ch <- MetricDescriptions.ClusterStatsReadLatencyUSecTotal
+	ch <- MetricDescriptions.ClusterStatsReadOps
+	ch <- MetricDescriptions.ClusterStatsReadOpsLastSample
+	ch <- MetricDescriptions.ClusterStatsSamplePeriodMsec
+	ch <- MetricDescriptions.ClusterStatsServicesCount
+	ch <- MetricDescriptions.ClusterStatsServicesTotal
+	ch <- MetricDescriptions.ClusterStatsUnalignedReads
+	ch <- MetricDescriptions.ClusterStatsUnalignedWrites
+	ch <- MetricDescriptions.ClusterStatsWriteBytes
+	ch <- MetricDescriptions.ClusterStatsWriteBytesLastSample
+	ch <- MetricDescriptions.ClusterStatsWriteLatencyUSec
+	ch <- MetricDescriptions.ClusterStatsWriteLatencyUSecTotal
+	ch <- MetricDescriptions.ClusterStatsWriteOps
+	ch <- MetricDescriptions.ClusterStatsWriteOpsLastSample
+
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -109,20 +146,38 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		log.Errorln(err)
 	}
 
+	nodes, err := c.client.ListAllNodes()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+
 	for _, vol := range volumes.Result.Volumes {
 		volumeNamesMux.Lock()
 		volumeNamesByID[vol.VolumeID] = vol.Name
 		volumeNamesMux.Unlock()
 	}
 
-	// log.Infof("%+v", volumeNamesByID)
+	for _, node := range nodes.Result.Nodes {
+		nodeNamesMux.Lock()
+		nodesNamesByID[node.NodeID] = node.Name
+		nodeNamesMux.Unlock()
+
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.Node,
+			prometheus.CounterValue,
+			1,
+			strconv.Itoa(node.NodeID),
+			node.Name,
+			node.ChassisName,
+		)
+	}
 
 	volumeStats, err := c.client.ListVolumeStats()
 	if err != nil {
 		scrapeSuccess = 0
 		log.Errorln(err)
 	}
-	// log.Infof("%+v", details)
 
 	for _, vol := range volumeStats.Result.VolumeStats {
 		volumeNamesMux.Lock()
@@ -481,7 +536,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	for _, stats := range ClusterNodeStats.Result.NodeStats.Nodes {
-		node_ssload_histogram_data := map[float64]uint64{
+		SsLoadHistogram := map[float64]uint64{
 			0:   stats.SsLoadHistogram.Bucket0,
 			19:  stats.SsLoadHistogram.Bucket1To19,
 			39:  stats.SsLoadHistogram.Bucket20To39,
@@ -490,114 +545,406 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			100: stats.SsLoadHistogram.Bucket80To100,
 		}
 
-		var sum uint64 = 0
-		for _, val := range node_ssload_histogram_data {
-			sum += val
-		}
 		ch <- prometheus.MustNewConstHistogram(
 			MetricDescriptions.NodeStatsLoadHistogram,
 			stats.Count,
-			float64(sum),
-			node_ssload_histogram_data,
+			float64(sumHistogram(SsLoadHistogram)),
+			SsLoadHistogram,
 			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
 		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsCBytesIn,
 			prometheus.GaugeValue,
 			stats.CBytesIn,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsCBytesOut,
 			prometheus.GaugeValue,
 			stats.CBytesOut,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsCount,
 			prometheus.GaugeValue,
 			float64(stats.Count),
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsCPUPercentage,
 			prometheus.GaugeValue,
 			stats.CPU,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsCPUTotalSeconds,
 			prometheus.GaugeValue,
 			stats.CPUTotal,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsMBytesIn,
 			prometheus.GaugeValue,
 			stats.MBytesIn,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsMBytesOut,
 			prometheus.GaugeValue,
 			stats.MBytesOut,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsNetworkUtilizationCluster,
 			prometheus.GaugeValue,
 			stats.NetworkUtilizationCluster,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsNetworkUtilizationStorage,
 			prometheus.GaugeValue,
 			stats.NetworkUtilizationStorage,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsReadLatencyUSecTotal,
 			prometheus.GaugeValue,
 			stats.ReadLatencyUSecTotal,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsReadOps,
 			prometheus.GaugeValue,
 			stats.ReadOps,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsSBytesIn,
 			prometheus.GaugeValue,
 			stats.SBytesIn,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsSBytesOut,
 			prometheus.GaugeValue,
 			stats.SBytesOut,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsUsedMemory,
 			prometheus.GaugeValue,
 			stats.UsedMemory,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsWriteLatencyUSecTotal,
 			prometheus.GaugeValue,
 			stats.WriteLatencyUSecTotal,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeStatsWriteOps,
 			prometheus.GaugeValue,
 			stats.WriteOps,
-			strconv.Itoa(stats.NodeID))
+			strconv.Itoa(stats.NodeID),
+			nodesNamesByID[stats.NodeID],
+		)
 	}
+
+	// ListVolumeQoSHistograms
+	VolumeQoSHistograms, err := c.client.ListVolumeQoSHistograms()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+
+	for _, h := range VolumeQoSHistograms.Result.QosHistograms {
+
+		// Below Min IOPS Percentage
+		BelowMinIopsPercentages := map[float64]uint64{
+			19:  h.Histograms.BelowMinIopsPercentages.Bucket1To19,
+			39:  h.Histograms.BelowMinIopsPercentages.Bucket20To39,
+			59:  h.Histograms.BelowMinIopsPercentages.Bucket40To59,
+			79:  h.Histograms.BelowMinIopsPercentages.Bucket60To79,
+			100: h.Histograms.BelowMinIopsPercentages.Bucket80To100,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSBelowMinIopsPercentagesHistogram,
+			0,
+			float64(sumHistogram(BelowMinIopsPercentages)),
+			BelowMinIopsPercentages,
+			strconv.Itoa(h.VolumeID),
+			volumeNamesByID[h.VolumeID],
+		)
+
+		MinToMaxIopsPercentages := map[float64]uint64{
+			19:          h.Histograms.MinToMaxIopsPercentages.Bucket1To19,
+			39:          h.Histograms.MinToMaxIopsPercentages.Bucket20To39,
+			59:          h.Histograms.MinToMaxIopsPercentages.Bucket40To59,
+			79:          h.Histograms.MinToMaxIopsPercentages.Bucket60To79,
+			100:         h.Histograms.MinToMaxIopsPercentages.Bucket80To100,
+			math.Inf(1): h.Histograms.MinToMaxIopsPercentages.Bucket101Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSMinToMaxIopsPercentagesHistogram,
+			0,
+			float64(sumHistogram(MinToMaxIopsPercentages)),
+			MinToMaxIopsPercentages,
+			strconv.Itoa(h.VolumeID),
+			volumeNamesByID[h.VolumeID],
+		)
+
+		ReadBlockSizes := map[float64]uint64{
+			8191:        h.Histograms.ReadBlockSizes.Bucket4096To8191,
+			16383:       h.Histograms.ReadBlockSizes.Bucket8192To16383,
+			32767:       h.Histograms.ReadBlockSizes.Bucket16384To32767,
+			65535:       h.Histograms.ReadBlockSizes.Bucket32768To65535,
+			131071:      h.Histograms.ReadBlockSizes.Bucket65536To131071,
+			math.Inf(1): h.Histograms.ReadBlockSizes.Bucket131072Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSReadBlockSizesHistogram,
+			0,
+			float64(sumHistogram(ReadBlockSizes)),
+			ReadBlockSizes,
+			strconv.Itoa(h.VolumeID),
+			volumeNamesByID[h.VolumeID],
+		)
+
+		TargetUtilizationPercentages := map[float64]uint64{
+			0:           h.Histograms.TargetUtilizationPercentages.Bucket0,
+			19:          h.Histograms.TargetUtilizationPercentages.Bucket1To19,
+			39:          h.Histograms.TargetUtilizationPercentages.Bucket20To39,
+			59:          h.Histograms.TargetUtilizationPercentages.Bucket40To59,
+			79:          h.Histograms.TargetUtilizationPercentages.Bucket60To79,
+			100:         h.Histograms.TargetUtilizationPercentages.Bucket80To100,
+			math.Inf(1): h.Histograms.TargetUtilizationPercentages.Bucket101Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSTargetUtilizationPercentages,
+			0,
+			float64(sumHistogram(TargetUtilizationPercentages)),
+			TargetUtilizationPercentages,
+			strconv.Itoa(h.VolumeID),
+			volumeNamesByID[h.VolumeID],
+		)
+
+		ThrottlePercentages := map[float64]uint64{
+			0:   h.Histograms.ThrottlePercentages.Bucket0,
+			19:  h.Histograms.ThrottlePercentages.Bucket1To19,
+			39:  h.Histograms.ThrottlePercentages.Bucket20To39,
+			59:  h.Histograms.ThrottlePercentages.Bucket40To59,
+			79:  h.Histograms.ThrottlePercentages.Bucket60To79,
+			100: h.Histograms.ThrottlePercentages.Bucket80To100,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSThrottlePercentages,
+			0,
+			float64(sumHistogram(ThrottlePercentages)),
+			ThrottlePercentages,
+			strconv.Itoa(h.VolumeID),
+			volumeNamesByID[h.VolumeID],
+		)
+
+		WriteBlockSizes := map[float64]uint64{
+			8191:        h.Histograms.WriteBlockSizes.Bucket4096To8191,
+			16383:       h.Histograms.WriteBlockSizes.Bucket8192To16383,
+			32767:       h.Histograms.WriteBlockSizes.Bucket16384To32767,
+			65535:       h.Histograms.WriteBlockSizes.Bucket32768To65535,
+			131071:      h.Histograms.WriteBlockSizes.Bucket65536To131071,
+			math.Inf(1): h.Histograms.WriteBlockSizes.Bucket131072Plus,
+		}
+
+		ch <- prometheus.MustNewConstHistogram(
+			MetricDescriptions.VolumeQoSWriteBlockSizes,
+			0,
+			float64(sumHistogram(WriteBlockSizes)),
+			WriteBlockSizes,
+			strconv.Itoa(h.VolumeID),
+			volumeNamesByID[h.VolumeID],
+		)
+	}
+
+	clusterStats, err := c.client.GetClusterStats()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsActualIOPS,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ActualIOPS,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsAverageIOPSize,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.AverageIOPSize,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsClientQueueDepth,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ClientQueueDepth,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsClusterUtilization,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ClusterUtilization,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsLatencyUSec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.LatencyUSec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsNormalizedIOPS,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.NormalizedIOPS,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsReadBytes,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadBytes,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsReadBytesLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadBytesLastSample,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsReadLatencyUSec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadLatencyUSec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsReadLatencyUSecTotal,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadLatencyUSecTotal,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsReadOps,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadOps,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsReadOpsLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ReadOpsLastSample,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsSamplePeriodMsec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.SamplePeriodMsec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsServicesCount,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ServicesCount,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsServicesTotal,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.ServicesTotal,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsUnalignedReads,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.UnalignedReads,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsUnalignedWrites,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.UnalignedWrites,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsWriteBytes,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteBytes,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsWriteBytesLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteBytesLastSample,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsWriteLatencyUSec,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteLatencyUSec,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsWriteLatencyUSecTotal,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteLatencyUSecTotal,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsWriteOps,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteOps,
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterStatsWriteOpsLastSample,
+		prometheus.GaugeValue,
+		clusterStats.Result.ClusterStats.WriteOpsLastSample,
+	)
 
 	// Set scrape success metric to scrapeSuccess
 	ch <- prometheus.MustNewConstMetric(MetricDescriptions.ScrapeSuccessDesc, prometheus.GaugeValue, scrapeSuccess)

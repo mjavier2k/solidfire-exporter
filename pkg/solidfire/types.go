@@ -37,6 +37,17 @@ type ListNodeStatsRPCParams struct {
 	// No params needed
 }
 
+type ListVolumeQoSHistogramsRPCParams struct {
+	VolumeIDs []int `json:"volumeIDs"`
+}
+
+type ListAllNodesRPCParams struct {
+	// No params needed
+}
+type GetClusterStatsRPCParams struct {
+	// No params needed
+}
+
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
 	Result struct {
@@ -179,7 +190,7 @@ type ListClusterFaultsResponse struct {
 			ExternalSource      string        `json:"externalSource"`
 			NetworkInterface    string        `json:"networkInterface"`
 			NodeHardwareFaultID float64       `json:"nodeHardwareFaultID"`
-			NodeID              float64       `json:"nodeID"`
+			NodeID              int           `json:"nodeID"`
 			Resolved            bool          `json:"resolved"`
 			ResolvedDate        interface{}   `json:"resolvedDate"`
 			ServiceID           float64       `json:"serviceID"`
@@ -222,5 +233,130 @@ type ListNodeStatsResponse struct {
 				WriteOps              float64   `json:"writeOps"`
 			} `json:"nodes"`
 		} `json:"nodeStats"`
+	} `json:"result"`
+}
+
+type ListVolumeQoSHistogramsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		QosHistograms []struct {
+			Histograms struct {
+				BelowMinIopsPercentages struct {
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"belowMinIopsPercentages"`
+				MinToMaxIopsPercentages struct {
+					Bucket101Plus uint64 `json:"Bucket101Plus"`
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"minToMaxIopsPercentages"`
+				ReadBlockSizes struct {
+					Bucket131072Plus    uint64 `json:"Bucket131072Plus"`
+					Bucket16384To32767  uint64 `json:"Bucket16384To32767"`
+					Bucket32768To65535  uint64 `json:"Bucket32768To65535"`
+					Bucket4096To8191    uint64 `json:"Bucket4096To8191"`
+					Bucket65536To131071 uint64 `json:"Bucket65536To131071"`
+					Bucket8192To16383   uint64 `json:"Bucket8192To16383"`
+				} `json:"readBlockSizes"`
+				TargetUtilizationPercentages struct {
+					Bucket0       uint64 `json:"Bucket0"`
+					Bucket101Plus uint64 `json:"Bucket101Plus"`
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"targetUtilizationPercentages"`
+				ThrottlePercentages struct {
+					Bucket0       uint64 `json:"Bucket0"`
+					Bucket1To19   uint64 `json:"Bucket1To19"`
+					Bucket20To39  uint64 `json:"Bucket20To39"`
+					Bucket40To59  uint64 `json:"Bucket40To59"`
+					Bucket60To79  uint64 `json:"Bucket60To79"`
+					Bucket80To100 uint64 `json:"Bucket80To100"`
+				} `json:"throttlePercentages"`
+				WriteBlockSizes struct {
+					Bucket131072Plus    uint64 `json:"Bucket131072Plus"`
+					Bucket16384To32767  uint64 `json:"Bucket16384To32767"`
+					Bucket32768To65535  uint64 `json:"Bucket32768To65535"`
+					Bucket4096To8191    uint64 `json:"Bucket4096To8191"`
+					Bucket65536To131071 uint64 `json:"Bucket65536To131071"`
+					Bucket8192To16383   uint64 `json:"Bucket8192To16383"`
+				} `json:"writeBlockSizes"`
+			} `json:"histograms"`
+			Timestamp time.Time `json:"timestamp"`
+			VolumeID  int       `json:"volumeID"`
+		} `json:"qosHistograms"`
+	} `json:"result"`
+}
+type ListAllNodesResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Nodes []struct {
+			AssociatedFServiceID      int `json:"associatedFServiceID"`
+			AssociatedMasterServiceID int `json:"associatedMasterServiceID"`
+			Attributes                struct {
+			} `json:"attributes"`
+			ChassisName                 string      `json:"chassisName"`
+			Cip                         string      `json:"cip"`
+			Cipi                        string      `json:"cipi"`
+			FibreChannelTargetPortGroup interface{} `json:"fibreChannelTargetPortGroup"`
+			Mip                         string      `json:"mip"`
+			Mipi                        string      `json:"mipi"`
+			Name                        string      `json:"name"`
+			NodeID                      int         `json:"nodeID"`
+			NodeSlot                    string      `json:"nodeSlot"`
+			PlatformInfo                struct {
+				ChassisType           string `json:"chassisType"`
+				CPUModel              string `json:"cpuModel"`
+				NodeMemoryGB          int    `json:"nodeMemoryGB"`
+				NodeType              string `json:"nodeType"`
+				PlatformConfigVersion string `json:"platformConfigVersion"`
+			} `json:"platformInfo"`
+			Sip             string        `json:"sip"`
+			Sipi            string        `json:"sipi"`
+			SoftwareVersion string        `json:"softwareVersion"`
+			UUID            string        `json:"uuid"`
+			VirtualNetworks []interface{} `json:"virtualNetworks"`
+		} `json:"nodes"`
+		PendingActiveNodes []interface{} `json:"pendingActiveNodes"`
+		PendingNodes       []interface{} `json:"pendingNodes"`
+	} `json:"result"`
+}
+type GetClusterStatsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		ClusterStats struct {
+			ActualIOPS           float64 `json:"actualIOPS"`
+			AverageIOPSize       float64 `json:"averageIOPSize"`
+			ClientQueueDepth     float64 `json:"clientQueueDepth"`
+			ClusterUtilization   float64 `json:"clusterUtilization"`
+			LatencyUSec          float64 `json:"latencyUSec"`
+			NormalizedIOPS       float64 `json:"normalizedIOPS"`
+			ReadBytes            float64 `json:"readBytes"`
+			ReadBytesLastSample  float64 `json:"readBytesLastSample"`
+			ReadLatencyUSec      float64 `json:"readLatencyUSec"`
+			ReadLatencyUSecTotal float64 `json:"readLatencyUSecTotal"`
+			ReadOps              float64 `json:"readOps"`
+			ReadOpsLastSample    float64 `json:"readOpsLastSample"`
+			SamplePeriodMsec     float64 `json:"samplePeriodMsec"`
+			ServicesCount        float64 `json:"servicesCount"`
+			ServicesTotal        float64 `json:"servicesTotal"`
+			// Timestamp             time.Time `json:"timestamp"`
+			UnalignedReads        float64 `json:"unalignedReads"`
+			UnalignedWrites       float64 `json:"unalignedWrites"`
+			WriteBytes            float64 `json:"writeBytes"`
+			WriteBytesLastSample  float64 `json:"writeBytesLastSample"`
+			WriteLatencyUSec      float64 `json:"writeLatencyUSec"`
+			WriteLatencyUSecTotal float64 `json:"writeLatencyUSecTotal"`
+			WriteOps              float64 `json:"writeOps"`
+			WriteOpsLastSample    float64 `json:"writeOpsLastSample"`
+		} `json:"clusterStats"`
 	} `json:"result"`
 }
