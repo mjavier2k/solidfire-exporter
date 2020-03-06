@@ -33,13 +33,14 @@ func sumHistogram(m map[float64]uint64) (r uint64) {
 }
 
 func strCompare(str1 string, str2 string) int {
-	res := strings.Compare(strings.ToLower(str1), strings.ToLower(str2))
-
-	if res == 0 {
-		return 1
-	} else {
-		return 0
-	}
+	res := func() int {
+		if strings.Compare(strings.ToLower(str1), strings.ToLower(str2)) == 0 {
+			return 1
+		} else {
+			return 0
+		}
+	}()
+	return res
 }
 
 func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
