@@ -32,6 +32,16 @@ func sumHistogram(m map[float64]uint64) (r uint64) {
 	return
 }
 
+func strCompare(str1 string, str2 string) int {
+	res := strings.Compare(strings.ToLower(str1), strings.ToLower(str2))
+
+	if res == 0 {
+		return 1
+	} else {
+		return 0
+	}
+}
+
 func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ScrapeSuccessDesc
 
@@ -973,35 +983,35 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterThresholdBlockFullness,
 		prometheus.GaugeValue,
-		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage1Happy")),
+		float64(strCompare(clusterFullThreshold.Result.BlockFullness, "stage1Happy")),
 		"stage1Happy",
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterThresholdBlockFullness,
 		prometheus.GaugeValue,
-		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage2Aware")),
+		float64(strCompare(clusterFullThreshold.Result.BlockFullness, "stage2Aware")),
 		"stage2Aware",
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterThresholdBlockFullness,
 		prometheus.GaugeValue,
-		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage3Low")),
+		float64(strCompare(clusterFullThreshold.Result.BlockFullness, "stage3Low")),
 		"stage3Low",
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterThresholdBlockFullness,
 		prometheus.GaugeValue,
-		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage4Critical")),
+		float64(strCompare(clusterFullThreshold.Result.BlockFullness, "stage4Critical")),
 		"stage4Critical",
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterThresholdBlockFullness,
 		prometheus.GaugeValue,
-		float64(strings.Compare(clusterFullThreshold.Result.BlockFullness, "stage5CompletelyConsumed")),
+		float64(strCompare(clusterFullThreshold.Result.BlockFullness, "stage5CompletelyConsumed")),
 		"stage5CompletelyConsumed",
 	)
 
