@@ -370,16 +370,16 @@ type GetClusterFullThresholdResponse struct {
 	Result struct {
 		BlockFullness                  string  `json:"blockFullness"`
 		Fullness                       string  `json:"fullness"`
-		MaxMetadataOverProvisionFactor int     `json:"maxMetadataOverProvisionFactor"`
+		MaxMetadataOverProvisionFactor float64 `json:"maxMetadataOverProvisionFactor"`
 		MetadataFullness               string  `json:"metadataFullness"`
-		SliceReserveUsedThresholdPct   int     `json:"sliceReserveUsedThresholdPct"`
-		Stage2AwareThreshold           int     `json:"stage2AwareThreshold"`
+		SliceReserveUsedThresholdPct   float64 `json:"sliceReserveUsedThresholdPct"`
+		Stage2AwareThreshold           float64 `json:"stage2AwareThreshold"`
 		Stage2BlockThresholdBytes      float64 `json:"stage2BlockThresholdBytes"`
 		Stage3BlockThresholdBytes      float64 `json:"stage3BlockThresholdBytes"`
-		Stage3BlockThresholdPercent    int     `json:"stage3BlockThresholdPercent"`
-		Stage3LowThreshold             int     `json:"stage3LowThreshold"`
+		Stage3BlockThresholdPercent    float64 `json:"stage3BlockThresholdPercent"`
+		Stage3LowThreshold             float64 `json:"stage3LowThreshold"`
 		Stage4BlockThresholdBytes      float64 `json:"stage4BlockThresholdBytes"`
-		Stage4CriticalThreshold        int     `json:"stage4CriticalThreshold"`
+		Stage4CriticalThreshold        float64 `json:"stage4CriticalThreshold"`
 		Stage5BlockThresholdBytes      float64 `json:"stage5BlockThresholdBytes"`
 		SumTotalClusterBytes           float64 `json:"sumTotalClusterBytes"`
 		SumTotalMetadataClusterBytes   float64 `json:"sumTotalMetadataClusterBytes"`

@@ -404,7 +404,7 @@ func TestClient_GetClusterFullThreshold(t *testing.T) {
 	tests := []struct {
 		name    string
 		s       solidfire.Client
-		want    int
+		want    float64
 		wantErr bool
 	}{
 		{
