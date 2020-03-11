@@ -239,3 +239,25 @@ func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
 	}
 	return r, nil
 }
+
+func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, error) {
+	payload := &RPCBody{
+		Method: "GetClusterFullThreshold",
+		Params: GetClusterFullThresholdParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := GetClusterFullThresholdResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
