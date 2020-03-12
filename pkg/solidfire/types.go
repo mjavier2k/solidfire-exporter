@@ -398,11 +398,11 @@ type ListDrivesResponse struct {
 		Drives []struct {
 			Attributes struct {
 			} `json:"attributes"`
-			Capacity int64   `json:"capacity"`
-			DriveID  float64 `json:"driveID"`
+			Capacity float64 `json:"capacity"`
+			DriveID  int     `json:"driveID"`
 			NodeID   int     `json:"nodeID"`
 			Serial   string  `json:"serial"`
-			Slot     float64 `json:"slot"`
+			Slot     int     `json:"slot"`
 			Status   string  `json:"status"`
 			Type     string  `json:"type"`
 		} `json:"drives"`
