@@ -162,8 +162,8 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ClusterThresholdSumUsedMetadataClusterBytes
 
 	ch <- MetricDescriptions.ListDrivesStatus
-	ch <- MetricDescriptions.ListDrivesType
 	ch <- MetricDescriptions.ListDrivesCapacity
+
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -1166,17 +1166,6 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			d.Serial,
 			strconv.Itoa(d.Slot),
 			d.Status,
-		)
-
-		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.ListDrivesType,
-			prometheus.GaugeValue,
-			1,
-			strconv.Itoa(d.NodeID),
-			nodesNamesByID[d.NodeID],
-			strconv.Itoa(d.DriveID),
-			d.Serial,
-			strconv.Itoa(d.Slot),
 			d.Type,
 		)
 
@@ -1189,6 +1178,8 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			strconv.Itoa(d.DriveID),
 			d.Serial,
 			strconv.Itoa(d.Slot),
+			d.Status,
+			d.Type,
 		)
 	}
 
