@@ -160,6 +160,10 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ClusterThresholdSumTotalMetadataClusterBytes
 	ch <- MetricDescriptions.ClusterThresholdSumUsedClusterBytes
 	ch <- MetricDescriptions.ClusterThresholdSumUsedMetadataClusterBytes
+
+	ch <- MetricDescriptions.ListDrivesByStatusTotal
+	ch <- MetricDescriptions.ListDrivesByNodeTotal
+	ch <- MetricDescriptions.ListDrivesByTypeTotal
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -1144,6 +1148,75 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		prometheus.GaugeValue,
 		clusterFullThreshold.Result.SumUsedMetadataClusterBytes,
 	)
+
+	ListDrives, err := c.client.ListDrives()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+
+	driveStatus := make(map[int]map[string]float64)
+	driveTypes := make(map[int]map[string]float64)
+	driveNodes := make(map[int]float64)
+
+	for _, f := range ListDrives.Result.Drives {
+		if driveStatus[f.NodeID] == nil {
+			driveStatus[f.NodeID] = map[string]float64{
+				"available": 0,
+				"active":    0,
+				"erasing":   0,
+				"failed":    0,
+				"removing":  0,
+			}
+		}
+		if driveTypes[f.NodeID] == nil {
+			driveTypes[f.NodeID] = map[string]float64{
+				"volume":  0,
+				"block":   0,
+				"unknown": 0,
+			}
+		}
+
+		driveStatus[f.NodeID][f.Status]++
+		driveTypes[f.NodeID][f.Type]++
+		driveNodes[f.NodeID]++
+	}
+
+	for k, v := range driveNodes {
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.ListDrivesByNodeTotal,
+			prometheus.GaugeValue,
+			v,
+			strconv.Itoa(k),
+			nodesNamesByID[k],
+		)
+	}
+
+	for n, s := range driveStatus {
+		for k, v := range s {
+			ch <- prometheus.MustNewConstMetric(
+				MetricDescriptions.ListDrivesByStatusTotal,
+				prometheus.GaugeValue,
+				v,
+				strconv.Itoa(n),
+				nodesNamesByID[n],
+				k,
+			)
+		}
+	}
+
+	for n, t := range driveTypes {
+		for k, v := range t {
+			ch <- prometheus.MustNewConstMetric(
+				MetricDescriptions.ListDrivesByTypeTotal,
+				prometheus.GaugeValue,
+				v,
+				strconv.Itoa(n),
+				nodesNamesByID[n],
+				k,
+			)
+		}
+	}
 
 	// Set scrape success metric to scrapeSuccess
 	ch <- prometheus.MustNewConstMetric(MetricDescriptions.ScrapeSuccessDesc, prometheus.GaugeValue, scrapeSuccess)

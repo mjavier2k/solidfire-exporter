@@ -261,3 +261,25 @@ func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, err
 	}
 	return r, nil
 }
+
+func (s *Client) ListDrives() (ListDrivesResponse, error) {
+	payload := &RPCBody{
+		Method: "ListDrives",
+		Params: ListDrivesParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListDrivesResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
