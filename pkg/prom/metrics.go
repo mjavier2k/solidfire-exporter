@@ -142,6 +142,10 @@ type Descriptions struct {
 	ClusterThresholdSumTotalMetadataClusterBytes   *prometheus.Desc
 	ClusterThresholdSumUsedClusterBytes            *prometheus.Desc
 	ClusterThresholdSumUsedMetadataClusterBytes    *prometheus.Desc
+
+	ListDrivesByStatusTotal *prometheus.Desc
+	ListDrivesByNodeTotal   *prometheus.Desc
+	ListDrivesByTypeTotal   *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -952,6 +956,27 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_used_metadata_cluster_bytes"),
 		"Amount of space used on volume drives to store metadata.",
 		nil,
+		nil,
+	)
+
+	d.ListDrivesByStatusTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "list_drives_by_status_count"),
+		"Number of drives per node and status",
+		[]string{"node_id", "node_name", "status"},
+		nil,
+	)
+
+	d.ListDrivesByNodeTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "list_drives_by_node_total"),
+		"Total number of drives per node",
+		[]string{"node_id", "node_name"},
+		nil,
+	)
+
+	d.ListDrivesByTypeTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "list_drives_by_type_count"),
+		"Number of drives per node and type",
+		[]string{"node_id", "node_name", "type"},
 		nil,
 	)
 

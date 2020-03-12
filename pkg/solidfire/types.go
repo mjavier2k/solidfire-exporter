@@ -52,6 +52,10 @@ type GetClusterFullThresholdParams struct {
 	// No params needed
 }
 
+type ListDrivesParams struct {
+	// No params needed
+}
+
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
 	Result struct {
@@ -385,5 +389,22 @@ type GetClusterFullThresholdResponse struct {
 		SumTotalMetadataClusterBytes   float64 `json:"sumTotalMetadataClusterBytes"`
 		SumUsedClusterBytes            float64 `json:"sumUsedClusterBytes"`
 		SumUsedMetadataClusterBytes    float64 `json:"sumUsedMetadataClusterBytes"`
+	} `json:"result"`
+}
+
+type ListDrivesResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Drives []struct {
+			Attributes struct {
+			} `json:"attributes"`
+			Capacity int64   `json:"capacity"`
+			DriveID  float64 `json:"driveID"`
+			NodeID   int     `json:"nodeID"`
+			Serial   string  `json:"serial"`
+			Slot     float64 `json:"slot"`
+			Status   string  `json:"status"`
+			Type     string  `json:"type"`
+		} `json:"drives"`
 	} `json:"result"`
 }
