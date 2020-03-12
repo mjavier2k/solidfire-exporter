@@ -960,7 +960,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 
 	d.ListDrivesStatus = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "drives_status"),
-		"The drive staus for each individual drives in the cluster's active nodes",
+		"The drive status for each individual drives in the cluster's active nodes",
 		[]string{"node_id", "node_name", "drive_id", "serial", "slot", "status", "type"},
 		nil,
 	)
