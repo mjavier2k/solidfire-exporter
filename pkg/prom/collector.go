@@ -161,9 +161,9 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ClusterThresholdSumUsedClusterBytes
 	ch <- MetricDescriptions.ClusterThresholdSumUsedMetadataClusterBytes
 
-	ch <- MetricDescriptions.ListDrivesByStatusTotal
-	ch <- MetricDescriptions.ListDrivesByNodeTotal
-	ch <- MetricDescriptions.ListDrivesByTypeTotal
+	ch <- MetricDescriptions.ListDrivesStatus
+	ch <- MetricDescriptions.ListDrivesCapacity
+
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -1155,67 +1155,32 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		log.Errorln(err)
 	}
 
-	driveStatus := make(map[int]map[string]float64)
-	driveTypes := make(map[int]map[string]float64)
-	driveNodes := make(map[int]float64)
-
-	for _, f := range ListDrives.Result.Drives {
-		if driveStatus[f.NodeID] == nil {
-			driveStatus[f.NodeID] = map[string]float64{
-				"available": 0,
-				"active":    0,
-				"erasing":   0,
-				"failed":    0,
-				"removing":  0,
-			}
-		}
-		if driveTypes[f.NodeID] == nil {
-			driveTypes[f.NodeID] = map[string]float64{
-				"volume":  0,
-				"block":   0,
-				"unknown": 0,
-			}
-		}
-
-		driveStatus[f.NodeID][f.Status]++
-		driveTypes[f.NodeID][f.Type]++
-		driveNodes[f.NodeID]++
-	}
-
-	for k, v := range driveNodes {
+	for _, d := range ListDrives.Result.Drives {
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.ListDrivesByNodeTotal,
+			MetricDescriptions.ListDrivesStatus,
 			prometheus.GaugeValue,
-			v,
-			strconv.Itoa(k),
-			nodesNamesByID[k],
+			1,
+			strconv.Itoa(d.NodeID),
+			nodesNamesByID[d.NodeID],
+			strconv.Itoa(d.DriveID),
+			d.Serial,
+			strconv.Itoa(d.Slot),
+			d.Status,
+			d.Type,
 		)
-	}
 
-	for n, s := range driveStatus {
-		for k, v := range s {
-			ch <- prometheus.MustNewConstMetric(
-				MetricDescriptions.ListDrivesByStatusTotal,
-				prometheus.GaugeValue,
-				v,
-				strconv.Itoa(n),
-				nodesNamesByID[n],
-				k,
-			)
-		}
-	}
-
-	for n, t := range driveTypes {
-		for k, v := range t {
-			ch <- prometheus.MustNewConstMetric(
-				MetricDescriptions.ListDrivesByTypeTotal,
-				prometheus.GaugeValue,
-				v,
-				strconv.Itoa(n),
-				nodesNamesByID[n],
-				k,
-			)
-		}
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.ListDrivesCapacity,
+			prometheus.GaugeValue,
+			d.Capacity,
+			strconv.Itoa(d.NodeID),
+			nodesNamesByID[d.NodeID],
+			strconv.Itoa(d.DriveID),
+			d.Serial,
+			strconv.Itoa(d.Slot),
+			d.Status,
+			d.Type,
+		)
 	}
 
 	// Set scrape success metric to scrapeSuccess

@@ -143,9 +143,8 @@ type Descriptions struct {
 	ClusterThresholdSumUsedClusterBytes            *prometheus.Desc
 	ClusterThresholdSumUsedMetadataClusterBytes    *prometheus.Desc
 
-	ListDrivesByStatusTotal *prometheus.Desc
-	ListDrivesByNodeTotal   *prometheus.Desc
-	ListDrivesByTypeTotal   *prometheus.Desc
+	ListDrivesStatus   *prometheus.Desc
+	ListDrivesCapacity *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -959,24 +958,17 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.ListDrivesByStatusTotal = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "list_drives_by_status_count"),
-		"Number of drives per node and status",
-		[]string{"node_id", "node_name", "status"},
+	d.ListDrivesStatus = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "drives_status"),
+		"The drive status for each individual drives in the cluster's active nodes",
+		[]string{"node_id", "node_name", "drive_id", "serial", "slot", "status", "type"},
 		nil,
 	)
 
-	d.ListDrivesByNodeTotal = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "list_drives_by_node_total"),
-		"Total number of drives per node",
-		[]string{"node_id", "node_name"},
-		nil,
-	)
-
-	d.ListDrivesByTypeTotal = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "list_drives_by_type_count"),
-		"Number of drives per node and type",
-		[]string{"node_id", "node_name", "type"},
+	d.ListDrivesCapacity = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "drives_capacity"),
+		"The drive capacity for each individual drives in the cluster's active nodes",
+		[]string{"node_id", "node_name", "drive_id", "serial", "slot", "status", "type"},
 		nil,
 	)
 
