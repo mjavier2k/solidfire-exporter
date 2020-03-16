@@ -1,6 +1,7 @@
 package prom
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 	"strings"
@@ -94,10 +95,7 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ClusterCapacityCompressionFactor
 	ch <- MetricDescriptions.ClusterCapacityEfficiencyFactor
 
-	ch <- MetricDescriptions.ClusterActiveFaultsBestPractice
-	ch <- MetricDescriptions.ClusterActiveFaultsWarning
-	ch <- MetricDescriptions.ClusterActiveFaultsError
-	ch <- MetricDescriptions.ClusterActiveFaultsCritical
+	ch <- MetricDescriptions.ClusterActiveFaults
 
 	ch <- MetricDescriptions.NodeStatsCBytesIn
 	ch <- MetricDescriptions.NodeStatsCBytesOut
@@ -526,36 +524,23 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		scrapeSuccess = 0
 		log.Errorln(err)
 	}
-	severity := map[string]float64{
-		solidfire.FaultBestPractice: 0,
-		solidfire.FaultWarning:      0,
-		solidfire.FaultError:        0,
-		solidfire.FaultCritical:     0,
-	}
 
 	for _, f := range ClusterActiveFaults.Result.Faults {
-		severity[f.Severity]++
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.ClusterActiveFaults,
+			prometheus.GaugeValue,
+			1,
+			strconv.Itoa(f.NodeID),
+			nodesNamesByID[f.NodeID],
+			f.Code,
+			f.Severity,
+			f.Type,
+			fmt.Sprintf("%f", f.ServiceID),
+			strconv.FormatBool(f.Resolved),
+			fmt.Sprintf("%f", f.NodeHardwareFaultID),
+			fmt.Sprintf("%f", f.DriveID),
+		)
 	}
-
-	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterActiveFaultsBestPractice,
-		prometheus.GaugeValue,
-		severity[solidfire.FaultBestPractice])
-
-	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterActiveFaultsWarning,
-		prometheus.GaugeValue,
-		severity[solidfire.FaultWarning])
-
-	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterActiveFaultsError,
-		prometheus.GaugeValue,
-		severity[solidfire.FaultError])
-
-	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterActiveFaultsCritical,
-		prometheus.GaugeValue,
-		severity[solidfire.FaultCritical])
 
 	// List Cluster Stats
 	ClusterNodeStats, err := c.client.ListNodeStats()

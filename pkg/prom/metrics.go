@@ -64,10 +64,7 @@ type Descriptions struct {
 	ClusterCapacityEfficiencyFactor       *prometheus.Desc
 
 	// ListClusterFaults
-	ClusterActiveFaultsWarning      *prometheus.Desc
-	ClusterActiveFaultsError        *prometheus.Desc
-	ClusterActiveFaultsCritical     *prometheus.Desc
-	ClusterActiveFaultsBestPractice *prometheus.Desc
+	ClusterActiveFaults *prometheus.Desc
 
 	// ListNodeStats
 	NodeStatsCBytesIn                  *prometheus.Desc
@@ -482,31 +479,10 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.ClusterActiveFaultsWarning = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_active_faults_warning"),
-		"The total number of warning faults in the system",
-		nil,
-		nil,
-	)
-
-	d.ClusterActiveFaultsError = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_active_faults_error"),
-		"The total number of error faults in the system",
-		nil,
-		nil,
-	)
-
-	d.ClusterActiveFaultsCritical = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_active_faults_critical"),
-		"The total number of critical faults in the system",
-		nil,
-		nil,
-	)
-
-	d.ClusterActiveFaultsBestPractice = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_active_faults_best_practice"),
-		"The total number of best practice faults in the system",
-		nil,
+	d.ClusterActiveFaults = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_active_faults"),
+		"List of any active faults detected on the cluster",
+		[]string{"node_id", "node_name", "code", "severity", "type", "service_id", "resolved", "node_hardware_fault_id", "drive_id"},
 		nil,
 	)
 

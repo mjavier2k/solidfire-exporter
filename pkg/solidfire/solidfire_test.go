@@ -173,7 +173,7 @@ func TestClient_ListClusterActiveFaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			//gock.Observe(gock.DumpRequest)
+			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -190,18 +190,9 @@ func TestClient_ListClusterActiveFaults(t *testing.T) {
 			gotRaw, err := sfClient.ListClusterActiveFaults()
 			got := gotRaw.Result.Faults[0].ClusterFaultID
 
-			severity := map[string]float64{
-				solidfire.FaultBestPractice: 0,
-				solidfire.FaultWarning:      0,
-				solidfire.FaultError:        0,
-				solidfire.FaultCritical:     0,
-			}
-
 			for _, f := range gotRaw.Result.Faults {
-				severity[f.Severity]++
+				fmt.Println(f.Code)
 			}
-
-			fmt.Printf("%v", severity)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Client.ListClusterActiveFaults() error = %v, wantErr %v", err, tt.wantErr)
