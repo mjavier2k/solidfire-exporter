@@ -173,7 +173,7 @@ func TestClient_ListClusterActiveFaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -189,10 +189,6 @@ func TestClient_ListClusterActiveFaults(t *testing.T) {
 
 			gotRaw, err := sfClient.ListClusterActiveFaults()
 			got := gotRaw.Result.Faults[0].ClusterFaultID
-
-			for _, f := range gotRaw.Result.Faults {
-				fmt.Println(f.Code)
-			}
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Client.ListClusterActiveFaults() error = %v, wantErr %v", err, tt.wantErr)
@@ -225,7 +221,7 @@ func TestClient_ListNodeStats(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -270,7 +266,7 @@ func TestClient_ListVolumeQoSHistograms(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -317,7 +313,7 @@ func TestClient_ListAllNodes(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -362,7 +358,7 @@ func TestClient_GetClusterStats(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -407,7 +403,7 @@ func TestClient_GetClusterFullThreshold(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
