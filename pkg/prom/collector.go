@@ -162,6 +162,7 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ListDrivesStatus
 	ch <- MetricDescriptions.ListDrivesCapacity
 
+	ch <- MetricDescriptions.NodeISCSISessionsTotal
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -1166,6 +1167,35 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			d.Status,
 			d.Type,
 		)
+	}
+
+	ListISCSISessions, err := c.client.ListISCSISessions()
+	if err != nil {
+		scrapeSuccess = 0
+		log.Errorln(err)
+	}
+
+	sessions := make(map[int]map[int]float64)
+
+	for _, session := range ListISCSISessions.Result.Sessions {
+		if sessions[session.NodeID] == nil {
+			sessions[session.NodeID] = make(map[int]float64)
+		}
+		sessions[session.NodeID][session.VolumeID]++
+	}
+
+	for node, v := range sessions {
+		for vol, val := range v {
+			ch <- prometheus.MustNewConstMetric(
+				MetricDescriptions.NodeISCSISessionsTotal,
+				prometheus.GaugeValue,
+				val,
+				strconv.Itoa(node),
+				nodesNamesByID[node],
+				strconv.Itoa(vol),
+				volumeNamesByID[vol],
+			)
+		}
 	}
 
 	// Set scrape success metric to scrapeSuccess
