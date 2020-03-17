@@ -56,6 +56,10 @@ type ListDrivesParams struct {
 	// No params needed
 }
 
+type ListISCSISessionsParams struct {
+	// No params needed
+}
+
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
 	Result struct {
@@ -406,5 +410,34 @@ type ListDrivesResponse struct {
 			Status   string  `json:"status"`
 			Type     string  `json:"type"`
 		} `json:"drives"`
+	} `json:"result"`
+}
+
+type ListISCSISessionsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Sessions []struct {
+			AccountID              int         `json:"accountID"`
+			AccountName            string      `json:"accountName"`
+			CreateTime             time.Time   `json:"createTime"`
+			DriveID                int         `json:"driveID"`
+			DriveIDs               []int       `json:"driveIDs"`
+			Initiator              interface{} `json:"initiator"`
+			InitiatorIP            string      `json:"initiatorIP"`
+			InitiatorName          string      `json:"initiatorName"`
+			InitiatorPortName      string      `json:"initiatorPortName"`
+			InitiatorSessionID     float64     `json:"initiatorSessionID"`
+			MsSinceLastIscsiPDU    int         `json:"msSinceLastIscsiPDU"`
+			MsSinceLastScsiCommand int         `json:"msSinceLastScsiCommand"`
+			NodeID                 int         `json:"nodeID"`
+			ServiceID              int         `json:"serviceID"`
+			SessionID              int64       `json:"sessionID"`
+			TargetIP               string      `json:"targetIP"`
+			TargetName             string      `json:"targetName"`
+			TargetPortName         string      `json:"targetPortName"`
+			VirtualNetworkID       int         `json:"virtualNetworkID"`
+			VolumeID               int         `json:"volumeID"`
+			VolumeInstance         int64       `json:"volumeInstance"`
+		} `json:"sessions"`
 	} `json:"result"`
 }
