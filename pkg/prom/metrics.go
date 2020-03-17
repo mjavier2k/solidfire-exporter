@@ -960,7 +960,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 
 	d.NodeISCSIVolumes = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_node_id"),
-		"The node where the volume is hosted.",
+		"The node id where the volume is hosted.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
