@@ -659,8 +659,8 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	)
 
 	d.NodeMemory = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "node_memory_gb"),
-		"Cluster node memory in GB",
+		prometheus.BuildFQName(namespace, "", "node_total_memory_gb"),
+		"Cluster node total memory in GB",
 		[]string{"node_id", "node_name", "chassis_name", "associated_fservice_id", "associated_master_service_id", "chassis_type", "cpu_model", "node_type", "platform_config_version", "sip", "sipi", "software_version", "uuid"},
 		nil,
 	)
