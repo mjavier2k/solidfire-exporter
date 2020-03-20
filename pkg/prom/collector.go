@@ -199,6 +199,35 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			strconv.Itoa(node.NodeID),
 			node.Name,
 			node.ChassisName,
+			strconv.Itoa(node.AssociatedFServiceID),
+			strconv.Itoa(node.AssociatedMasterServiceID),
+			node.PlatformInfo.ChassisType,
+			node.PlatformInfo.CPUModel,
+			node.PlatformInfo.NodeType,
+			node.PlatformInfo.PlatformConfigVersion,
+			node.Sip,
+			node.Sipi,
+			node.SoftwareVersion,
+			node.UUID,
+		)
+
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.NodeMemory,
+			prometheus.CounterValue,
+			node.PlatformInfo.NodeMemoryGB,
+			strconv.Itoa(node.NodeID),
+			node.Name,
+			node.ChassisName,
+			strconv.Itoa(node.AssociatedFServiceID),
+			strconv.Itoa(node.AssociatedMasterServiceID),
+			node.PlatformInfo.ChassisType,
+			node.PlatformInfo.CPUModel,
+			node.PlatformInfo.NodeType,
+			node.PlatformInfo.PlatformConfigVersion,
+			node.Sip,
+			node.Sipi,
+			node.SoftwareVersion,
+			node.UUID,
 		)
 	}
 
