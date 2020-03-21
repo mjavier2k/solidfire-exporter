@@ -325,11 +325,11 @@ type ListAllNodesResponse struct {
 			NodeID                      int         `json:"nodeID"`
 			NodeSlot                    string      `json:"nodeSlot"`
 			PlatformInfo                struct {
-				ChassisType           string `json:"chassisType"`
-				CPUModel              string `json:"cpuModel"`
-				NodeMemoryGB          int    `json:"nodeMemoryGB"`
-				NodeType              string `json:"nodeType"`
-				PlatformConfigVersion string `json:"platformConfigVersion"`
+				ChassisType           string  `json:"chassisType"`
+				CPUModel              string  `json:"cpuModel"`
+				NodeMemoryGB          float64 `json:"nodeMemoryGB"`
+				NodeType              string  `json:"nodeType"`
+				PlatformConfigVersion string  `json:"platformConfigVersion"`
 			} `json:"platformInfo"`
 			Sip             string        `json:"sip"`
 			Sipi            string        `json:"sipi"`

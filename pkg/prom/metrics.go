@@ -95,7 +95,8 @@ type Descriptions struct {
 	VolumeQoSWriteBlockSizes                  *prometheus.Desc
 
 	// ListAllNodes
-	Node *prometheus.Desc
+	Node       *prometheus.Desc
+	NodeMemory *prometheus.Desc
 
 	// GetClusterStats
 	ClusterStatsActualIOPS            *prometheus.Desc
@@ -653,7 +654,14 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	d.Node = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "node_name"),
 		"Cluster node name",
-		[]string{"node_id", "node_name", "chassis_name"},
+		[]string{"node_id", "node_name", "chassis_name", "associated_fservice_id", "associated_master_service_id", "chassis_type", "cpu_model", "node_type", "platform_config_version", "sip", "sipi", "software_version", "uuid"},
+		nil,
+	)
+
+	d.NodeMemory = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_total_memory_gb"),
+		"Cluster node total memory in GB",
+		[]string{"node_id", "node_name", "chassis_name", "associated_fservice_id", "associated_master_service_id", "chassis_type", "cpu_model", "node_type", "platform_config_version", "sip", "sipi", "software_version", "uuid"},
 		nil,
 	)
 
