@@ -2237,8 +2237,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "sfstore01",
-          "value": "sfstore01"
+          "text": "sfcluster01",
+          "value": "sfcluster01"
         },
         "datasource": "Prometheus",
         "definition": "label_values(solidfire_cluster_capacity_active_sessions, sfcluster)",
