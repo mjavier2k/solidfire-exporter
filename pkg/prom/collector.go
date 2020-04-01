@@ -163,7 +163,7 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ListDrivesCapacity
 
 	ch <- MetricDescriptions.NodeISCSISessionsTotal
-	ch <- MetricDescriptions.NodeISCSIVolumes
+	//	ch <- MetricDescriptions.NodeISCSIVolumes
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
@@ -1227,13 +1227,13 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 				volumeNamesByID[vol],
 			)
 
-			ch <- prometheus.MustNewConstMetric(
-				MetricDescriptions.NodeISCSIVolumes,
-				prometheus.GaugeValue,
-				float64(node),
-				strconv.Itoa(vol),
-				volumeNamesByID[vol],
-			)
+			// ch <- prometheus.MustNewConstMetric(
+			// 	MetricDescriptions.NodeISCSIVolumes,
+			// 	prometheus.GaugeValue,
+			// 	float64(node),
+			// 	strconv.Itoa(vol),
+			// 	volumeNamesByID[vol],
+			// )
 
 		}
 	}

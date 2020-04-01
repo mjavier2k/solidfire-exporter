@@ -145,7 +145,7 @@ type Descriptions struct {
 	ListDrivesCapacity *prometheus.Desc
 
 	NodeISCSISessionsTotal *prometheus.Desc
-	NodeISCSIVolumes       *prometheus.Desc
+	//NodeISCSIVolumes       *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -966,12 +966,12 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.NodeISCSIVolumes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_node_id"),
-		"The node id where the volume is hosted.",
-		[]string{"volume_id", "volume_name"},
-		nil,
-	)
+	// d.NodeISCSIVolumes = prometheus.NewDesc(
+	// 	prometheus.BuildFQName(namespace, "", "volume_node_id"),
+	// 	"The node id where the volume is hosted.",
+	// 	[]string{"volume_id", "volume_name"},
+	// 	nil,
+	// )
 
 	return &d
 }
