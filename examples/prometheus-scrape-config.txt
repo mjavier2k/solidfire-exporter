@@ -1,0 +1,20 @@
+- job_name: solidfire_exporter
+  honor_timestamps: true
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - localhost:9987
+    labels:
+      app: solidfire-exporter
+      group: prometheus
+      sfcluster: sfcluster01
+  relabel_configs:
+  - source_labels: [__address__]
+    separator: ':'
+    regex: (.*):(9...)
+    target_label: instance
+    replacement: ${1}
+    action: replace
