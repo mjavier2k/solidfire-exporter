@@ -130,7 +130,7 @@ func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
 
 func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListClusterActiveFaults",
+		Method: "ListClusterFaults",
 		Params: ListClusterFaultsRPCParams{
 			FaultTypes:    "current",
 			BestPractices: true,
