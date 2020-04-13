@@ -130,7 +130,7 @@ func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
 
 func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListClusterActiveFaults",
+		Method: "ListClusterFaults",
 		Params: ListClusterFaultsRPCParams{
 			FaultTypes:    "current",
 			BestPractices: true,
@@ -145,6 +145,8 @@ func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
 		return r, err
 	}
 	err = json.Unmarshal(bodyBytes, &r)
+
+	log.Infoln(r)
 
 	if err != nil {
 		return r, err
