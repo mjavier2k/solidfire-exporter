@@ -570,6 +570,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 			strconv.FormatBool(f.Resolved),
 			fmt.Sprintf("%f", f.NodeHardwareFaultID),
 			fmt.Sprintf("%f", f.DriveID),
+			f.Details,
 		)
 	}
 

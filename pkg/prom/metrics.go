@@ -486,7 +486,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	d.ClusterActiveFaults = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_active_faults"),
 		"List of any active faults detected on the cluster",
-		[]string{"node_id", "node_name", "code", "severity", "type", "service_id", "resolved", "node_hardware_fault_id", "drive_id"},
+		[]string{"node_id", "node_name", "code", "severity", "type", "service_id", "resolved", "node_hardware_fault_id", "drive_id", "details"},
 		nil,
 	)
 
