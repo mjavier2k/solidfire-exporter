@@ -146,8 +146,6 @@ func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
 	}
 	err = json.Unmarshal(bodyBytes, &r)
 
-	log.Infoln(r)
-
 	if err != nil {
 		return r, err
 	}

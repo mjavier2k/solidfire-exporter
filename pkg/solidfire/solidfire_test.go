@@ -153,7 +153,7 @@ func TestClient_GetClusterCapacity(t *testing.T) {
 	}
 }
 
-func TestClient_ListClusterActiveFaults(t *testing.T) {
+func TestClient_ListClusterFaults(t *testing.T) {
 	fixture, err := ioutil.ReadFile("../../test/fixtures/listclusterfaults.json")
 	if err != nil {
 		panic(err)
@@ -179,7 +179,7 @@ func TestClient_ListClusterActiveFaults(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListClusterActiveFaults",
+					Method: "ListClusterFaults",
 					Params: solidfire.ListClusterFaultsRPCParams{
 						FaultTypes:    "current",
 						BestPractices: true,
