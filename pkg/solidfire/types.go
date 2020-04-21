@@ -5,6 +5,19 @@ import (
 	"time"
 )
 
+var (
+	ListenFlag         = "listenAddress"
+	UsernameFlag       = "username"
+	PasswordFlag       = "password"
+	EndpointFlag       = "endpoint"
+	InsecureSSLFlag    = "insecure"
+	ListenFlagEnv      = "SOLIDFIRE_LISTEN_ADDR"
+	UsernameFlagEnv    = "SOLIDFIRE_USER"
+	PasswordFlagEnv    = "SOLIDFIRE_PASS"
+	EndpointFlagEnv    = "SOLIDFIRE_RPC_ENDPOINT"
+	InsecureSSLFlagEnv = "INSECURE_SKIP_VERIFY"
+)
+
 type Client struct {
 	Username    string
 	Password    string
