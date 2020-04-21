@@ -153,7 +153,7 @@ func TestClient_GetClusterCapacity(t *testing.T) {
 	}
 }
 
-func TestClient_ListClusterActiveFaults(t *testing.T) {
+func TestClient_ListClusterFaults(t *testing.T) {
 	fixture, err := ioutil.ReadFile("../../test/fixtures/listclusterfaults.json")
 	if err != nil {
 		panic(err)
@@ -173,13 +173,13 @@ func TestClient_ListClusterActiveFaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			//gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListClusterActiveFaults",
+					Method: "ListClusterFaults",
 					Params: solidfire.ListClusterFaultsRPCParams{
 						FaultTypes:    "current",
 						BestPractices: true,
@@ -189,19 +189,6 @@ func TestClient_ListClusterActiveFaults(t *testing.T) {
 
 			gotRaw, err := sfClient.ListClusterActiveFaults()
 			got := gotRaw.Result.Faults[0].ClusterFaultID
-
-			severity := map[string]float64{
-				solidfire.FaultBestPractice: 0,
-				solidfire.FaultWarning:      0,
-				solidfire.FaultError:        0,
-				solidfire.FaultCritical:     0,
-			}
-
-			for _, f := range gotRaw.Result.Faults {
-				severity[f.Severity]++
-			}
-
-			fmt.Printf("%v", severity)
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Client.ListClusterActiveFaults() error = %v, wantErr %v", err, tt.wantErr)
@@ -234,7 +221,7 @@ func TestClient_ListNodeStats(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -279,7 +266,7 @@ func TestClient_ListVolumeQoSHistograms(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -326,7 +313,7 @@ func TestClient_ListAllNodes(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -371,7 +358,7 @@ func TestClient_GetClusterStats(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer gock.Off()
-			gock.Observe(gock.DumpRequest)
+			//			gock.Observe(gock.DumpRequest)
 			gock.New(sfHost).
 				Post(sfRPCEndpoint).
 				MatchType("json").
@@ -384,6 +371,51 @@ func TestClient_GetClusterStats(t *testing.T) {
 
 			gotRaw, err := sfClient.GetClusterStats()
 			got := gotRaw.Result.ClusterStats.ActualIOPS
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListAllNodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClient_GetClusterFullThreshold(t *testing.T) {
+	fixture, err := ioutil.ReadFile("../../test/fixtures/getclusterfullthreshold.json")
+	if err != nil {
+		panic(err)
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    float64
+		wantErr bool
+	}{
+		{
+			name: "GetClusterFullThreshold Response should match fixture",
+			want: 3,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//			gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: "GetClusterFullThreshold",
+					Params: solidfire.GetClusterFullThresholdParams{}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.GetClusterFullThreshold()
+			got := gotRaw.Result.Stage2AwareThreshold
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)

@@ -130,7 +130,7 @@ func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
 
 func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListClusterActiveFaults",
+		Method: "ListClusterFaults",
 		Params: ListClusterFaultsRPCParams{
 			FaultTypes:    "current",
 			BestPractices: true,
@@ -227,6 +227,72 @@ func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := GetClusterStatsResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, error) {
+	payload := &RPCBody{
+		Method: "GetClusterFullThreshold",
+		Params: GetClusterFullThresholdParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := GetClusterFullThresholdResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListDrives() (ListDrivesResponse, error) {
+	payload := &RPCBody{
+		Method: "ListDrives",
+		Params: ListDrivesParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListDrivesResponse{}
+	bodyBytes, err := doRpcCall(s, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListISCSISessions() (ListISCSISessionsResponse, error) {
+	payload := &RPCBody{
+		Method: "ListISCSISessions",
+		Params: ListISCSISessionsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListISCSISessionsResponse{}
 	bodyBytes, err := doRpcCall(s, payloadBytes)
 
 	if err != nil {

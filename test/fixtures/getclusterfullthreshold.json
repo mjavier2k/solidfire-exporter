@@ -1,0 +1,22 @@
+{
+    "id": 1,
+    "result": {
+        "blockFullness": "stage1Happy",
+        "fullness": "stage3Low",
+        "maxMetadataOverProvisionFactor": 5,
+        "metadataFullness": "stage3Low",
+        "sliceReserveUsedThresholdPct": 5,
+        "stage2AwareThreshold": 3,
+        "stage2BlockThresholdBytes": 2640607661261,
+        "stage3BlockThresholdBytes": 8281905846682,
+        "stage3BlockThresholdPercent": 5,
+        "stage3LowThreshold": 2,
+        "stage4BlockThresholdBytes": 8641988709581,
+        "stage4CriticalThreshold": 1,
+        "stage5BlockThresholdBytes": 12002762096640,
+        "sumTotalClusterBytes": 12002762096640,
+        "sumTotalMetadataClusterBytes": 404849531289,
+        "sumUsedClusterBytes": 45553617581,
+        "sumUsedMetadataClusterBytes": 31703113728
+    }
+}

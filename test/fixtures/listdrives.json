@@ -1,0 +1,47 @@
+{
+    "id": 1,
+    "result": {
+        "drives": [
+            {
+                "attributes": {},
+                "capacity": 299917139968,
+                "driveID": 35,
+                "nodeID": 5,
+                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR141502R3600FGN-part2",
+                "slot": 0,
+                "status": "active",
+                "type": "volume"
+            },
+            {
+                "attributes": {},
+                "capacity": 600127266816,
+                "driveID": 36,
+                "nodeID": 5,
+                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR1415037R600FGN",
+                "slot": 6,
+                "status": "active",
+                "type": "block"
+            },
+            {
+                "attributes": {},
+                "capacity": 600127266821,
+                "driveID": 37,
+                "nodeID": 5,
+                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR1415037R600FGN",
+                "slot": 6,
+                "status": "active",
+                "type": "block"
+            },
+            {
+                "attributes": {},
+                "capacity": 600127266825,
+                "driveID": 38,
+                "nodeID": 5,
+                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR1415037R600FGN",
+                "slot": 6,
+                "status": "active",
+                "type": "block"
+            }
+        ]
+    }
+}

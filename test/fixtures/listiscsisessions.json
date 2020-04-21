@@ -1,0 +1,32 @@
+{
+    "id": 1,
+    "result": {
+        "sessions": [
+            {
+                "accountID": 1,
+                "accountName": "account1",
+                "createTime": "2017-04-11T03:39:32.030291Z",
+                "driveID": 23,
+                "driveIDs": [
+                    23
+                ],
+                "initiator": null,
+                "initiatorIP": "10.1.1.1:37138",
+                "initiatorName": "iqn.2010-01.net.solidfire.eng:c",
+                "initiatorPortName": "iqn.2010-01.net.solidfire.eng:c,i, 0x23d860000",
+                "initiatorSessionID": 9622126592,
+                "msSinceLastIscsiPDU": 243,
+                "msSinceLastScsiCommand": 141535021,
+                "nodeID": 3,
+                "serviceID": 6,
+                "sessionID": 25769804943,
+                "targetIP": "10.1.1.2:3260",
+                "targetName": "iqn.2010-01.com.solidfire:a7sd.3",
+                "targetPortName": "iqn.2010-01.com.solidfire:a7sd.3,t,0x1",
+                "virtualNetworkID": 0,
+                "volumeID": 3,
+                "volumeInstance": 140327214758656
+            }
+        ]
+    }
+}

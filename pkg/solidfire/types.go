@@ -48,6 +48,18 @@ type GetClusterStatsRPCParams struct {
 	// No params needed
 }
 
+type GetClusterFullThresholdParams struct {
+	// No params needed
+}
+
+type ListDrivesParams struct {
+	// No params needed
+}
+
+type ListISCSISessionsParams struct {
+	// No params needed
+}
+
 type ListVolumesResponse struct {
 	ID     int `json:"id"`
 	Result struct {
@@ -313,11 +325,11 @@ type ListAllNodesResponse struct {
 			NodeID                      int         `json:"nodeID"`
 			NodeSlot                    string      `json:"nodeSlot"`
 			PlatformInfo                struct {
-				ChassisType           string `json:"chassisType"`
-				CPUModel              string `json:"cpuModel"`
-				NodeMemoryGB          int    `json:"nodeMemoryGB"`
-				NodeType              string `json:"nodeType"`
-				PlatformConfigVersion string `json:"platformConfigVersion"`
+				ChassisType           string  `json:"chassisType"`
+				CPUModel              string  `json:"cpuModel"`
+				NodeMemoryGB          float64 `json:"nodeMemoryGB"`
+				NodeType              string  `json:"nodeType"`
+				PlatformConfigVersion string  `json:"platformConfigVersion"`
 			} `json:"platformInfo"`
 			Sip             string        `json:"sip"`
 			Sipi            string        `json:"sipi"`
@@ -358,5 +370,74 @@ type GetClusterStatsResponse struct {
 			WriteOps              float64 `json:"writeOps"`
 			WriteOpsLastSample    float64 `json:"writeOpsLastSample"`
 		} `json:"clusterStats"`
+	} `json:"result"`
+}
+
+type GetClusterFullThresholdResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		BlockFullness                  string  `json:"blockFullness"`
+		Fullness                       string  `json:"fullness"`
+		MaxMetadataOverProvisionFactor float64 `json:"maxMetadataOverProvisionFactor"`
+		MetadataFullness               string  `json:"metadataFullness"`
+		SliceReserveUsedThresholdPct   float64 `json:"sliceReserveUsedThresholdPct"`
+		Stage2AwareThreshold           float64 `json:"stage2AwareThreshold"`
+		Stage2BlockThresholdBytes      float64 `json:"stage2BlockThresholdBytes"`
+		Stage3BlockThresholdBytes      float64 `json:"stage3BlockThresholdBytes"`
+		Stage3BlockThresholdPercent    float64 `json:"stage3BlockThresholdPercent"`
+		Stage3LowThreshold             float64 `json:"stage3LowThreshold"`
+		Stage4BlockThresholdBytes      float64 `json:"stage4BlockThresholdBytes"`
+		Stage4CriticalThreshold        float64 `json:"stage4CriticalThreshold"`
+		Stage5BlockThresholdBytes      float64 `json:"stage5BlockThresholdBytes"`
+		SumTotalClusterBytes           float64 `json:"sumTotalClusterBytes"`
+		SumTotalMetadataClusterBytes   float64 `json:"sumTotalMetadataClusterBytes"`
+		SumUsedClusterBytes            float64 `json:"sumUsedClusterBytes"`
+		SumUsedMetadataClusterBytes    float64 `json:"sumUsedMetadataClusterBytes"`
+	} `json:"result"`
+}
+
+type ListDrivesResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Drives []struct {
+			Attributes struct {
+			} `json:"attributes"`
+			Capacity float64 `json:"capacity"`
+			DriveID  int     `json:"driveID"`
+			NodeID   int     `json:"nodeID"`
+			Serial   string  `json:"serial"`
+			Slot     int     `json:"slot"`
+			Status   string  `json:"status"`
+			Type     string  `json:"type"`
+		} `json:"drives"`
+	} `json:"result"`
+}
+
+type ListISCSISessionsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Sessions []struct {
+			AccountID              int         `json:"accountID"`
+			AccountName            string      `json:"accountName"`
+			CreateTime             time.Time   `json:"createTime"`
+			DriveID                int         `json:"driveID"`
+			DriveIDs               []int       `json:"driveIDs"`
+			Initiator              interface{} `json:"initiator"`
+			InitiatorIP            string      `json:"initiatorIP"`
+			InitiatorName          string      `json:"initiatorName"`
+			InitiatorPortName      string      `json:"initiatorPortName"`
+			InitiatorSessionID     float64     `json:"initiatorSessionID"`
+			MsSinceLastIscsiPDU    int         `json:"msSinceLastIscsiPDU"`
+			MsSinceLastScsiCommand int         `json:"msSinceLastScsiCommand"`
+			NodeID                 int         `json:"nodeID"`
+			ServiceID              int         `json:"serviceID"`
+			SessionID              int64       `json:"sessionID"`
+			TargetIP               string      `json:"targetIP"`
+			TargetName             string      `json:"targetName"`
+			TargetPortName         string      `json:"targetPortName"`
+			VirtualNetworkID       int         `json:"virtualNetworkID"`
+			VolumeID               int         `json:"volumeID"`
+			VolumeInstance         int64       `json:"volumeInstance"`
+		} `json:"sessions"`
 	} `json:"result"`
 }
