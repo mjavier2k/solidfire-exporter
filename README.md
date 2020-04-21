@@ -13,14 +13,15 @@ Implementation is based on [Solidfire 11.3 API](https://library.netapp.com/ecm/e
 - Fault stats
 - Cluster stats
 
-## Defaults for environment variables
+## Usage
 
 ```
-SOLIDFIRE_USER=monitoring_user
-SOLIDFIRE_PASS=monitoring_password
-SOLIDFIRE_RPC_ENDPOINT=https://192.168.1.1/json-rpc/11.3
-INSECURE_SKIP_VERIFY=false
-PORT=9987
+Usage of solidfire-exporter:
+  -l, --listenAddress string   Address + port for the exporter to listen on. May also be set by environment variable SOLIDFIRE_LISTEN_ADDR. (default "0.0.0.0:9987")
+  -u, --username string        User with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_USER. (default "my_solidfire_user")
+  -p, --password string        Password with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_PASS. (default "my_solidfire_password")
+  -e, --endpoint string        Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
+  -i, --insecure               Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
 ```
 
 ## Volume QoS
