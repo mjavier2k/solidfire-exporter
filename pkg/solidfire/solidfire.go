@@ -7,26 +7,21 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
-	"strconv"
 	"time"
 
 	log "github.com/amoghe/distillog"
+	"github.com/spf13/viper"
 )
 
 func NewSolidfireClient() *Client {
 	log.Infof("initializing new solidfire client")
 
-	insecure, err := strconv.ParseBool(os.Getenv("INSECURE_SKIP_VERIFY"))
-	if err != nil {
-		log.Warningln("Could not parse environment variable INSECURE_SKIP_VERIFY. Defaulting to INSECURE_SKIP_VERIFY=false")
-		insecure = false
-	}
+	insecure := viper.GetBool(InsecureSSLFlag)
 	if insecure {
 		log.Warningln("TLS certificate verification is currently disabled - This is not recommended.")
 	}
 
-	log.Infoln("RPC Server:", os.Getenv("SOLIDFIRE_RPC_ENDPOINT"))
+	log.Infoln("RPC Server:", viper.GetString(EndpointFlag))
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecure},
@@ -36,9 +31,9 @@ func NewSolidfireClient() *Client {
 			Transport: tr,
 			Timeout:   30 * time.Second,
 		},
-		Username:    os.Getenv("SOLIDFIRE_USER"),
-		Password:    os.Getenv("SOLIDFIRE_PASS"),
-		RPCEndpoint: os.Getenv("SOLIDFIRE_RPC_ENDPOINT"),
+		Username:    viper.GetString(UsernameFlag),
+		Password:    viper.GetString(PasswordFlag),
+		RPCEndpoint: viper.GetString(EndpointFlag),
 	}
 }
 
