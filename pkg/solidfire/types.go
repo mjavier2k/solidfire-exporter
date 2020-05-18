@@ -6,12 +6,12 @@ import (
 )
 
 var (
-	ListenFlag         = "listenAddress"
+	ListenPortFlag     = "listenPort"
 	UsernameFlag       = "username"
 	PasswordFlag       = "password"
 	EndpointFlag       = "endpoint"
 	InsecureSSLFlag    = "insecure"
-	ListenFlagEnv      = "SOLIDFIRE_LISTEN_ADDR"
+	ListenPortFlagEnv  = "SOLIDFIRE_PORT"
 	UsernameFlagEnv    = "SOLIDFIRE_USER"
 	PasswordFlagEnv    = "SOLIDFIRE_PASS"
 	EndpointFlagEnv    = "SOLIDFIRE_RPC_ENDPOINT"
