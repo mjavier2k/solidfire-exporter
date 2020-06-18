@@ -22,6 +22,7 @@ Usage of solidfire-exporter:
   -p, --password string   Password with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_PASS. (default "my_solidfire_password")
   -e, --endpoint string   Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
   -i, --insecure          Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
+  -t, --timeout int       HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
 ```
 
 ## Volume QoS

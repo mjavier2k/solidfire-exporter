@@ -29,7 +29,7 @@ func NewSolidfireClient() *Client {
 	return &Client{
 		HttpClient: &http.Client{
 			Transport: tr,
-			Timeout:   30 * time.Second,
+			Timeout:   time.Duration(viper.GetInt64(HTTPClientTimeoutFlag)) * time.Second,
 		},
 		Username:    viper.GetString(UsernameFlag),
 		Password:    viper.GetString(PasswordFlag),
@@ -38,13 +38,12 @@ func NewSolidfireClient() *Client {
 }
 
 func doRpcCall(c *Client, body []byte) ([]byte, error) {
-
 	req, err := http.NewRequest("POST", c.RPCEndpoint, bytes.NewReader(body))
 	req.SetBasicAuth(c.Username, c.Password)
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("Error making RPC call: %v", err)
+		return nil, fmt.Errorf("Error making RPC call %v: %v", string(body), err)
 	}
 
 	defer resp.Body.Close()
