@@ -1,19 +1,23 @@
 # NetApp Solidfire Exporter
 
-Prometheus NetApp solidfire-exporter queries the Solidfire API and exports the results as Prometheus metrics
-
 ![Go](https://github.com/mjavier2k/solidfire-exporter/workflows/Go/badge.svg?event=push)
+
+NetApp Solidfire-Exporter queries the Solidfire API and exports the results as Prometheus metrics
 
 Implementation is based on [Solidfire 11.3 API](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155)
 
-## Goals
-- Volume QoS stats
-- Volume stats
-- Node stats
-- Fault stats
-- Cluster stats
 
-## Usage
+![Volume Metrics](examples/solidfire-volume.jpg?raw=true)
+
+### Installation
+
+Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/solidfire-exporter/releases) page. 
+
+### Usage
+
+```
+./solidfire_exporter -u $SOLIDFIRE_USER -p $SOLIDFIRE_PASSWORD -e $SOLIDFIRE_ENDPOINT
+```
 
 ```
 Usage of solidfire-exporter:
@@ -25,15 +29,45 @@ Usage of solidfire-exporter:
   -t, --timeout int       HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
 ```
 
-## Volume QoS
+__NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
 
-SOLIDFIRE_USER must have administrator access to be able to gather volume qos data
+### Prometheus Configuration
 
+```
+- job_name: solidfire_exporter
+  honor_timestamps: true
+  scrape_interval: 30s
+  scrape_timeout: 20s
+  metrics_path: /metrics
+  scheme: http
+  static_configs:
+  - targets:
+    - localhost:9987
+    labels:
+      app: solidfire-exporter
+      group: prometheus
+      sfcluster: sfcluster01
+```
 
-## Using Docker
+### Using Docker
 
 Create an file with the environment variables set and pass it to docker run. 
 
 ```
 docker run --env-file=.env_file  --rm -p 8080:8080 mjavier/solidfire-exporter:latest
 ```
+
+### Grafana Dashboards
+
+Sample Grafana dasboards available on the [example](https://github.com/mjavier2k/solidfire-exporter/tree/master/examples) folder of this repo.
+
+### Alerts
+
+TO DO
+
+
+### Contributing
+We welcome any contributions. Please fork the project on GitHub and open Pull Requests for any proposed changes.
+
+### License
+Code is licensed under the Apache License 2.0.
