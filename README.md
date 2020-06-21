@@ -69,7 +69,5 @@ TO DO
 ### Contributing
 We welcome any contributions. Please fork the project on GitHub and open Pull Requests for any proposed changes.
 
-Please note that we will not merge any changes that encourage insecure behaviour. If in doubt please open an Issue first to discuss your proposal.
-
 ### License
 Code is licensed under the Apache License 2.0.
