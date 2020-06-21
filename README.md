@@ -2,7 +2,7 @@
 
 ![Go](https://github.com/mjavier2k/solidfire-exporter/workflows/Go/badge.svg?event=push)
 
-Prometheus NetApp Solidfire-Exporter queries the Solidfire API and exports the results as Prometheus metrics
+NetApp Solidfire-Exporter queries the Solidfire API and exports the results as Prometheus metrics
 
 Implementation is based on [Solidfire 11.3 API](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155)
 
