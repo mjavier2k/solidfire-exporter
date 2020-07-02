@@ -21,6 +21,23 @@ var (
 
 func init() {
 	flag.CommandLine.SortFlags = false
+
+	viper.SetConfigName("config")
+	viper.AddConfigPath("./")
+
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok == false {
+			// Config file was found but has errors
+			panic(err)
+		}
+		log.Infof("No config file found.")
+	} else {
+		// Parameter takes precedence to ENV
+		// ENV takes precedence to config file
+		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
+		log.Warningf("Values on this configuration file can be overriden by ENV or Parameter flags.")
+	}
+
 	flag.IntP(solidfire.ListenPortFlag, "l", 9987, fmt.Sprintf("Port for the exporter to listen on. May also be set by environment variable %v.", solidfire.ListenPortFlagEnv))
 	flag.StringP(solidfire.UsernameFlag, "u", "my_solidfire_user", fmt.Sprintf("User with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.UsernameFlagEnv))
 	flag.StringP(solidfire.PasswordFlag, "p", "my_solidfire_password", fmt.Sprintf("Password with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.PasswordFlagEnv))
