@@ -6,7 +6,7 @@ import (
 
 type Descriptions struct {
 	// Solidfire Metric Descriptions
-	ScrapeSuccessDesc *prometheus.Desc
+	upDesc *prometheus.Desc
 
 	// Volume Stats
 	VolumeStatsActualIOPSDesc            *prometheus.Desc
@@ -151,8 +151,8 @@ type Descriptions struct {
 func NewMetricDescriptions(namespace string) *Descriptions {
 	var d Descriptions
 
-	d.ScrapeSuccessDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "scrape_success"),
+	d.upDesc = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "up"),
 		"Whether last scrape against Solidfire API was successful",
 		nil,
 		nil)
