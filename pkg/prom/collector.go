@@ -41,7 +41,7 @@ func strCompare(str1 string, str2 string) int {
 }
 
 func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
-	ch <- MetricDescriptions.ScrapeSuccessDesc
+	ch <- MetricDescriptions.upDesc
 
 	ch <- MetricDescriptions.VolumeStatsActualIOPSDesc
 	ch <- MetricDescriptions.VolumeStatsAverageIOPSizeDesc
@@ -167,17 +167,17 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
-	var scrapeSuccess float64 = 1
+	var up float64 = 1
 
 	volumes, err := c.client.ListVolumes()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
 	nodes, err := c.client.ListAllNodes()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -233,7 +233,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	volumeStats, err := c.client.ListVolumeStats()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -412,7 +412,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	clusterCapacity, err := c.client.GetClusterCapacity()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 	cluster := clusterCapacity.Result.ClusterCapacity
@@ -552,7 +552,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	// List Cluster Faults
 	ClusterActiveFaults, err := c.client.ListClusterActiveFaults()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -577,7 +577,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	// List Cluster Stats
 	ClusterNodeStats, err := c.client.ListNodeStats()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -732,7 +732,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	// ListVolumeQoSHistograms
 	VolumeQoSHistograms, err := c.client.ListVolumeQoSHistograms()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -850,7 +850,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	clusterStats, err := c.client.GetClusterStats()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -994,7 +994,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	clusterFullThreshold, err := c.client.GetClusterFullThreshold()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -1168,7 +1168,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	ListDrives, err := c.client.ListDrives()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -1202,7 +1202,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	ListISCSISessions, err := c.client.ListISCSISessions()
 	if err != nil {
-		scrapeSuccess = 0
+		up = 0
 		log.Errorln(err)
 	}
 
@@ -1227,20 +1227,11 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 				strconv.Itoa(vol),
 				volumeNamesByID[vol],
 			)
-
-			// ch <- prometheus.MustNewConstMetric(
-			// 	MetricDescriptions.NodeISCSIVolumes,
-			// 	prometheus.GaugeValue,
-			// 	float64(node),
-			// 	strconv.Itoa(vol),
-			// 	volumeNamesByID[vol],
-			// )
-
 		}
 	}
 
 	// Set scrape success metric to scrapeSuccess
-	ch <- prometheus.MustNewConstMetric(MetricDescriptions.ScrapeSuccessDesc, prometheus.GaugeValue, scrapeSuccess)
+	ch <- prometheus.MustNewConstMetric(MetricDescriptions.upDesc, prometheus.GaugeValue, up)
 }
 
 func NewCollector() (*solidfireCollector, error) {
