@@ -33,8 +33,6 @@ Start Netapp Solidfire exporter
 ```
 
 - listenPort - Port for the exporter to listen on. May also be set by environment variable SOLIDFIRE_PORT. (default 9987)
-- username - User with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_USER. (default "my_solidfire_user")
-- password - Password with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_PASS. (default "my_solidfire_password")
 - endpoint - Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
 - insecure - Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
 - timeout - HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
