@@ -23,8 +23,6 @@ func init() {
 	flag.CommandLine.SortFlags = false
 
 	flag.IntP(solidfire.ListenPortFlag, "l", 9987, fmt.Sprintf("Port for the exporter to listen on. May also be set by environment variable %v.", solidfire.ListenPortFlagEnv))
-	flag.StringP(solidfire.UsernameFlag, "u", "my_solidfire_user", fmt.Sprintf("User with which to authenticate to the Solidfire API."))
-	flag.StringP(solidfire.PasswordFlag, "p", "my_solidfire_password", fmt.Sprintf("Password with which to authenticate to the Solidfire API."))
 	flag.StringP(solidfire.EndpointFlag, "e", "https://192.168.1.2/json-rpc/11.3", fmt.Sprintf("Endpoint for the Solidfire API. May also be set by environment variable %v.", solidfire.EndpointFlagEnv))
 	flag.BoolP(solidfire.InsecureSSLFlag, "i", false, fmt.Sprintf("Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable %v.", solidfire.InsecureSSLFlagEnv))
 	flag.Int64P(solidfire.HTTPClientTimeoutFlag, "t", 30, fmt.Sprintf("HTTP Client timeout (in seconds) per call to Solidfire API."))
@@ -38,7 +36,6 @@ func init() {
 	} else {
 		viper.BindEnv(solidfire.ListenPortFlag, solidfire.ListenPortFlagEnv)
 	}
-	viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
 	viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
 	viper.BindPFlags(flag.CommandLine)
 
