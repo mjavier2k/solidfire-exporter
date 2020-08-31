@@ -22,28 +22,13 @@ var (
 func init() {
 	flag.CommandLine.SortFlags = false
 
-	viper.SetConfigName("config")
-	viper.AddConfigPath(".")
-
-	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok == false {
-			// Config file was found but has errors
-			panic(err)
-		}
-		log.Infof("No config file found.")
-	} else {
-		// Parameter takes precedence to ENV
-		// ENV takes precedence to config file
-		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
-		log.Warningf("Values on this configuration file can be overriden by ENV or Parameter flags.")
-	}
-
 	flag.IntP(solidfire.ListenPortFlag, "l", 9987, fmt.Sprintf("Port for the exporter to listen on. May also be set by environment variable %v.", solidfire.ListenPortFlagEnv))
-	flag.StringP(solidfire.UsernameFlag, "u", "my_solidfire_user", fmt.Sprintf("User with which to authenticate to the Solidfire API. %v.", solidfire.UsernameFlagEnv))
-	flag.StringP(solidfire.PasswordFlag, "p", "my_solidfire_password", fmt.Sprintf("Password with which to authenticate to the Solidfire API. %v.", solidfire.PasswordFlagEnv))
+	flag.StringP(solidfire.UsernameFlag, "u", "my_solidfire_user", fmt.Sprintf("User with which to authenticate to the Solidfire API."))
+	flag.StringP(solidfire.PasswordFlag, "p", "my_solidfire_password", fmt.Sprintf("Password with which to authenticate to the Solidfire API."))
 	flag.StringP(solidfire.EndpointFlag, "e", "https://192.168.1.2/json-rpc/11.3", fmt.Sprintf("Endpoint for the Solidfire API. May also be set by environment variable %v.", solidfire.EndpointFlagEnv))
 	flag.BoolP(solidfire.InsecureSSLFlag, "i", false, fmt.Sprintf("Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable %v.", solidfire.InsecureSSLFlagEnv))
 	flag.Int64P(solidfire.HTTPClientTimeoutFlag, "t", 30, fmt.Sprintf("HTTP Client timeout (in seconds) per call to Solidfire API."))
+	flag.StringP(solidfire.ConfigFileFlag, "c", "config", fmt.Sprintf("Specify configuration file."))
 	flag.Parse()
 
 	// PORT environment variable takes precedence in order to be backwards-compatible
@@ -53,11 +38,27 @@ func init() {
 	} else {
 		viper.BindEnv(solidfire.ListenPortFlag, solidfire.ListenPortFlagEnv)
 	}
-
 	viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
 	viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
 	viper.BindPFlags(flag.CommandLine)
 
+	// load default values if config file is present
+	// Environment variables and parameter flags takes precedence to config file
+	viper.SetConfigName(viper.GetString(solidfire.ConfigFileFlag))
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok == false {
+			panic(err)
+		}
+		log.Infof("No config file found.")
+	} else {
+		// Parameter takes precedence to ENV
+		// ENV takes precedence to config file
+		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
+		log.Warningf("Values on this configuration file can be overriden by ENV or Parameter flags.")
+	}
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)

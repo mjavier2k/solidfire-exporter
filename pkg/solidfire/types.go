@@ -12,6 +12,7 @@ var (
 	EndpointFlag          = "endpoint"
 	InsecureSSLFlag       = "insecure"
 	HTTPClientTimeoutFlag = "timeout"
+	ConfigFileFlag        = "config"
 	ListenPortFlagEnv     = "SOLIDFIRE_PORT"
 	UsernameFlagEnv       = "SOLIDFIRE_USER"
 	PasswordFlagEnv       = "SOLIDFIRE_PASS"
