@@ -58,10 +58,6 @@ func init() {
 	viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
 	viper.BindPFlags(flag.CommandLine)
 
-	log.Infof(viper.GetString(solidfire.UsernameFlag))
-	log.Infof(viper.GetString(solidfire.PasswordFlag))
-	log.Infof(viper.GetString(solidfire.EndpointFlag))
-
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)
