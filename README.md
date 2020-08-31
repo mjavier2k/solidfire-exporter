@@ -30,13 +30,14 @@ Start Netapp Solidfire exporter
 
 ```bash
 ./solidfire_exporter
-```
 
-- listenPort - Port for the exporter to listen on. May also be set by environment variable SOLIDFIRE_PORT. (default 9987)
-- endpoint - Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
-- insecure - Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
-- timeout - HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
-- config - Default configuration file
+
+  -l, --listenPort int    Port for the exporter to listen on. May also be set by environment variable SOLIDFIRE_PORT. (default 9987)
+  -e, --endpoint string   Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
+  -i, --insecure          Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
+  -t, --timeout int       HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
+  -c, --config string     Specify default configuration file. (default: config.yaml)
+```
 
 
 __NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
