@@ -13,6 +13,8 @@ var (
 	InsecureSSLFlag       = "insecure"
 	HTTPClientTimeoutFlag = "timeout"
 	ConfigFileFlag        = "config.yaml"
+	UsernameFlagEnv       = "SOLIDFIRE_USER"
+	PasswordFlagEnv       = "SOLIDFIRE_PASS"
 	ListenPortFlagEnv     = "SOLIDFIRE_PORT"
 	EndpointFlagEnv       = "SOLIDFIRE_RPC_ENDPOINT"
 	InsecureSSLFlagEnv    = "INSECURE_SKIP_VERIFY"

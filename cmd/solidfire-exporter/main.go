@@ -36,6 +36,10 @@ func init() {
 	} else {
 		viper.BindEnv(solidfire.ListenPortFlag, solidfire.ListenPortFlagEnv)
 	}
+
+	viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
+	viper.BindEnv(solidfire.PasswordFlag, solidfire.PasswordFlagEnv)
+	viper.BindEnv(solidfire.EndpointFlag, solidfire.EndpointFlagEnv)
 	viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
 	viper.BindPFlags(flag.CommandLine)
 
