@@ -42,8 +42,8 @@ password: mySolidfirePassword
 2) Environment variable. These option takes precedences to config.yaml
 
 ```
-export SOLIDFIRE_USER="username"
-export SOLIDFIRE_USER="password"
+export SOLIDFIRE_USER="mySolidfireUsername"
+export SOLIDFIRE_USER="mySolidfirePassword"
 ```
 
 __NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
