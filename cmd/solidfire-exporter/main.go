@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	log "github.com/amoghe/distillog"
 	"github.com/mjavier2k/solidfire-exporter/pkg/prom"
@@ -20,14 +21,17 @@ var (
 )
 
 func init() {
-	flag.CommandLine.SortFlags = false
+	flag.CommandLine.SortFlags = true
 	flag.IntP(solidfire.ListenPortFlag, "l", 9987, fmt.Sprintf("Port for the exporter to listen on. May also be set by environment variable %v.", solidfire.ListenPortFlagEnv))
-	flag.StringP(solidfire.UsernameFlag, "u", "my_solidfire_user", fmt.Sprintf("User with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.UsernameFlagEnv))
-	flag.StringP(solidfire.PasswordFlag, "p", "my_solidfire_password", fmt.Sprintf("Password with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.PasswordFlagEnv))
+	// flag.StringP(solidfire.UsernameFlag, "u", "my_solidfire_user", fmt.Sprintf("User with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.UsernameFlagEnv))
+	// flag.StringP(solidfire.PasswordFlag, "p", "my_solidfire_password", fmt.Sprintf("Password with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.PasswordFlagEnv))
 	flag.StringP(solidfire.EndpointFlag, "e", "https://192.168.1.2/json-rpc/11.3", fmt.Sprintf("Endpoint for the Solidfire API. May also be set by environment variable %v.", solidfire.EndpointFlagEnv))
 	flag.BoolP(solidfire.InsecureSSLFlag, "i", false, fmt.Sprintf("Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable %v.", solidfire.InsecureSSLFlagEnv))
+	flag.StringP(solidfire.ConfigFileFlag, "c", "config.yaml", fmt.Sprintf("Specify configuration filename."))
 	flag.Int64P(solidfire.HTTPClientTimeoutFlag, "t", 30, fmt.Sprintf("HTTP Client timeout (in seconds) per call to Solidfire API."))
 	flag.Parse()
+
+	viper.BindPFlags(flag.CommandLine)
 
 	// PORT environment variable takes precedence in order to be backwards-compatible
 	if legacyPort, legacyPortFlagExists := os.LookupEnv("PORT"); legacyPortFlagExists {
@@ -37,16 +41,31 @@ func init() {
 		viper.BindEnv(solidfire.ListenPortFlag, solidfire.ListenPortFlagEnv)
 	}
 
+	// set configname based on --config flag e.g /etc/solidfire-exporter/config.yaml
+	viper.SetConfigName(filepath.Base(viper.GetString(solidfire.ConfigFileFlag)))
+	viper.SetConfigType("yaml")
+	// this adds the dir path based on --config flag if it resides in a different directory
+	viper.AddConfigPath(filepath.Dir(viper.GetString(solidfire.ConfigFileFlag)))
+	viper.AddConfigPath(".")
+
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			log.Infof("No config file found.")
+		}
+	} else {
+		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
+	}
+
 	viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
 	viper.BindEnv(solidfire.PasswordFlag, solidfire.PasswordFlagEnv)
 	viper.BindEnv(solidfire.EndpointFlag, solidfire.EndpointFlagEnv)
 	viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
-	viper.BindPFlags(flag.CommandLine)
+
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)
 	log.Infof("Built: %v", buildTime)
-	listenAddr := fmt.Sprintf("0.0.0.0:%v", viper.GetInt(solidfire.ListenPortFlag))
+	listenAddr := fmt.Sprintf("127.0.0.1:%v", viper.GetInt(solidfire.ListenPortFlag))
 	solidfireExporter, _ := prom.NewCollector()
 	prometheus.MustRegister(solidfireExporter)
 	http.Handle("/metrics", promhttp.Handler())

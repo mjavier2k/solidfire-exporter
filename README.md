@@ -16,17 +16,34 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 ### Usage
 
 ```
-./solidfire_exporter -u $SOLIDFIRE_USER -p $SOLIDFIRE_PASSWORD -e $SOLIDFIRE_ENDPOINT
+./solidfire_exporter
 ```
 
 ```
 Usage of solidfire-exporter:
   -l, --listenPort int    Port for the exporter to listen on. May also be set by environment variable SOLIDFIRE_PORT. (default 9987)
-  -u, --username string   User with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_USER. (default "my_solidfire_user")
-  -p, --password string   Password with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_PASS. (default "my_solidfire_password")
   -e, --endpoint string   Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
   -i, --insecure          Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
   -t, --timeout int       HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
+  -c, --config string     Specify configuration filename. (default: config.yaml)
+```
+
+### Username and Password
+
+There are 2 ways to specify the account that solifire_exporter is using to talk to the solidfire API. 
+
+1) Specify config.yaml
+
+```
+username: username-config
+password: password-config
+```
+
+2) Environment variable. These option takes precedences to config.yaml
+
+```
+export SOLIDFIRE_USER="username"
+export SOLIDFIRE_USER="password"
 ```
 
 __NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
