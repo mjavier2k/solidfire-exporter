@@ -35,8 +35,8 @@ There are 2 ways to specify the account that solifire_exporter is using to talk 
 1) Specify config.yaml
 
 ```
-username: username-config
-password: password-config
+username: mySolidfireUser
+password: mySolidfirePassword
 ```
 
 2) Environment variable. These option takes precedences to config.yaml
