@@ -63,7 +63,7 @@ func init() {
 func main() {
 	log.Infof("Version: %v", sha1ver)
 	log.Infof("Built: %v", buildTime)
-	listenAddr := fmt.Sprintf("127.0.0.1:%v", viper.GetInt(solidfire.ListenPortFlag))
+	listenAddr := fmt.Sprintf("0.0.0.0:%v", viper.GetInt(solidfire.ListenPortFlag))
 	solidfireExporter, _ := prom.NewCollector()
 	prometheus.MustRegister(solidfireExporter)
 	http.Handle("/metrics", promhttp.Handler())
