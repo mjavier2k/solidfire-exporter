@@ -16,20 +16,50 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 ### Usage
 
 ```
-./solidfire_exporter -u $SOLIDFIRE_USER -p $SOLIDFIRE_PASSWORD -e $SOLIDFIRE_ENDPOINT
+./solidfire_exporter --config config.yaml
 ```
 
 ```
 Usage of solidfire-exporter:
-  -l, --listenPort int    Port for the exporter to listen on. May also be set by environment variable SOLIDFIRE_PORT. (default 9987)
-  -u, --username string   User with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_USER. (default "my_solidfire_user")
-  -p, --password string   Password with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_PASS. (default "my_solidfire_password")
-  -e, --endpoint string   Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
-  -i, --insecure          Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
-  -t, --timeout int       HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
+  -c, --config string     Specify configuration filename. (default: config.yaml)
 ```
 
-__NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
+
+### Configuration
+
+| Yaml Configuration Option | CLI Flag | Environment Variable      | Default                         | Example                            | Description                                                                                                                   |
+| ------------------------- | -------- | ------------------------- | ------------------------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| client.username           | N/A      | SOLIDFIRE_CLIENT_USERNAME | ""                              | myUsername                         | User with which to authenticate to the Solidfire API. NOTE: User must have administrator access to be able to query QOS data. |
+| client.password           | N/A      | SOLIDFIRE_CLIENT_PASSWORD | ""                              | myPassword                         | Password with which to authenticate to the Solidfire API.                                                                     |
+| client.endpoint           | N/A      | SOLIDFIRE_CLIENT_ENDPOINT | https://127.0.0.1/json-rpc/11.3 | http://192.168.12.10/json-rpc/11.3 | HTTP(s) endpoint of the Solidfire API.                                                                                        |
+| client.insecure           | N/A      | SOLIDFIRE_CLIENT_INSECURE | false                           | true                               | Disables TLS validation when calling Solidfire API. Useful for bypassing self-signed certificates in testing.                 |
+| client.timeout            | N/A      | SOLIDFIRE_CLIENT_TIMEOUT  | 30                              | 75                                 | Timeout in seconds per call to the Solidfire API.                                                                             |
+| listen.address            | N/A      | SOLIDFIRE_LISTEN_ADDRESS  | 0.0.0.0:9987                    | 192.168.4.2:13987                  | IP address and port where the http server of this exporter should listen                                                      |
+| N/A                       | -c       | SOLIDFIRE_CONFIG          | config.yaml                     | mySolidfireConfig.yaml             | Path to configuration file                                                                                                    |
+
+1) Using config.yaml
+
+```
+listen:
+  address: 127.0.0.1:9987
+client:
+  endpoint: https://192.168.1.2/json-rpc/11.3
+  username: mySolidfireUsername
+  password: mySolidfirePassword
+  insecure: false
+  timeout: 130
+```
+
+2) Using environment variables. These option takes precedence if config.yaml is also specified.
+
+```
+export SOLIDFIRE_CLIENT_USERNAME="mySolidfireUsername"
+export SOLIDFIRE_CLIENT_PASSWORD="mySolidfirePassword"
+export SOLIDFIRE_LISTEN_ADDRESS="127.0.0.1:9987"
+export SOLIDFIRE_CLIENT_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
+export SOLIDFIRE_CLIENT_INSECURE=true
+export SOLIDFIRE_CLIENT_TIMEOUT=30
+```
 
 ### Prometheus Configuration
 

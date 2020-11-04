@@ -6,17 +6,21 @@ import (
 )
 
 var (
-	ListenPortFlag        = "listenPort"
-	UsernameFlag          = "username"
-	PasswordFlag          = "password"
-	EndpointFlag          = "endpoint"
-	InsecureSSLFlag       = "insecure"
-	HTTPClientTimeoutFlag = "timeout"
-	ListenPortFlagEnv     = "SOLIDFIRE_PORT"
-	UsernameFlagEnv       = "SOLIDFIRE_USER"
-	PasswordFlagEnv       = "SOLIDFIRE_PASS"
-	EndpointFlagEnv       = "SOLIDFIRE_RPC_ENDPOINT"
-	InsecureSSLFlagEnv    = "INSECURE_SKIP_VERIFY"
+	ListenAddress        = "listen.address"
+	DefaultListenAddress = "0.0.0.0:9987"
+
+	Username = "client.username"
+	Password = "client.password"
+
+	Endpoint        = "client.endpoint"
+	DefaultEndpoint = "http://127.0.0.1/json-rpc/11.3"
+	InsecureSSL     = "client.insecure"
+
+	HTTPClientTimeout        = "client.timeout"
+	DefaultHTTPClientTimeout = 30
+
+	ConfigFile        = "config"
+	DefaultConfigFile = "config.yaml"
 )
 
 type Client struct {

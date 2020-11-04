@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
+	"path/filepath"
+	"strings"
 
 	log "github.com/amoghe/distillog"
 	"github.com/mjavier2k/solidfire-exporter/pkg/prom"
@@ -20,43 +21,54 @@ var (
 )
 
 func init() {
-	flag.CommandLine.SortFlags = false
-	flag.IntP(solidfire.ListenPortFlag, "l", 9987, fmt.Sprintf("Port for the exporter to listen on. May also be set by environment variable %v.", solidfire.ListenPortFlagEnv))
-	flag.StringP(solidfire.UsernameFlag, "u", "my_solidfire_user", fmt.Sprintf("User with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.UsernameFlagEnv))
-	flag.StringP(solidfire.PasswordFlag, "p", "my_solidfire_password", fmt.Sprintf("Password with which to authenticate to the Solidfire API. May also be set by environment variable %v.", solidfire.PasswordFlagEnv))
-	flag.StringP(solidfire.EndpointFlag, "e", "https://192.168.1.2/json-rpc/11.3", fmt.Sprintf("Endpoint for the Solidfire API. May also be set by environment variable %v.", solidfire.EndpointFlagEnv))
-	flag.BoolP(solidfire.InsecureSSLFlag, "i", false, fmt.Sprintf("Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable %v.", solidfire.InsecureSSLFlagEnv))
-	flag.Int64P(solidfire.HTTPClientTimeoutFlag, "t", 30, fmt.Sprintf("HTTP Client timeout (in seconds) per call to Solidfire API."))
+	flag.CommandLine.SortFlags = true
+	flag.StringP(solidfire.ConfigFile, "c", solidfire.DefaultConfigFile, fmt.Sprintf("Specify configuration filename."))
 	flag.Parse()
+	viper.BindPFlags(flag.CommandLine)
 
-	// PORT environment variable takes precedence in order to be backwards-compatible
-	if legacyPort, legacyPortFlagExists := os.LookupEnv("PORT"); legacyPortFlagExists {
-		viper.BindEnv(solidfire.ListenPortFlag, "PORT")
-		log.Warningf("Found environment variable PORT=%v, skipping lookup of %v", legacyPort, solidfire.ListenPortFlagEnv)
+	// extracts the filename from the config filename passed on --config flag (e.g /etc/solidfire-exporter/config.yaml)
+	viper.SetConfigName(filepath.Base(viper.GetString(solidfire.ConfigFile)))
+	viper.SetConfigType("yaml")
+	// extracts the directory path from the config filename passed on --config flag (e.g /etc/solidfire-exporter/config.yaml)
+	viper.AddConfigPath(filepath.Dir(viper.GetString(solidfire.ConfigFile)))
+	viper.AddConfigPath(".")
+
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			log.Infof("No config file found.")
+		}
 	} else {
-		viper.BindEnv(solidfire.ListenPortFlag, solidfire.ListenPortFlagEnv)
+		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
 	}
 
-	viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
-	viper.BindEnv(solidfire.PasswordFlag, solidfire.PasswordFlagEnv)
-	viper.BindEnv(solidfire.EndpointFlag, solidfire.EndpointFlagEnv)
-	viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
-	viper.BindPFlags(flag.CommandLine)
+	viper.SetDefault(solidfire.ListenAddress, solidfire.DefaultListenAddress)
+	viper.SetDefault(solidfire.Endpoint, solidfire.DefaultEndpoint)
+	viper.SetDefault(solidfire.HTTPClientTimeout, solidfire.DefaultHTTPClientTimeout)
+
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix("SOLIDFIRE")
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)
 	log.Infof("Built: %v", buildTime)
-	listenAddr := fmt.Sprintf("0.0.0.0:%v", viper.GetInt(solidfire.ListenPortFlag))
+	listenAddress := fmt.Sprintf("%v", viper.GetString(solidfire.ListenAddress))
 	solidfireExporter, _ := prom.NewCollector()
 	prometheus.MustRegister(solidfireExporter)
 	http.Handle("/metrics", promhttp.Handler())
-	log.Infof("Booted and listening on %v/metrics\n", listenAddr)
-
+	for _, key := range viper.AllKeys() {
+		value := viper.Get(key)
+		if key == solidfire.Password {
+			value = "[REDACTED]"
+		}
+		log.Infof("Config setting found for %s: %v", key, value)
+	}
+	log.Infof("Booted and listening on %v/metrics\n", listenAddress)
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "UP")
 	})
 
-	err := http.ListenAndServe(listenAddr, nil)
+	err := http.ListenAndServe(listenAddress, nil)
 	if err != nil {
 		log.Errorln(err)
 	}
