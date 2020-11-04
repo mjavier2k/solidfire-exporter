@@ -41,6 +41,10 @@ func init() {
 		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
 	}
 
+	viper.SetDefault(solidfire.ListenAddress, solidfire.DefaultListenAddress)
+	viper.SetDefault(solidfire.Endpoint, solidfire.DefaultEndpoint)
+	viper.SetDefault(solidfire.HTTPClientTimeout, solidfire.DefaultHTTPClientTimeout)
+
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("SOLIDFIRE")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))

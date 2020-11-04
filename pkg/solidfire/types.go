@@ -6,12 +6,18 @@ import (
 )
 
 var (
-	ListenAddress     = "listen.address"
-	Username          = "client.username"
-	Password          = "client.password"
-	Endpoint          = "client.endpoint"
-	InsecureSSL       = "client.insecure"
-	HTTPClientTimeout = "client.timeout"
+	ListenAddress        = "listen.address"
+	DefaultListenAddress = "0.0.0.0:9987"
+
+	Username = "client.username"
+	Password = "client.password"
+
+	Endpoint        = "client.endpoint"
+	DefaultEndpoint = "http://127.0.0.1/json-rpc/11.3"
+	InsecureSSL     = "client.insecure"
+
+	HTTPClientTimeout        = "client.timeout"
+	DefaultHTTPClientTimeout = 30
 
 	ConfigFile        = "config"
 	DefaultConfigFile = "config.yaml"
