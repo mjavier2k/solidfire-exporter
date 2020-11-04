@@ -16,7 +16,7 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 ### Usage
 
 ```
-./solidfire_exporter
+./solidfire_exporter --config config.yaml
 ```
 
 ```
