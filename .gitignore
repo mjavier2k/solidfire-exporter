@@ -1,5 +1,6 @@
 .env
 .env_local
+.env.unset
 main
 tmp
 ./solidfire-exporter

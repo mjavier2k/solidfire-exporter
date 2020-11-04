@@ -21,29 +21,31 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 
 ```
 Usage of solidfire-exporter:
-  -l, --listenPort int    Port for the exporter to listen on. May also be set by environment variable SOLIDFIRE_PORT. (default 9987)
-  -e, --endpoint string   Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_RPC_ENDPOINT. (default "https://192.168.1.2/json-rpc/11.3")
-  -i, --insecure          Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable INSECURE_SKIP_VERIFY.
-  -t, --timeout int       HTTP Client timeout (in seconds) per call to Solidfire API. (default 30)
   -c, --config string     Specify configuration filename. (default: config.yaml)
 ```
 
-### Username and Password
+There are 2 ways to specify the configuration for solifire_exporter.
 
-There are 2 ways to specify the account that solifire_exporter is using to talk to the solidfire API. 
-
-1) Specify config.yaml
+1) Using config.yaml
 
 ```
-username: mySolidfireUser
+endpoint: https://10.10.10.10/json-rpc/11.3
+listenPort: 9987
+insecure: true
+timeout: 60
+username: mySolidfireUsername
 password: mySolidfirePassword
 ```
 
-2) Environment variable. These option takes precedences to config.yaml
+2) Specify Environment variables. Values specified here takes precedences to config.yaml
 
 ```
 export SOLIDFIRE_USER="mySolidfireUsername"
 export SOLIDFIRE_USER="mySolidfirePassword"
+unset SOLIDFIRE_PORT=9987
+unset SOLIDFIRE_RPC_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
+unset INSECURE_SKIP_VERIFY=true
+unset HTTP_CLIENT_TIMEOUT=30
 ```
 
 __NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
