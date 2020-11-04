@@ -48,17 +48,17 @@ func init() {
 func main() {
 	log.Infof("Version: %v", sha1ver)
 	log.Infof("Built: %v", buildTime)
-	listenAddr := fmt.Sprintf("0.0.0.0:%v", viper.GetInt(solidfire.ListenPort))
+	listenAddress := fmt.Sprintf("%v", viper.GetString(solidfire.ListenAddress))
 	solidfireExporter, _ := prom.NewCollector()
 	prometheus.MustRegister(solidfireExporter)
 	http.Handle("/metrics", promhttp.Handler())
-	log.Infof("Booted and listening on %v/metrics\n", listenAddr)
+	log.Infof("Booted and listening on %v/metrics\n", listenAddress)
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "UP")
 	})
 
-	err := http.ListenAndServe(listenAddr, nil)
+	err := http.ListenAndServe(listenAddress, nil)
 	if err != nil {
 		log.Errorln(err)
 	}

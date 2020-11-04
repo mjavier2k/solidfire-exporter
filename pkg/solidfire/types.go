@@ -6,12 +6,12 @@ import (
 )
 
 var (
-	ListenPort        = "listenPort"
-	Username          = "solidfire.username"
-	Password          = "solidfire.password"
-	Endpoint          = "solidfire.endpoint"
-	InsecureSSL       = "solidfire.insecure"
-	HTTPClientTimeout = "solidfire.timeout"
+	ListenAddress     = "listenAddress"
+	Username          = "client.username"
+	Password          = "client.password"
+	Endpoint          = "client.endpoint"
+	InsecureSSL       = "client.insecure"
+	HTTPClientTimeout = "client.timeout"
 
 	ConfigFile        = "config"
 	DefaultConfigFile = "config.yaml"

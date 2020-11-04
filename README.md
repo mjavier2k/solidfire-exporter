@@ -29,13 +29,13 @@ There are 2 ways to specify the configuration for solifire_exporter.
 1) Using config.yaml
 
 ```
-listenPort: 9987
+listenAddress: 127.0.0.1:9987
 client:
-  endpoint: https://192.168.1.1/json-rpc/11.3
+  endpoint: https://192.168.1.2/json-rpc/11.3
   username: mySolidfireUsername
   password: mySolidfirePassword
   insecure: false
-  timeout: 30
+  timeout: 130
 ```
 
 2) Specify Environment variables. Values specified here takes precedences to config.yaml
@@ -43,7 +43,7 @@ client:
 ```
 export SOLIDFIRE_CLIENT_USERNAME="mySolidfireUsername"
 export SOLIDFIRE_CLIENT_PASSWORD="mySolidfirePassword"
-export SOLIDFIRE_LISTENPORT=9987
+export SOLIDFIRE_LISTENADDRESS="127.0.0.1:9987"
 export SOLIDFIRE_CLIENT_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
 export SOLIDFIRE_CLIENT_INSECURE=true
 export SOLIDFIRE_CLIENT_TIMEOUT=30
