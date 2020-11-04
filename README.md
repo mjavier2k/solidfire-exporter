@@ -42,10 +42,10 @@ password: mySolidfirePassword
 ```
 export SOLIDFIRE_USER="mySolidfireUsername"
 export SOLIDFIRE_USER="mySolidfirePassword"
-unset SOLIDFIRE_PORT=9987
-unset SOLIDFIRE_RPC_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
-unset INSECURE_SKIP_VERIFY=true
-unset HTTP_CLIENT_TIMEOUT=30
+export SOLIDFIRE_PORT=9987
+export SOLIDFIRE_RPC_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
+export INSECURE_SKIP_VERIFY=true
+export HTTP_CLIENT_TIMEOUT=30
 ```
 
 __NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
