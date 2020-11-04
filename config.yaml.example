@@ -1,4 +1,5 @@
-listenAddress: 127.0.0.1:9987
+listen:
+  address: 127.0.0.1:9987
 client:
   endpoint: https://192.168.1.2/json-rpc/11.3
   username: mySolidfireUsername

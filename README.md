@@ -24,12 +24,25 @@ Usage of solidfire-exporter:
   -c, --config string     Specify configuration filename. (default: config.yaml)
 ```
 
-There are 2 ways to specify the configuration for solifire_exporter.
+
+### Configuration
+
+The following configuration options are supported by YAML or Environment variable.
+
+```
+client.username - User with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_CLIENT_USERNAME. This account must have administrator access to the solidfire cluster so that QOS data will show up.
+client.password - Password with which to authenticate to the Solidfire API. May also be set by environment variable SOLIDFIRE_CLIENT_PASSWORD.
+client.endpoint - Endpoint for the Solidfire API. May also be set by environment variable SOLIDFIRE_CLIENT_ENDPOINT.
+client.insecure - Whether to disable TLS validation when calling the Solidfire API. May also be set by environment variable SOLIDFIRE_CLIENT_INSECURE.
+client.timeout  - HTTP Client timeout (in seconds) per call to Solidfire API. May also be set by environment variable SOLIDFIRE_CLIENT_TIMEOUT.
+listen.address  - IP address and port where the Solidfire exporter is listening. May also be set by environment variable SOLIDFIRE_LISTEN_ADDRESS.
+```
 
 1) Using config.yaml
 
 ```
-listenAddress: 127.0.0.1:9987
+listen:
+  address: 127.0.0.1:9987
 client:
   endpoint: https://192.168.1.2/json-rpc/11.3
   username: mySolidfireUsername
@@ -38,18 +51,16 @@ client:
   timeout: 130
 ```
 
-2) Specify Environment variables. Values specified here takes precedences to config.yaml
+2) Using environment variables. These option takes precedence if config.yaml is also specified.
 
 ```
 export SOLIDFIRE_CLIENT_USERNAME="mySolidfireUsername"
 export SOLIDFIRE_CLIENT_PASSWORD="mySolidfirePassword"
-export SOLIDFIRE_LISTENADDRESS="127.0.0.1:9987"
+export SOLIDFIRE_LISTEN_ADDRESS="127.0.0.1:9987"
 export SOLIDFIRE_CLIENT_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
 export SOLIDFIRE_CLIENT_INSECURE=true
 export SOLIDFIRE_CLIENT_TIMEOUT=30
 ```
-
-__NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.
 
 ### Prometheus Configuration
 

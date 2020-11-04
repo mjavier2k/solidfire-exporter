@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	ListenAddress     = "listenAddress"
+	ListenAddress     = "listen.address"
 	Username          = "client.username"
 	Password          = "client.password"
 	Endpoint          = "client.endpoint"
