@@ -29,23 +29,24 @@ There are 2 ways to specify the configuration for solifire_exporter.
 1) Using config.yaml
 
 ```
-endpoint: https://10.10.10.10/json-rpc/11.3
 listenPort: 9987
-insecure: true
-timeout: 60
-username: mySolidfireUsername
-password: mySolidfirePassword
+client:
+  endpoint: https://192.168.1.1/json-rpc/11.3
+  username: mySolidfireUsername
+  password: mySolidfirePassword
+  insecure: false
+  timeout: 30
 ```
 
 2) Specify Environment variables. Values specified here takes precedences to config.yaml
 
 ```
-export SOLIDFIRE_USER="mySolidfireUsername"
-export SOLIDFIRE_USER="mySolidfirePassword"
-export SOLIDFIRE_PORT=9987
-export SOLIDFIRE_RPC_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
-export INSECURE_SKIP_VERIFY=true
-export HTTP_CLIENT_TIMEOUT=30
+export SOLIDFIRE_CLIENT_USERNAME="mySolidfireUsername"
+export SOLIDFIRE_CLIENT_PASSWORD="mySolidfirePassword"
+export SOLIDFIRE_LISTENPORT=9987
+export SOLIDFIRE_CLIENT_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
+export SOLIDFIRE_CLIENT_INSECURE=true
+export SOLIDFIRE_CLIENT_TIMEOUT=30
 ```
 
 __NOTE__: The account for __SOLIDFIRE_USER__ must have administrator access to the solidfire cluster so that QOS data will show up.

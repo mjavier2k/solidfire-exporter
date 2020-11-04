@@ -11,14 +11,10 @@ var (
 	Password          = "solidfire.password"
 	Endpoint          = "solidfire.endpoint"
 	InsecureSSL       = "solidfire.insecure"
-	ConfigFile        = "solidfire.config"
 	HTTPClientTimeout = "solidfire.timeout"
-	// ListenPortFlagEnv        = "SOLIDFIRE_PORT"
-	// UsernameFlagEnv          = "SOLIDFIRE_USER"
-	// PasswordFlagEnv          = "SOLIDFIRE_PASS"
-	// EndpointFlagEnv          = "SOLIDFIRE_RPC_ENDPOINT"
-	// InsecureSSLFlagEnv       = "INSECURE_SKIP_VERIFY"
-	// HTTPClientTimeoutFlagEnv = "HTTP_CLIENT_TIMEOUT"
+
+	ConfigFile        = "config"
+	DefaultConfigFile = "config.yaml"
 )
 
 type Client struct {

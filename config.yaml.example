@@ -1,5 +1,5 @@
 listenPort: 19987
-solidfire:
+client:
   endpoint: https://192.168.1.22222/json-rpc/11.3
   username: mySolidfireUsername
   password: mySolidfirePassword

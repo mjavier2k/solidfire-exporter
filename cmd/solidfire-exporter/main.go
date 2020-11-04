@@ -22,14 +22,14 @@ var (
 
 func init() {
 	flag.CommandLine.SortFlags = true
-	flag.StringP(solidfire.ConfigFile, "c", "config.yaml", fmt.Sprintf("Specify configuration filename."))
+	flag.StringP(solidfire.ConfigFile, "c", solidfire.DefaultConfigFile, fmt.Sprintf("Specify configuration filename."))
 	flag.Parse()
 	viper.BindPFlags(flag.CommandLine)
 
-	// set configname based on --config flag e.g /etc/solidfire-exporter/config.yaml
+	// extracts the filename from the config filename passed on --config flag (e.g /etc/solidfire-exporter/config.yaml)
 	viper.SetConfigName(filepath.Base(viper.GetString(solidfire.ConfigFile)))
 	viper.SetConfigType("yaml")
-	// this adds the dir path based on --config flag if it resides in a different directory
+	// extracts the directory path from the config filename passed on --config flag (e.g /etc/solidfire-exporter/config.yaml)
 	viper.AddConfigPath(filepath.Dir(viper.GetString(solidfire.ConfigFile)))
 	viper.AddConfigPath(".")
 
@@ -41,16 +41,9 @@ func init() {
 		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
 	}
 
-	// viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
-	// viper.BindEnv(solidfire.PasswordFlag, solidfire.PasswordFlagEnv)
-	// viper.BindEnv(solidfire.EndpointFlag, solidfire.EndpointFlagEnv)
-	// viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
-	// viper.BindEnv(solidfire.HTTPClientTimeoutFlag, solidfire.HTTPClientTimeoutFlagEnv)
-	// viper.SetEnvPrefix("SOLIDFIRE")
-	viper.SetEnvKeyReplacer(strings.NewReplacer("solidfire", ""))
 	viper.AutomaticEnv()
-	fmt.Println(viper.GetViper().AllKeys())
-
+	viper.SetEnvPrefix("SOLIDFIRE")
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)
