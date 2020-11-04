@@ -56,8 +56,14 @@ func main() {
 	solidfireExporter, _ := prom.NewCollector()
 	prometheus.MustRegister(solidfireExporter)
 	http.Handle("/metrics", promhttp.Handler())
+	for _, key := range viper.AllKeys() {
+		value := viper.Get(key)
+		if key == solidfire.Password {
+			value = "[REDACTED]"
+		}
+		log.Infof("Config setting found for %s: %v", key, value)
+	}
 	log.Infof("Booted and listening on %v/metrics\n", listenAddress)
-
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "UP")
 	})
