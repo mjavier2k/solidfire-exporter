@@ -1,7 +1,7 @@
-
-endpoint: https://192.168.1.2/json-rpc/11.3
 listenPort: 19987
-insecure: false
-timeout: 130
-username: mySolidfireUsername
-password: mySolidfirePassword
+solidfire:
+  endpoint: https://192.168.1.22222/json-rpc/11.3
+  username: mySolidfireUsername
+  password: mySolidfirePassword
+  insecure: false
+  timeout: 130

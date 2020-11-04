@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"path/filepath"
+	"strings"
 
 	log "github.com/amoghe/distillog"
 	"github.com/mjavier2k/solidfire-exporter/pkg/prom"
@@ -21,15 +22,15 @@ var (
 
 func init() {
 	flag.CommandLine.SortFlags = true
-	flag.StringP(solidfire.ConfigFileFlag, "c", "config.yaml", fmt.Sprintf("Specify configuration filename."))
+	flag.StringP(solidfire.ConfigFile, "c", "config.yaml", fmt.Sprintf("Specify configuration filename."))
 	flag.Parse()
 	viper.BindPFlags(flag.CommandLine)
 
 	// set configname based on --config flag e.g /etc/solidfire-exporter/config.yaml
-	viper.SetConfigName(filepath.Base(viper.GetString(solidfire.ConfigFileFlag)))
+	viper.SetConfigName(filepath.Base(viper.GetString(solidfire.ConfigFile)))
 	viper.SetConfigType("yaml")
 	// this adds the dir path based on --config flag if it resides in a different directory
-	viper.AddConfigPath(filepath.Dir(viper.GetString(solidfire.ConfigFileFlag)))
+	viper.AddConfigPath(filepath.Dir(viper.GetString(solidfire.ConfigFile)))
 	viper.AddConfigPath(".")
 
 	if err := viper.ReadInConfig(); err != nil {
@@ -40,17 +41,21 @@ func init() {
 		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
 	}
 
-	viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
-	viper.BindEnv(solidfire.PasswordFlag, solidfire.PasswordFlagEnv)
-	viper.BindEnv(solidfire.EndpointFlag, solidfire.EndpointFlagEnv)
-	viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
-	viper.BindEnv(solidfire.HTTPClientTimeoutFlag, solidfire.HTTPClientTimeoutFlagEnv)
+	// viper.BindEnv(solidfire.UsernameFlag, solidfire.UsernameFlagEnv)
+	// viper.BindEnv(solidfire.PasswordFlag, solidfire.PasswordFlagEnv)
+	// viper.BindEnv(solidfire.EndpointFlag, solidfire.EndpointFlagEnv)
+	// viper.BindEnv(solidfire.InsecureSSLFlag, solidfire.InsecureSSLFlagEnv)
+	// viper.BindEnv(solidfire.HTTPClientTimeoutFlag, solidfire.HTTPClientTimeoutFlagEnv)
+	// viper.SetEnvPrefix("SOLIDFIRE")
+	viper.SetEnvKeyReplacer(strings.NewReplacer("solidfire", ""))
+	viper.AutomaticEnv()
+	fmt.Println(viper.GetViper().AllKeys())
 
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)
 	log.Infof("Built: %v", buildTime)
-	listenAddr := fmt.Sprintf("0.0.0.0:%v", viper.GetInt(solidfire.ListenPortFlag))
+	listenAddr := fmt.Sprintf("0.0.0.0:%v", viper.GetInt(solidfire.ListenPort))
 	solidfireExporter, _ := prom.NewCollector()
 	prometheus.MustRegister(solidfireExporter)
 	http.Handle("/metrics", promhttp.Handler())

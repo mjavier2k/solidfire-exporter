@@ -16,12 +16,12 @@ import (
 func NewSolidfireClient() *Client {
 	log.Infof("initializing new solidfire client")
 
-	insecure := viper.GetBool(InsecureSSLFlag)
+	insecure := viper.GetBool(InsecureSSL)
 	if insecure {
 		log.Warningln("TLS certificate verification is currently disabled - This is not recommended.")
 	}
 
-	log.Infoln("RPC Server:", viper.GetString(EndpointFlag))
+	log.Infoln("RPC Server:", viper.GetString(Endpoint))
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecure},
@@ -29,11 +29,11 @@ func NewSolidfireClient() *Client {
 	return &Client{
 		HttpClient: &http.Client{
 			Transport: tr,
-			Timeout:   time.Duration(viper.GetInt64(HTTPClientTimeoutFlag)) * time.Second,
+			Timeout:   time.Duration(viper.GetInt64(HTTPClientTimeout)) * time.Second,
 		},
-		Username:    viper.GetString(UsernameFlag),
-		Password:    viper.GetString(PasswordFlag),
-		RPCEndpoint: viper.GetString(EndpointFlag),
+		Username:    viper.GetString(Username),
+		Password:    viper.GetString(Password),
+		RPCEndpoint: viper.GetString(Endpoint),
 	}
 }
 

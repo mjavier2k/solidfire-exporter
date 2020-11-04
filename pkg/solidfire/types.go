@@ -6,19 +6,19 @@ import (
 )
 
 var (
-	ListenPortFlag           = "listenPort"
-	UsernameFlag             = "username"
-	PasswordFlag             = "password"
-	EndpointFlag             = "endpoint"
-	InsecureSSLFlag          = "insecure"
-	ConfigFileFlag           = "config"
-	HTTPClientTimeoutFlag    = "timeout"
-	ListenPortFlagEnv        = "SOLIDFIRE_PORT"
-	UsernameFlagEnv          = "SOLIDFIRE_USER"
-	PasswordFlagEnv          = "SOLIDFIRE_PASS"
-	EndpointFlagEnv          = "SOLIDFIRE_RPC_ENDPOINT"
-	InsecureSSLFlagEnv       = "INSECURE_SKIP_VERIFY"
-	HTTPClientTimeoutFlagEnv = "HTTP_CLIENT_TIMEOUT"
+	ListenPort        = "listenPort"
+	Username          = "solidfire.username"
+	Password          = "solidfire.password"
+	Endpoint          = "solidfire.endpoint"
+	InsecureSSL       = "solidfire.insecure"
+	ConfigFile        = "solidfire.config"
+	HTTPClientTimeout = "solidfire.timeout"
+	// ListenPortFlagEnv        = "SOLIDFIRE_PORT"
+	// UsernameFlagEnv          = "SOLIDFIRE_USER"
+	// PasswordFlagEnv          = "SOLIDFIRE_PASS"
+	// EndpointFlagEnv          = "SOLIDFIRE_RPC_ENDPOINT"
+	// InsecureSSLFlagEnv       = "INSECURE_SKIP_VERIFY"
+	// HTTPClientTimeoutFlagEnv = "HTTP_CLIENT_TIMEOUT"
 )
 
 type Client struct {
