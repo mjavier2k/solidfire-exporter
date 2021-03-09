@@ -224,7 +224,14 @@ docker run --env-file=.env_file  --rm -p 8080:8080 mjavier/solidfire-exporter:la
 
 ### Grafana Dashboards
 
-Grafana dasboards available at [examples/dashboards](https://github.com/mjavier2k/solidfire-exporter/tree/master/examples/dashboards) folder of this repo.
+Official Dashboards can be found at:
+- [SolidFire Cluster Overview](https://grafana.com/grafana/dashboards/14025)
+- [SolidFire Volume Details](https://grafana.com/grafana/dashboards/14030)
+- [SolidFire Node Details](https://grafana.com/grafana/dashboards/14026)
+- [SolidFire TopK Volumes](https://grafana.com/grafana/dashboards/14029)
+- [SolidFire Overutilized Volumes](https://grafana.com/grafana/dashboards/14027)
+
+Dashboard sources live in the [examples/dashboards](https://github.com/mjavier2k/solidfire-exporter/tree/master/examples/dashboards) folder of this repo.
 
 ### Contributing
 We welcome any contributions. Please fork the project on GitHub and open Pull Requests for any proposed changes.
