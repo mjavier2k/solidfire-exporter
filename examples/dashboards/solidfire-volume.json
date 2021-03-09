@@ -1,4 +1,46 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "6.5.1"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "heatmap",
+      "name": "Heatmap",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -15,12 +57,28 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 1102,
-  "iteration": 1585782309630,
-  "links": [],
+  "id": null,
+  "iteration": 1614738899936,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "solidfire",
+        "solidfire_exporter",
+        "prometheus"
+      ],
+      "targetBlank": true,
+      "title": "Solidfire",
+      "type": "dashboards"
+    }
+  ],
   "panels": [
     {
       "collapsed": false,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -37,11 +95,11 @@
       "colorBackground": true,
       "colorValue": false,
       "colors": [
-        "#299c46",
+        "#37872D",
         "#37872D",
         "#37872D"
       ],
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "format": "bytes",
       "gauge": {
         "maxValue": 100,
@@ -73,6 +131,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -124,7 +183,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "A floating value that describes\nhow much the client is using the\nvolume. \n\nPossible values:\n\n• 0: The client is not using the\nvolume.\n\n• 100: The client is using their\nmaximum.\n\n• gt 100% : The client is using their\nburst.",
       "format": "none",
       "gauge": {
@@ -157,6 +216,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -209,7 +269,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -241,6 +301,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -288,179 +349,11 @@
       "colorBackground": true,
       "colorValue": false,
       "colors": [
-        "#299c46",
+        "#37872D",
         "#37872D",
         "#37872D"
       ],
-      "datasource": "Prometheus",
-      "description": "The percentage read\noperations during the last sample\nperiod",
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 2,
-        "x": 16,
-        "y": 1
-      },
-      "id": 16,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum(solidfire_volume_stats_read_ops_last_sample {sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum((solidfire_volume_stats_read_ops_last_sample{sfcluster=~\"$cluster\", volume_name=~\"$volume\"} +  solidfire_volume_stats_write_ops_last_sample{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})) * 100",
-          "format": "time_series",
-          "instant": true,
-          "intervalFactor": 1,
-          "refId": "A"
-        }
-      ],
-      "thresholds": "",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Last %Read",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "#37872D",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
-      "description": "The percentage of write\noperations during the last sample\nperiod.",
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 2,
-        "x": 18,
-        "y": 1
-      },
-      "id": 19,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "sum(solidfire_volume_stats_write_ops_last_sample{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum((solidfire_volume_stats_read_ops_last_sample{sfcluster=~\"$cluster\", volume_name=~\"$volume\"} +  solidfire_volume_stats_write_ops_last_sample{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})) * 100",
-          "format": "time_series",
-          "instant": true,
-          "intervalFactor": 1,
-          "refId": "A"
-        }
-      ],
-      "thresholds": "",
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Last %Write",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#299c46",
-        "#37872D",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The total read operations percentage to the\nvolume since the creation of the\nvolume.",
       "format": "percent",
       "gauge": {
@@ -493,6 +386,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -540,11 +434,11 @@
       "colorBackground": true,
       "colorValue": false,
       "colors": [
-        "#299c46",
+        "#37872D",
         "#37872D",
         "#37872D"
       ],
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The total cumulative write\noperations percentage to the volume since\nthe creation of the volume.",
       "format": "percent",
       "gauge": {
@@ -577,6 +471,7 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
+      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -620,18 +515,20 @@
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 5
       },
+      "hiddenSeries": false,
       "id": 42,
       "legend": {
         "alignAsTable": true,
@@ -643,17 +540,28 @@
         "total": false,
         "values": true
       },
-      "lines": false,
-      "linewidth": 1,
+      "lines": true,
+      "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": true,
+      "seriesOverrides": [
+        {
+          "alias": "TOTAL",
+          "bars": false,
+          "lines": true,
+          "stack": false
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
@@ -663,6 +571,14 @@
           "intervalFactor": 4,
           "legendFormat": "{{volume_name}}",
           "refId": "A"
+        },
+        {
+          "expr": "sum (solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 4,
+          "legendFormat": "TOTAL",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -711,15 +627,17 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average time, in\nmicroseconds, to complete\noperations to the volume in the\nlast 500 milliseconds. A \"0\"\n(zero) value means there is no\nI/O to the volume.",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 5
       },
+      "hiddenSeries": false,
       "id": 10,
       "legend": {
         "avg": false,
@@ -734,12 +652,23 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "alias": "TOTAL",
+          "bars": false,
+          "lines": true,
+          "stack": false
+        }
+      ],
+      "spaceLength": 10,
       "stack": true,
       "steppedLine": true,
       "targets": [
@@ -750,6 +679,14 @@
           "intervalFactor": 1,
           "legendFormat": "{{ volume_name }}",
           "refId": "A"
+        },
+        {
+          "expr": "sum(solidfire_volume_stats_latency_usec{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "TOTAL",
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -798,14 +735,16 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 12
       },
+      "hiddenSeries": false,
       "id": 9,
       "legend": {
         "alignAsTable": false,
@@ -821,6 +760,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null as zero",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
@@ -835,8 +777,15 @@
           "lines": true,
           "linewidth": 3,
           "stack": false
+        },
+        {
+          "alias": "/.*TOTAL.*/",
+          "bars": false,
+          "lines": true,
+          "stack": false
         }
       ],
+      "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
       "targets": [
@@ -864,6 +813,22 @@
           "intervalFactor": 1,
           "legendFormat": "{{volume_name}} Sum",
           "refId": "A"
+        },
+        {
+          "expr": "sum (rate(solidfire_volume_stats_read_bytes {sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval]))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "TOTAL read  bytes",
+          "refId": "D"
+        },
+        {
+          "expr": "sum (rate(solidfire_volume_stats_write_bytes {sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval]))",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "legendFormat": "TOTAL write  bytes",
+          "refId": "E"
         }
       ],
       "thresholds": [],
@@ -912,15 +877,17 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "A floating value that describes\nhow much the client is using the\nvolume. Possible values:\n\n- 0: The client is not using the\nvolume.\n\n- 100: The client is using their\nmaximum.\n\n - gt 100: The client is using their\nburst.",
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 12
       },
+      "hiddenSeries": false,
       "id": 36,
       "legend": {
         "alignAsTable": false,
@@ -936,6 +903,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 1,
@@ -950,6 +920,7 @@
           "points": true
         }
       ],
+      "spaceLength": 10,
       "stack": false,
       "steppedLine": true,
       "targets": [
@@ -1028,15 +999,17 @@
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The total number of IOP credits\navailable to the user. When\nvolumes are not using up to the\nconfigured maxIOPS, credits are\naccrued.",
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 19
       },
+      "hiddenSeries": false,
       "id": 5,
       "legend": {
         "avg": false,
@@ -1051,12 +1024,16 @@
       "linewidth": 2,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
+      "spaceLength": 10,
       "stack": false,
       "steppedLine": true,
       "targets": [
@@ -1115,15 +1092,17 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average size in bytes of\nrecent I/O to the volume in the\nlast 500 milliseconds.",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 20
       },
+      "hiddenSeries": false,
       "id": 24,
       "legend": {
         "alignAsTable": false,
@@ -1139,6 +1118,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
@@ -1153,6 +1135,7 @@
           "points": true
         }
       ],
+      "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
       "targets": [
@@ -1211,15 +1194,17 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The current actual IOPS to the\nvolume in the last 500\nmilliseconds.",
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 27
       },
+      "hiddenSeries": false,
       "id": 22,
       "legend": {
         "alignAsTable": false,
@@ -1235,12 +1220,23 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null as zero",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "alias": "TOTAL actual  iops",
+          "bars": false,
+          "lines": true,
+          "stack": false
+        }
+      ],
+      "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
       "targets": [
@@ -1315,15 +1311,17 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The average time, in\nmicroseconds, to complete read\noperations to the volume in the\nlast 500 milliseconds",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 27
       },
+      "hiddenSeries": false,
       "id": 26,
       "legend": {
         "avg": false,
@@ -1338,6 +1336,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
@@ -1353,6 +1354,7 @@
           "color": "#FF9830"
         }
       ],
+      "spaceLength": 10,
       "stack": true,
       "steppedLine": true,
       "targets": [
@@ -1418,15 +1420,17 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The number of outstanding read\nand write operations to the\nvolume.",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 34
       },
+      "hiddenSeries": false,
       "id": 23,
       "legend": {
         "avg": false,
@@ -1441,12 +1445,16 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
+      "spaceLength": 10,
       "stack": false,
       "steppedLine": true,
       "targets": [
@@ -1505,15 +1513,17 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "The total cumulative unaligned\nread operations to a volume\nsince the creation of the volume.\n\nThe total cumulative unaligned\nwrite operations to a volume\nsince the creation of the volume",
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 34
       },
+      "hiddenSeries": false,
       "id": 25,
       "legend": {
         "avg": false,
@@ -1528,12 +1538,16 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
+      "spaceLength": 10,
       "stack": true,
       "steppedLine": true,
       "targets": [
@@ -1600,15 +1614,17 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": "${DS_PROMETHEUS}",
       "description": "A floating value between 0 and 1\nthat represents how much the\nsystem is throttling clients below\ntheir maxIOPS because of rereplication of data, transient\nerrors, and snapshots taken",
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 41
       },
+      "hiddenSeries": false,
       "id": 29,
       "legend": {
         "alignAsTable": false,
@@ -1624,6 +1640,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
@@ -1638,6 +1657,7 @@
           "points": true
         }
       ],
+      "spaceLength": 10,
       "stack": true,
       "steppedLine": true,
       "targets": [
@@ -1693,6 +1713,7 @@
     },
     {
       "collapsed": true,
+      "datasource": "${DS_PROMETHEUS}",
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1717,14 +1738,15 @@
             "mode": "spectrum"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 7
+            "y": 2
           },
           "heatmap": {},
+          "hideZeroBuckets": false,
           "highlightCards": true,
           "id": 4,
           "interval": "",
@@ -1733,8 +1755,10 @@
           },
           "links": [],
           "maxPerRow": 2,
+          "options": {},
           "repeat": "solidfire_volume_qos_histogram",
           "repeatDirection": "h",
+          "reverseYBuckets": false,
           "scopedVars": {
             "solidfire_volume_qos_histogram": {
               "selected": false,
@@ -1743,8 +1767,8 @@
             },
             "volume": {
               "selected": true,
-              "text": "testvolume",
-              "value": "testvolume"
+              "text": "nosnapshots-ds01",
+              "value": "nosnapshots-ds01"
             }
           },
           "targets": [
@@ -1801,26 +1825,29 @@
             "mode": "spectrum"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 7
+            "y": 2
           },
           "heatmap": {},
+          "hideZeroBuckets": false,
           "highlightCards": true,
-          "id": 37,
+          "id": 43,
           "interval": "",
           "legend": {
             "show": true
           },
           "links": [],
           "maxPerRow": 2,
+          "options": {},
           "repeat": null,
           "repeatDirection": "h",
-          "repeatIteration": 1584122414425,
+          "repeatIteration": 1614736916616,
           "repeatPanelId": 4,
+          "reverseYBuckets": false,
           "scopedVars": {
             "solidfire_volume_qos_histogram": {
               "selected": false,
@@ -1829,8 +1856,8 @@
             },
             "volume": {
               "selected": true,
-              "text": "testvolume",
-              "value": "testvolume"
+              "text": "nosnapshots-ds01",
+              "value": "nosnapshots-ds01"
             }
           },
           "targets": [
@@ -1887,26 +1914,29 @@
             "mode": "spectrum"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 15
+            "y": 10
           },
           "heatmap": {},
+          "hideZeroBuckets": false,
           "highlightCards": true,
-          "id": 38,
+          "id": 44,
           "interval": "",
           "legend": {
             "show": true
           },
           "links": [],
           "maxPerRow": 2,
+          "options": {},
           "repeat": null,
           "repeatDirection": "h",
-          "repeatIteration": 1584122414425,
+          "repeatIteration": 1614736916616,
           "repeatPanelId": 4,
+          "reverseYBuckets": false,
           "scopedVars": {
             "solidfire_volume_qos_histogram": {
               "selected": false,
@@ -1915,8 +1945,8 @@
             },
             "volume": {
               "selected": true,
-              "text": "testvolume",
-              "value": "testvolume"
+              "text": "nosnapshots-ds01",
+              "value": "nosnapshots-ds01"
             }
           },
           "targets": [
@@ -1973,26 +2003,29 @@
             "mode": "spectrum"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 15
+            "y": 10
           },
           "heatmap": {},
+          "hideZeroBuckets": false,
           "highlightCards": true,
-          "id": 39,
+          "id": 45,
           "interval": "",
           "legend": {
             "show": true
           },
           "links": [],
           "maxPerRow": 2,
+          "options": {},
           "repeat": null,
           "repeatDirection": "h",
-          "repeatIteration": 1584122414425,
+          "repeatIteration": 1614736916616,
           "repeatPanelId": 4,
+          "reverseYBuckets": false,
           "scopedVars": {
             "solidfire_volume_qos_histogram": {
               "selected": false,
@@ -2001,8 +2034,8 @@
             },
             "volume": {
               "selected": true,
-              "text": "testvolume",
-              "value": "testvolume"
+              "text": "nosnapshots-ds01",
+              "value": "nosnapshots-ds01"
             }
           },
           "targets": [
@@ -2059,26 +2092,29 @@
             "mode": "spectrum"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 23
+            "y": 18
           },
           "heatmap": {},
+          "hideZeroBuckets": false,
           "highlightCards": true,
-          "id": 40,
+          "id": 46,
           "interval": "",
           "legend": {
             "show": true
           },
           "links": [],
           "maxPerRow": 2,
+          "options": {},
           "repeat": null,
           "repeatDirection": "h",
-          "repeatIteration": 1584122414425,
+          "repeatIteration": 1614736916616,
           "repeatPanelId": 4,
+          "reverseYBuckets": false,
           "scopedVars": {
             "solidfire_volume_qos_histogram": {
               "selected": false,
@@ -2087,8 +2123,8 @@
             },
             "volume": {
               "selected": true,
-              "text": "testvolume",
-              "value": "testvolume"
+              "text": "nosnapshots-ds01",
+              "value": "nosnapshots-ds01"
             }
           },
           "targets": [
@@ -2145,26 +2181,29 @@
             "mode": "spectrum"
           },
           "dataFormat": "tsbuckets",
-          "datasource": "Prometheus",
+          "datasource": "${DS_PROMETHEUS}",
           "gridPos": {
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 23
+            "y": 18
           },
           "heatmap": {},
+          "hideZeroBuckets": false,
           "highlightCards": true,
-          "id": 41,
+          "id": 47,
           "interval": "",
           "legend": {
             "show": true
           },
           "links": [],
           "maxPerRow": 2,
+          "options": {},
           "repeat": null,
           "repeatDirection": "h",
-          "repeatIteration": 1584122414425,
+          "repeatIteration": 1614736916616,
           "repeatPanelId": 4,
+          "reverseYBuckets": false,
           "scopedVars": {
             "solidfire_volume_qos_histogram": {
               "selected": false,
@@ -2173,8 +2212,8 @@
             },
             "volume": {
               "selected": true,
-              "text": "testvolume",
-              "value": "testvolume"
+              "text": "nosnapshots-ds01",
+              "value": "nosnapshots-ds01"
             }
           },
           "targets": [
@@ -2217,30 +2256,24 @@
         }
       ],
       "repeat": "volume",
-      "scopedVars": {
-        "volume": {
-          "selected": true,
-          "text": "testvolume",
-          "value": "testvolume"
-        }
-      },
       "title": "$volume Volume QoS",
       "type": "row"
     }
   ],
-  "refresh": false,
-  "schemaVersion": 18,
+  "refresh": "1m",
+  "schemaVersion": 21,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "solidfire",
+    "solidfire_exporter",
+    "prometheus"
+  ],
   "templating": {
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "sfcluster01",
-          "value": "sfcluster01"
-        },
-        "datasource": "Prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(solidfire_cluster_capacity_active_sessions, sfcluster)",
         "hide": 0,
         "includeAll": false,
@@ -2261,14 +2294,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "tags": [],
-          "text": "testvolume",
-          "value": [
-            "testvolume"
-          ]
-        },
-        "datasource": "Prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(solidfire_volume_stats_actual_iops{sfcluster=~\"^$cluster\"},volume_name)",
         "hide": 0,
         "includeAll": false,
@@ -2289,11 +2316,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": "Prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "metrics(solidfire_volume_qos.*bucket)",
         "hide": 0,
         "includeAll": true,
@@ -2313,32 +2337,27 @@
         "useTags": false
       },
       {
-        "allValue": null,
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
         "current": {
-          "tags": [],
-          "text": "1m",
-          "value": "1m"
+          "selected": false,
+          "text": "10m",
+          "value": "10m"
         },
         "hide": 0,
-        "includeAll": false,
         "label": "Interval",
-        "multi": false,
         "name": "interval",
         "options": [
           {
             "selected": true,
-            "text": "1m",
-            "value": "1m"
+            "text": "10m",
+            "value": "10m"
           },
           {
             "selected": false,
-            "text": "2m",
-            "value": "2m"
-          },
-          {
-            "selected": false,
-            "text": "5m",
-            "value": "5m"
+            "text": "30m",
+            "value": "30m"
           },
           {
             "selected": false,
@@ -2346,14 +2365,15 @@
             "value": "1h"
           }
         ],
-        "query": "1m,2m,5m,1h",
+        "query": "10m,30m,1h",
+        "refresh": 2,
         "skipUrlSync": false,
-        "type": "custom"
+        "type": "interval"
       }
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -2384,5 +2404,5 @@
   "timezone": "",
   "title": "Prometheus - SolidFire Volume",
   "uid": "khyczswZk",
-  "version": 164
+  "version": 181
 }
