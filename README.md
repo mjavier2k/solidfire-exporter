@@ -14,6 +14,8 @@ NetApp Solidfire-Exporter queries the Solidfire API and exports the results as P
   - [Metrics](#metrics)
   - [Usage](#usage)
   - [Configuration](#configuration)
+      - [Shell-Like Environments](#shell-like-environments)
+      - [Docker-Type Environments / SystemD EnvironmentFile Environment](#docker-type-environments--systemd-environmentfile-environment)
   - [Prometheus Configuration](#prometheus-configuration)
   - [Using Docker](#using-docker)
   - [Grafana Dashboards](#grafana-dashboards)
@@ -179,9 +181,38 @@ Usage of solidfire-exporter:
 | listen.address            | N/A      | SOLIDFIRE_LISTEN_ADDRESS  | 0.0.0.0:9987                    | 192.168.4.2:13987                  | IP address and port where the http server of this exporter should listen                                                      |
 | N/A                       | -c       | SOLIDFIRE_CONFIG          | config.yaml                     | mySolidfireConfig.yaml             | Path to configuration file                                                                                                    |
 
-1) Using config.yaml
+There are two different options to configure the solidfire-exporter
 
+1) Using environment variables. These option takes precedence if config.yaml is also specified.
+
+#### Shell-Like Environments
+
+Note that we *are* allowed to double-quote the values here
+
+```bash
+export SOLIDFIRE_CLIENT_USERNAME="mySolidfireUsername"
+export SOLIDFIRE_CLIENT_PASSWORD="mySolidfirePassword"
+export SOLIDFIRE_LISTEN_ADDRESS="127.0.0.1:9987"
+export SOLIDFIRE_CLIENT_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
+export SOLIDFIRE_CLIENT_INSECURE=true
+export SOLIDFIRE_CLIENT_TIMEOUT=30
 ```
+#### Docker-Type Environments / SystemD EnvironmentFile Environment
+
+Note that we **MAY NOT** have any double quotes in the values below!
+
+```bash
+SOLIDFIRE_CLIENT_USERNAME=mySolidfireUsername
+SOLIDFIRE_CLIENT_PASSWORD=mySolidfirePassword
+SOLIDFIRE_LISTEN_ADDRESS=0.0.0.0:9987
+SOLIDFIRE_CLIENT_ENDPOINT=https://10.10.10.10/json-rpc/11.3
+SOLIDFIRE_CLIENT_INSECURE=true
+SOLIDFIRE_CLIENT_TIMEOUT=30
+```
+
+2) Using a config.yaml file
+
+```yaml
 listen:
   address: 127.0.0.1:9987
 client:
@@ -190,17 +221,6 @@ client:
   password: mySolidfirePassword
   insecure: false
   timeout: 130
-```
-
-2) Using environment variables. These option takes precedence if config.yaml is also specified.
-
-```
-export SOLIDFIRE_CLIENT_USERNAME="mySolidfireUsername"
-export SOLIDFIRE_CLIENT_PASSWORD="mySolidfirePassword"
-export SOLIDFIRE_LISTEN_ADDRESS="127.0.0.1:9987"
-export SOLIDFIRE_CLIENT_ENDPOINT="https://10.10.10.10/json-rpc/11.3"
-export SOLIDFIRE_CLIENT_INSECURE=true
-export SOLIDFIRE_CLIENT_TIMEOUT=30
 ```
 
 ## Prometheus Configuration

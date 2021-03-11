@@ -5,22 +5,24 @@ import (
 	"time"
 )
 
-var (
-	ListenAddress        = "listen.address"
-	DefaultListenAddress = "0.0.0.0:9987"
+const (
+	ListenAddress        string = "listen.address"
+	DefaultListenAddress string = "0.0.0.0:9987"
 
-	Username = "client.username"
-	Password = "client.password"
+	Username        string = "client.username"
+	DefaultUsername string = "default"
+	Password        string = "client.password"
+	DefaultPassword string = "default"
 
-	Endpoint        = "client.endpoint"
-	DefaultEndpoint = "http://127.0.0.1/json-rpc/11.3"
-	InsecureSSL     = "client.insecure"
+	Endpoint        string = "client.endpoint"
+	DefaultEndpoint string = "http://127.0.0.1/json-rpc/11.3"
+	InsecureSSL     string = "client.insecure"
 
-	HTTPClientTimeout        = "client.timeout"
-	DefaultHTTPClientTimeout = 30
+	HTTPClientTimeout        string = "client.timeout"
+	DefaultHTTPClientTimeout int    = 30
 
-	ConfigFile        = "config"
-	DefaultConfigFile = "config.yaml"
+	ConfigFile        string = "config"
+	DefaultConfigFile string = "config.yaml"
 )
 
 type Client struct {

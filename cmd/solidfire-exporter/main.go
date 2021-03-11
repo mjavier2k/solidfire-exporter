@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -35,40 +36,55 @@ func init() {
 
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			log.Infof("No config file found.")
+			log.Warningf("No config file found.")
 		}
 	} else {
 		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
 	}
 
+	// Set sensible defaults
 	viper.SetDefault(solidfire.ListenAddress, solidfire.DefaultListenAddress)
 	viper.SetDefault(solidfire.Endpoint, solidfire.DefaultEndpoint)
 	viper.SetDefault(solidfire.HTTPClientTimeout, solidfire.DefaultHTTPClientTimeout)
+	viper.SetDefault(solidfire.Username, solidfire.DefaultUsername)
+	viper.SetDefault(solidfire.Password, solidfire.DefaultPassword)
+	viper.SetDefault(solidfire.ConfigFile, solidfire.DefaultConfigFile)
 
+	// Bind the viper flags to ENV variables
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("SOLIDFIRE")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+	viper.BindEnv(solidfire.Username)
+	viper.BindEnv(solidfire.Password)
+	viper.BindEnv(solidfire.Endpoint)
+	viper.BindEnv(solidfire.InsecureSSL)
+	viper.BindEnv(solidfire.HTTPClientTimeout)
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)
 	log.Infof("Built: %v", buildTime)
 	listenAddress := fmt.Sprintf("%v", viper.GetString(solidfire.ListenAddress))
-	solidfireExporter, _ := prom.NewCollector()
+	solidfireExporter, err := prom.NewCollector()
+	if err != nil {
+		log.Errorf("error initializing collector: %s\n", err.Error())
+		os.Exit(1)
+	}
 	prometheus.MustRegister(solidfireExporter)
 	http.Handle("/metrics", promhttp.Handler())
+
 	for _, key := range viper.AllKeys() {
 		value := viper.Get(key)
 		if key == solidfire.Password {
 			value = "[REDACTED]"
 		}
-		log.Infof("Config setting found for %s: %v", key, value)
+		log.Infof("Booting with setting %s: %v", key, value)
 	}
 	log.Infof("Booted and listening on %v/metrics\n", listenAddress)
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "UP")
 	})
 
-	err := http.ListenAndServe(listenAddress, nil)
+	err = http.ListenAndServe(listenAddress, nil)
 	if err != nil {
 		log.Errorln(err)
 	}

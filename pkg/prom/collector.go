@@ -1236,7 +1236,11 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 func NewCollector() (*solidfireCollector, error) {
 	log.Infof("initializing new solidfire collector")
+	c, err := solidfire.NewSolidfireClient()
+	if err != nil {
+		return nil, err
+	}
 	return &solidfireCollector{
-		client: solidfire.NewSolidfireClient(),
+		client: c,
 	}, nil
 }
