@@ -1,6 +1,21 @@
 on: release
 name: Build
 jobs:
+  release-linux-arm64:
+      name: release linux/arm64
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@master
+      - name: compile and release
+        uses: mjavier2k/go-release.action@v1.1.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOARCH: arm64
+          GOOS: linux
+          CGO_ENABLED: "0"
+          EXECUTABLE_NAME: "solidfire-exporter"
+          EXECUTABLE_PATH: "./cmd/solidfire-exporter"
+          PACKAGE: "./cmd/solidfire-exporter/main.go"
   release-linux-386:
     name: release linux/386
     runs-on: ubuntu-latest
