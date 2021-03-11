@@ -527,18 +527,30 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		cluster.ZeroBlocks)
 
 	clusterThinProvisioningFactor := (cluster.NonZeroBlocks + cluster.ZeroBlocks) / cluster.NonZeroBlocks
+	if cluster.NonZeroBlocks == 0 {
+		clusterThinProvisioningFactor = 1
+	}
+
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterCapacityThinProvisioningFactor,
 		prometheus.GaugeValue,
 		clusterThinProvisioningFactor)
 
 	clusterDeDuplicationFactor := (cluster.NonZeroBlocks + cluster.SnapshotNonZeroBlocks) / cluster.UniqueBlocks
+	if cluster.UniqueBlocks == 0 {
+		clusterDeDuplicationFactor = 1
+	}
+
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterCapacityDeDuplicationFactor,
 		prometheus.GaugeValue,
 		clusterDeDuplicationFactor)
 
 	clusterCompressionFactor := (cluster.UniqueBlocks * 4096) / (cluster.UniqueBlocksUsedSpace * 0.93)
+	if cluster.UniqueBlocksUsedSpace == 0 {
+		clusterCompressionFactor = 1
+	}
+
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterCapacityCompressionFactor,
 		prometheus.GaugeValue,
