@@ -7,21 +7,26 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"time"
 
 	log "github.com/amoghe/distillog"
 	"github.com/spf13/viper"
 )
 
-func NewSolidfireClient() *Client {
+func NewSolidfireClient() (*Client, error) {
 	log.Infof("initializing new solidfire client")
 
 	insecure := viper.GetBool(InsecureSSL)
 	if insecure {
 		log.Warningln("TLS certificate verification is currently disabled - This is not recommended.")
 	}
-
-	log.Infoln("RPC Server:", viper.GetString(Endpoint))
+	rpcServer := viper.GetString(Endpoint)
+	_, err := url.Parse(rpcServer)
+	if err != nil {
+		return nil, fmt.Errorf("error parsing RPC Server url: %s", err.Error())
+	}
+	log.Infoln("RPC Server:", rpcServer)
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecure},
@@ -33,12 +38,15 @@ func NewSolidfireClient() *Client {
 		},
 		Username:    viper.GetString(Username),
 		Password:    viper.GetString(Password),
-		RPCEndpoint: viper.GetString(Endpoint),
-	}
+		RPCEndpoint: rpcServer,
+	}, nil
 }
 
 func doRpcCall(c *Client, body []byte) ([]byte, error) {
 	req, err := http.NewRequest("POST", c.RPCEndpoint, bytes.NewReader(body))
+	if err != nil {
+		return nil, fmt.Errorf("Error building RPC request to %v: %v", c.RPCEndpoint, err)
+	}
 	req.SetBasicAuth(c.Username, c.Password)
 	req.Header.Set("Content-Type", "application/json")
 	resp, err := c.HttpClient.Do(req)

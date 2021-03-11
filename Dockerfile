@@ -4,6 +4,9 @@ FROM golang:1.13.2-alpine AS go-build-env
 RUN apk add --no-cache --update make git alpine-sdk gcc build-base
 
 WORKDIR /src
+ADD go.mod /src
+ADD go.sum /src
+RUN go mod download
 ADD . /src
 
 RUN make test
