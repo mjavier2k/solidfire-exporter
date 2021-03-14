@@ -64,68 +64,68 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_cluster_capacity_used_metadata_space_in_snapshots | gauge | The number of bytes on volume drives used for storing unique data in snapshots. This number provides an estimate of how much metadata space would be regained by deleting all snapshots on the system |
 | solidfire_cluster_capacity_used_space | gauge | The total amount of space used by all block drives in the system |
 | solidfire_cluster_capacity_zero_blocks | gauge | The total number of empty 4KiB blocks without data after the last round of garbage collection operation has completed |
-| solidfire_cluster_node_stats_cbytes_in | gauge | Bytes in on the cluster interface |
-| solidfire_cluster_node_stats_cbytes_out | gauge | Bytes out on the cluster interface |
-| solidfire_cluster_node_stats_count | gauge | Node stat sample count |
-| solidfire_cluster_node_stats_cpu_percentage | gauge | CPU usage in percent. |
-| solidfire_cluster_node_stats_cpu_total_seconds | gauge | CPU usage in seconds since last boot. |
-| solidfire_cluster_node_stats_load_histogram | histogram | System load histogram |
-| solidfire_cluster_node_stats_mbytes_in | gauge | Bytes in on the management interface. |
-| solidfire_cluster_node_stats_mbytes_out | gauge | Bytes out on the management interface. |
-| solidfire_cluster_node_stats_network_utilization_cluster_percentage | gauge | Network interface utilization (in percent) for the cluster network interface. |
-| solidfire_cluster_node_stats_network_utilization_storage_percentage | gauge | Network interface utilization (in percent) for the storage network interface. |
-| solidfire_cluster_node_stats_read_latency_usec_total | gauge | The number, in milliseconds, of read latency between clusters. |
-| solidfire_cluster_node_stats_read_ops | gauge | Read Operations |
-| solidfire_cluster_node_stats_sbytes_in | gauge | Bytes in on the storage interface. |
-| solidfire_cluster_node_stats_sbytes_out | gauge | Bytes out on the storage interface. |
-| solidfire_cluster_node_stats_used_memory | gauge | Total memory usage in bytes. |
-| solidfire_cluster_node_stats_write_latency_usec_total | gauge | The number, in milliseconds, of read latency between clusters. |
-| solidfire_cluster_node_stats_write_ops | gauge | Write Operations |
-| solidfire_cluster_read_latency_usec_total | gauge | The total time spent performing read operations since the creation of the cluster. |
+| solidfire_node_stats_cbytes_in_total | counter | Bytes in on the cluster interface |
+| solidfire_node_stats_cbytes_out_total | counter | Bytes out on the cluster interface |
+| solidfire_node_stats_samples | gauge | Node stat sample count |
+| solidfire_node_stats_cpu_percentage | gauge | CPU usage in percent. |
+| solidfire_node_stats_cpu_seconds_total | gauge | CPU usage in seconds since last boot. |
+| solidfire_node_stats_load | histogram | System load histogram |
+| solidfire_node_stats_mbytes_in_total | counter | Bytes in on the management interface. |
+| solidfire_node_stats_mbytes_out_total | counter | Bytes out on the management interface. |
+| solidfire_node_stats_network_utilization_cluster_percentage | gauge | Network interface utilization (in percent) for the cluster network interface. |
+| solidfire_node_stats_network_utilization_storage_percentage | gauge | Network interface utilization (in percent) for the storage network interface. |
+| solidfire_node_stats_read_latency_seconds_total | gauge | The number, in milliseconds, of read latency between clusters. |
+| solidfire_node_stats_read_ops | gauge | Read Operations |
+| solidfire_node_stats_sbytes_in_total | counter | Bytes in on the storage interface. |
+| solidfire_node_stats_sbytes_out_total | counter | Bytes out on the storage interface. |
+| solidfire_node_stats_used_memory_bytes | gauge | Total memory usage in bytes. |
+| solidfire_node_stats_write_latency_seconds_total | gauge | The number, in milliseconds, of read latency between clusters. |
+| solidfire_node_stats_write_ops | gauge | Write Operations |
+| solidfire_cluster_stats_read_latency_seconds_total | gauge | The total time spent performing read operations since the creation of the cluster. |
 | solidfire_cluster_stats_actual_iops | gauge | Current actual IOPS for the entire cluster in the last 500 milliseconds. |
 | solidfire_cluster_stats_average_iops_size | gauge | Average size in bytes of recent I/O to the cluster in the last 500 milliseconds. |
 | solidfire_cluster_stats_client_queue_depth | gauge | The number of outstanding read and write operations to the cluster. |
-| solidfire_cluster_stats_latency_usec | gauge | The average time, in microseconds, to complete operations to a cluster in the last 500 milliseconds. |
+| solidfire_cluster_stats_latency_seconds | gauge | The average time, in microseconds, to complete operations to a cluster in the last 500 milliseconds. |
 | solidfire_cluster_stats_normalized_iops | gauge | Average number of IOPS for the entire cluster in the last 500 milliseconds. |
-| solidfire_cluster_stats_read_bytes | gauge | The total cumulative bytes read from the cluster since the creation of the cluster. |
-| solidfire_cluster_stats_read_bytes_last_sample | gauge | The total number of bytes read from the cluster during the last sample period. |
-| solidfire_cluster_stats_read_latency_usec | gauge | The average time, in microseconds, to complete read operations to the cluster in the last 500 milliseconds. |
-| solidfire_cluster_stats_read_ops | gauge | The total cumulative read operations to the cluster since the creation of the cluster. |
-| solidfire_cluster_stats_read_ops_last_sample | gauge | The total number of read operations during the last sample period. |
+| solidfire_cluster_stats_read_bytes_total | gauge | The total cumulative bytes read from the cluster since the creation of the cluster. |
+| solidfire_cluster_stats_last_sample_read_bytes | gauge | The total number of bytes read from the cluster during the last sample period. |
+| solidfire_cluster_stats_read_latency_seconds | gauge | The average time, in microseconds, to complete read operations to the cluster in the last 500 milliseconds. |
+| solidfire_cluster_stats_read_ops_total | gauge | The total cumulative read operations to the cluster since the creation of the cluster. |
+| solidfire_cluster_stats_last_sample_read_ops | gauge | The total number of read operations during the last sample period. |
 | solidfire_cluster_stats_sample_period_msec | gauge | The length of the sample period, in milliseconds. |
-| solidfire_cluster_stats_services_count | gauge | The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes. |
+| solidfire_cluster_stats_services | gauge | The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes. |
 | solidfire_cluster_stats_services_total | gauge | The total number of expected services running on the cluster. |
 | solidfire_cluster_stats_unaligned_reads | gauge | The total cumulative unaligned read operations to a cluster since the creation of the cluster |
 | solidfire_cluster_stats_unaligned_writes | gauge | The total cumulative unaligned write operations to a cluster since the creation of the cluster. |
 | solidfire_cluster_stats_utilization | gauge | The cluster capacity being utilized. |
-| solidfire_cluster_stats_write_bytes | gauge | The total cumulative bytes written to the cluster since the creation of the cluster |
-| solidfire_cluster_stats_write_bytes_last_sample | gauge | The total number of bytes written to the cluster during the last sample period. |
-| solidfire_cluster_stats_write_latency_usec | gauge | The average time, in microseconds, to complete write operations to a cluster in the last 500 milliseconds. |
-| solidfire_cluster_stats_write_latency_usec_total | gauge | The total time spent performing write operations since the creation of the cluster. |
+| solidfire_cluster_stats_write_bytes_total | gauge | The total cumulative bytes written to the cluster since the creation of the cluster |
+| solidfire_cluster_stats_last_sample_write_bytes | gauge | The total number of bytes written to the cluster during the last sample period. |
+| solidfire_cluster_stats_write_latency_seconds | gauge | The average time, in microseconds, to complete write operations to a cluster in the last 500 milliseconds. |
+| solidfire_cluster_stats_write_latency_seconds_total | gauge | The total time spent performing write operations since the creation of the cluster. |
 | solidfire_cluster_stats_write_ops | gauge | The total cumulative write operations to the cluster since the creation of the cluster. |
-| solidfire_cluster_stats_write_ops_last_sample | gauge | The total number of write operations during the last sample period. |
-| solidfire_cluster_threshold_block_fullness | gauge | The current computed level of block fullness of the cluster. |
-| solidfire_cluster_threshold_fullness | gauge | Reflects the highest level of fullness between 'blockFullness' and 'metadataFullness'. |
-| solidfire_cluster_threshold_max_metadata_over_provision_factor | gauge | A value representative of the number of times metadata space can be over provisioned relative to the amount of space available. |
-| solidfire_cluster_threshold_metadata_fullness | gauge | The current computed level of metadata fullness of the cluster. |
-| solidfire_cluster_threshold_slice_reserve_used_threshold_percentage | gauge | Error condition. A system alert is triggered if the reserved slice utilization is greater than the sliceReserveUsedThresholdPct value returned. |
-| solidfire_cluster_threshold_stage2_aware_threshold | gauge | Awareness condition. The value that is set for 'Stage 2' cluster threshold level. |
-| solidfire_cluster_threshold_stage2_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage2 condition will exist. |
-| solidfire_cluster_threshold_stage3_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage3 condition will exist. |
-| solidfire_cluster_threshold_stage3_block_threshold_percentage | gauge | Percent value set for stage3. At this percent full, a warning is posted in the Alerts log. |
-| solidfire_cluster_threshold_stage3_low_threshold | gauge | Error condition. The threshold at which a system alert is created due to low capacity on a cluster |
-| solidfire_cluster_threshold_stage4_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage4 condition will exist |
-| solidfire_cluster_threshold_stage4_critical_threshold | gauge | Error condition. The threshold at which a system alert is created to warn about critically low capacity on a cluster. |
-| solidfire_cluster_threshold_stage5_block_threshold_bytes | gauge | The number of bytes being used by the cluster at which a stage5 condition will exist. |
-| solidfire_cluster_threshold_sum_total_cluster_bytes | gauge | Physical capacity of the cluster, measured in bytes. |
-| solidfire_cluster_threshold_sum_total_metadata_cluster_bytes | gauge | Total amount of space that can be used to store metadata |
-| solidfire_cluster_threshold_sum_used_cluster_bytes | gauge | Number of bytes used on the cluster. |
-| solidfire_cluster_threshold_sum_used_metadata_cluster_bytes | gauge | Amount of space used on volume drives to store metadata. |
+| solidfire_cluster_stats_last_sample_write_ops | gauge | The total number of write operations during the last sample period. |
+| solidfire_cluster_block_fullness | gauge | The current computed level of block fullness of the cluster. |
+| solidfire_cluster_fullness | gauge | Reflects the highest level of fullness between 'blockFullness' and 'metadataFullness'. |
+| solidfire_cluster_max_metadata_over_provision_factor | gauge | A value representative of the number of times metadata space can be over provisioned relative to the amount of space available. |
+| solidfire_cluster_metadata_fullness | gauge | The current computed level of metadata fullness of the cluster. |
+| solidfire_cluster_slice_reserve_used_threshold_percentage | gauge | Error condition. A system alert is triggered if the reserved slice utilization is greater than the sliceReserveUsedThresholdPct value returned. |
+| solidfire_cluster_stage2_aware_threshold | gauge | Awareness condition. The value that is set for 'Stage 2' cluster threshold level. |
+| solidfire_cluster_stage2_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage2 condition will exist. |
+| solidfire_cluster_stage3_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage3 condition will exist. |
+| solidfire_cluster_stage3_block_threshold_percentage | gauge | Percent value set for stage3. At this percent full, a warning is posted in the Alerts log. |
+| solidfire_cluster_stage3_low_threshold | gauge | Error condition. The threshold at which a system alert is created due to low capacity on a cluster |
+| solidfire_cluster_stage4_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage4 condition will exist |
+| solidfire_cluster_stage4_critical_threshold | gauge | Error condition. The threshold at which a system alert is created to warn about critically low capacity on a cluster. |
+| solidfire_cluster_stage5_block_threshold_bytes | gauge | The number of bytes being used by the cluster at which a stage5 condition will exist. |
+| solidfire_cluster_total_bytes | gauge | Physical capacity of the cluster, measured in bytes. |
+| solidfire_cluster_total_metadata_bytes | gauge | Total amount of space that can be used to store metadata |
+| solidfire_cluster_used_bytes | gauge | Number of bytes used on the cluster. |
+| solidfire_cluster_used_metadata_bytes | gauge | Amount of space used on volume drives to store metadata. |
 | solidfire_drives_capacity | gauge | The drive capacity for each individual drives in the cluster's active nodes |
 | solidfire_drives_status | gauge | The drive status for each individual drives in the cluster's active nodes |
 | solidfire_node_iscsi_sessions_total | gauge | The total number of iscsi sessions per node and volume |
-| solidfire_node_name | counter | Cluster node name |
-| solidfire_node_total_memory_gb | counter | Cluster node total memory in GB |
+| solidfire_node_info | gauge | Cluster node info |
+| solidfire_node_stats_total_memory_bytes | counter | Cluster node total memory in GB |
 | solidfire_scrape_success | gauge | Whether last scrape against Solidfire API was successful |
 | solidfire_volume_qos_below_min_iops_percentage | histogram | Volume QoS Below minimum IOPS percentage |
 | solidfire_volume_qos_min_to_max_iops_percentage | histogram | Volume QoS min to max IOPS percentage |
@@ -137,14 +137,14 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_volume_stats_average_iop_size | gauge | The average size in bytes of recent I/O to the volume in the last 500 milliseconds |
 | solidfire_volume_stats_burst_iops_credit | gauge | The total number of IOP credits available to the user. When volumes are not using up to the configured maxIOPS, credits are accrued. |
 | solidfire_volume_stats_client_queue_depth | gauge | The number of outstanding read and write operations to the volume. |
-| solidfire_volume_stats_latency_usec | gauge | The average time, in microseconds, to complete operations to the volume in the last 500 milliseconds. A '0' (zero) value means there is no I/O to the volume. |
+| solidfire_volume_stats_latency_seconds | gauge | The average time, in microseconds, to complete operations to the volume in the last 500 milliseconds. A '0' (zero) value means there is no I/O to the volume. |
 | solidfire_volume_stats_non_zero_blocks | gauge | The total number of 4KiB blocks that contain data after the last garbage collection operation has completed. |
 | solidfire_volume_stats_read_bytes | counter | The total cumulative bytes read from the volume since the creation of the volume. |
-| solidfire_volume_stats_read_bytes_last_sample | gauge | The total number of bytes read from the volume during the last sample period. |
-| solidfire_volume_stats_read_latency_usec | gauge | The average time, in microseconds, to complete read operations to the volume in the last 500 milliseconds. |
-| solidfire_volume_stats_read_latency_usec_total | counter | The total time spent performing read operations from the volume |
+| solidfire_volume_stats_last_sample_read_bytes | gauge | The total number of bytes read from the volume during the last sample period. |
+| solidfire_volume_stats_read_latency_seconds | gauge | The average time, in microseconds, to complete read operations to the volume in the last 500 milliseconds. |
+| solidfire_volume_stats_read_latency_seconds_total | counter | The total time spent performing read operations from the volume |
 | solidfire_volume_stats_read_ops | counter | The total read operations to the volume since the creation of the volume. |
-| solidfire_volume_stats_read_ops_last_sample | gauge | The total number of read operations during the last sample period |
+| solidfire_volume_stats_last_sample_read_ops | gauge | The total number of read operations during the last sample period |
 | solidfire_volume_stats_size | gauge | Total provisioned capacity in bytes. |
 | solidfire_volume_stats_throttle | gauge | A floating value between 0 and 1 that represents how much the system is throttling clients below their maxIOPS because of rereplication of data, transient errors, and snapshots taken. |
 | solidfire_volume_stats_unaligned_reads | counter | The total cumulative unaligned read operations to a volume since the creation of the volume. |
@@ -152,8 +152,8 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_volume_stats_utilization | gauge | A floating value that describes how much the client is using the volume. Value 0: The client is not using the volume. Value 1: The client is using their maximum. Value 1+: The client is using their burst. |
 | solidfire_volume_stats_write_bytes | counter | The total cumulative bytes written to the volume since the creation of the volume. |
 | solidfire_volume_stats_write_bytes_last_sample | gauge | The total number of bytes written to the volume during the last sample period. |
-| solidfire_volume_stats_write_latency_usec | gauge | The average time, in microseconds, to complete write operations to a volume in the last 500 milliseconds. |
-| solidfire_volume_stats_write_latency_usec_total | counter | The total time spent performing write operations to the volume |
+| solidfire_volume_stats_write_latency_seconds | gauge | The average time, in microseconds, to complete write operations to a volume in the last 500 milliseconds. |
+| solidfire_volume_stats_write_latency_seconds_total | counter | The total time spent performing write operations to the volume |
 | solidfire_volume_stats_write_ops | counter | The total cumulative write operations to the volume since the creation of the volume. |
 | solidfire_volume_stats_write_ops_last_sample | gauge | The total number of write operations during the last sample period. |
 | solidfire_volume_stats_zero_blocks | gauge | The total number of empty 4KiB blocks without data after the last round of garbage collection operation has completed. |

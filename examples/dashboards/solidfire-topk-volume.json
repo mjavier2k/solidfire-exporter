@@ -612,16 +612,16 @@
           },
           {
             "selected": false,
-            "text": "solidfire_volume_stats_read_latency_usec",
-            "value": "solidfire_volume_stats_read_latency_usec"
+            "text": "solidfire_volume_stats_read_latency_seconds",
+            "value": "solidfire_volume_stats_read_latency_seconds"
           },
           {
             "selected": false,
-            "text": "solidfire_volume_stats_write_latency_usec",
-            "value": "solidfire_volume_stats_write_latency_usec"
+            "text": "solidfire_volume_stats_write_latency_seconds",
+            "value": "solidfire_volume_stats_write_latency_seconds"
           }
         ],
-        "query": "solidfire_volume_stats_read_latency_usec,solidfire_volume_stats_write_latency_usec",
+        "query": "solidfire_volume_stats_read_latency_seconds,solidfire_volume_stats_write_latency_seconds",
         "skipUrlSync": false,
         "type": "custom"
       },

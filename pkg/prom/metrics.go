@@ -9,30 +9,30 @@ type Descriptions struct {
 	upDesc *prometheus.Desc
 
 	// Volume Stats
-	VolumeStatsActualIOPSDesc            *prometheus.Desc
-	VolumeStatsAverageIOPSizeDesc        *prometheus.Desc
-	VolumeStatsBurstIOPSCreditDesc       *prometheus.Desc
-	VolumeStatsClientQueueDepthDesc      *prometheus.Desc
-	VolumeStatsLatencyUSecDesc           *prometheus.Desc
-	VolumeStatsNonZeroBlocksDesc         *prometheus.Desc
-	VolumeStatsReadBytesDesc             *prometheus.Desc
-	VolumeStatsReadBytesLastSampleDesc   *prometheus.Desc
-	VolumeStatsReadLatencyUSecDesc       *prometheus.Desc
-	VolumeStatsReadLatencyUSecTotalDesc  *prometheus.Desc
-	VolumeStatsReadOpsDesc               *prometheus.Desc
-	VolumeStatsReadOpsLastSampleDesc     *prometheus.Desc
-	VolumeStatsThrottleDesc              *prometheus.Desc
-	VolumeStatsUnalignedReadsDesc        *prometheus.Desc
-	VolumeStatsUnalignedWritesDesc       *prometheus.Desc
-	VolumeStatsVolumeSizeDesc            *prometheus.Desc
-	VolumeStatsVolumeUtilizationDesc     *prometheus.Desc
-	VolumeStatsWriteBytesDesc            *prometheus.Desc
-	VolumeStatsWriteBytesLastSampleDesc  *prometheus.Desc
-	VolumeStatsWriteLatencyUSecDesc      *prometheus.Desc
-	VolumeStatsWriteLatencyUSecTotalDesc *prometheus.Desc
-	VolumeStatsWriteOpsDesc              *prometheus.Desc
-	VolumeStatsWriteOpsLastSampleDesc    *prometheus.Desc
-	VolumeStatsZeroBlocksDesc            *prometheus.Desc
+	VolumeStatsActualIOPS           *prometheus.Desc
+	VolumeStatsAverageIOPSize       *prometheus.Desc
+	VolumeStatsBurstIOPSCredit      *prometheus.Desc
+	VolumeStatsClientQueueDepth     *prometheus.Desc
+	VolumeStatsLatency              *prometheus.Desc
+	VolumeStatsNonZeroBlocks        *prometheus.Desc
+	VolumeStatsReadBytes            *prometheus.Desc
+	VolumeStatsLastSampleReadBytes  *prometheus.Desc
+	VolumeStatsReadLatency          *prometheus.Desc
+	VolumeStatsReadLatencyTotal     *prometheus.Desc
+	VolumeStatsReadOps              *prometheus.Desc
+	VolumeStatsLastSampleReadOps    *prometheus.Desc
+	VolumeStatsThrottle             *prometheus.Desc
+	VolumeStatsUnalignedReads       *prometheus.Desc
+	VolumeStatsUnalignedWrites      *prometheus.Desc
+	VolumeStatsVolumeSize           *prometheus.Desc
+	VolumeStatsVolumeUtilization    *prometheus.Desc
+	VolumeStatsWriteBytes           *prometheus.Desc
+	VolumeStatsWriteBytesLastSample *prometheus.Desc
+	VolumeStatsWriteLatency         *prometheus.Desc
+	VolumeStatsWriteLatencyTotal    *prometheus.Desc
+	VolumeStatsWriteOps             *prometheus.Desc
+	VolumeStatsWriteOpsLastSample   *prometheus.Desc
+	VolumeStatsZeroBlocks           *prometheus.Desc
 
 	// Cluster Capacity
 	ClusterCapacityActiveBlockSpace             *prometheus.Desc
@@ -67,23 +67,27 @@ type Descriptions struct {
 	ClusterActiveFaults *prometheus.Desc
 
 	// ListNodeStats
-	NodeStatsCBytesIn                  *prometheus.Desc
-	NodeStatsCBytesOut                 *prometheus.Desc
-	NodeStatsCount                     *prometheus.Desc
-	NodeStatsCPUPercentage             *prometheus.Desc
-	NodeStatsCPUTotalSeconds           *prometheus.Desc
-	NodeStatsMBytesIn                  *prometheus.Desc
-	NodeStatsMBytesOut                 *prometheus.Desc
-	NodeStatsNetworkUtilizationCluster *prometheus.Desc
-	NodeStatsNetworkUtilizationStorage *prometheus.Desc
-	NodeStatsReadLatencyUSecTotal      *prometheus.Desc
-	NodeStatsReadOps                   *prometheus.Desc
-	NodeStatsSBytesIn                  *prometheus.Desc
-	NodeStatsSBytesOut                 *prometheus.Desc
-	NodeStatsUsedMemory                *prometheus.Desc
-	NodeStatsWriteLatencyUSecTotal     *prometheus.Desc
-	NodeStatsWriteOps                  *prometheus.Desc
-	NodeStatsLoadHistogram             *prometheus.Desc
+	// NodeStatsCBytesIn                       *prometheus.Desc
+	// NodeStatsCBytesOut                      *prometheus.Desc
+	NodeStatsCount                          *prometheus.Desc
+	NodeStatsCPUPercentage                  *prometheus.Desc
+	NodeStatsCPUTotalSeconds                *prometheus.Desc
+	NodeStatsInterfaceInBytesTotal          *prometheus.Desc
+	NodeStatsInterfaceOutBytesTotal         *prometheus.Desc
+	NodeStatsInterfaceUtilizationPercentage *prometheus.Desc
+	// NodeStatsMBytesIn                    *prometheus.Desc
+	// NodeStatsMBytesOut                   *prometheus.Desc
+	// NodeStatsNetworkUtilizationCluster   *prometheus.Desc
+	// NodeStatsNetworkUtilizationStorage   *prometheus.Desc
+	NodeStatsReadLatencyTotal *prometheus.Desc
+	NodeStatsReadOps          *prometheus.Desc
+	// NodeStatsSBytesIn          *prometheus.Desc
+	// NodeStatsSBytesOut         *prometheus.Desc
+	NodeStatsTotalMemory       *prometheus.Desc
+	NodeStatsUsedMemory        *prometheus.Desc
+	NodeStatsWriteLatencyTotal *prometheus.Desc
+	NodeStatsWriteOps          *prometheus.Desc
+	NodeStatsLoadHistogram     *prometheus.Desc
 
 	// ListVolumeQoSHistograms
 
@@ -95,51 +99,50 @@ type Descriptions struct {
 	VolumeQoSWriteBlockSizes                  *prometheus.Desc
 
 	// ListAllNodes
-	Node       *prometheus.Desc
-	NodeMemory *prometheus.Desc
+	NodeInfo *prometheus.Desc
 
 	// GetClusterStats
-	ClusterStatsActualIOPS            *prometheus.Desc
-	ClusterStatsAverageIOPSize        *prometheus.Desc
-	ClusterStatsClientQueueDepth      *prometheus.Desc
-	ClusterStatsClusterUtilization    *prometheus.Desc
-	ClusterStatsLatencyUSec           *prometheus.Desc
-	ClusterStatsNormalizedIOPS        *prometheus.Desc
-	ClusterStatsReadBytes             *prometheus.Desc
-	ClusterStatsReadBytesLastSample   *prometheus.Desc
-	ClusterStatsReadLatencyUSec       *prometheus.Desc
-	ClusterStatsReadLatencyUSecTotal  *prometheus.Desc
-	ClusterStatsReadOps               *prometheus.Desc
-	ClusterStatsReadOpsLastSample     *prometheus.Desc
-	ClusterStatsSamplePeriodMsec      *prometheus.Desc
-	ClusterStatsServicesCount         *prometheus.Desc
-	ClusterStatsServicesTotal         *prometheus.Desc
-	ClusterStatsUnalignedReads        *prometheus.Desc
-	ClusterStatsUnalignedWrites       *prometheus.Desc
-	ClusterStatsWriteBytes            *prometheus.Desc
-	ClusterStatsWriteBytesLastSample  *prometheus.Desc
-	ClusterStatsWriteLatencyUSec      *prometheus.Desc
-	ClusterStatsWriteLatencyUSecTotal *prometheus.Desc
-	ClusterStatsWriteOps              *prometheus.Desc
-	ClusterStatsWriteOpsLastSample    *prometheus.Desc
+	ClusterStatsActualIOPS           *prometheus.Desc
+	ClusterStatsAverageIOPSize       *prometheus.Desc
+	ClusterStatsClientQueueDepth     *prometheus.Desc
+	ClusterStatsClusterUtilization   *prometheus.Desc
+	ClusterStatsLatency              *prometheus.Desc
+	ClusterStatsNormalizedIOPS       *prometheus.Desc
+	ClusterStatsReadBytesTotal       *prometheus.Desc
+	ClusterStatsLastSampleReadBytes  *prometheus.Desc
+	ClusterStatsReadLatency          *prometheus.Desc
+	ClusterStatsReadLatencyTotal     *prometheus.Desc
+	ClusterStatsReadOpsTotal         *prometheus.Desc
+	ClusterStatsLastSampleReadOps    *prometheus.Desc
+	ClusterStatsSamplePeriodMsec     *prometheus.Desc
+	ClusterStatsServicesCount        *prometheus.Desc
+	ClusterStatsServicesTotal        *prometheus.Desc
+	ClusterStatsUnalignedReads       *prometheus.Desc
+	ClusterStatsUnalignedWrites      *prometheus.Desc
+	ClusterStatsWriteBytesTotal      *prometheus.Desc
+	ClusterStatsLastSampleWriteBytes *prometheus.Desc
+	ClusterStatsWriteLatency         *prometheus.Desc
+	ClusterStatsWriteLatencyTotal    *prometheus.Desc
+	ClusterStatsWriteOps             *prometheus.Desc
+	ClusterStatsLastSampleWriteOps   *prometheus.Desc
 
-	ClusterThresholdBlockFullness                  *prometheus.Desc
-	ClusterThresholdFullness                       *prometheus.Desc
-	ClusterThresholdMaxMetadataOverProvisionFactor *prometheus.Desc
-	ClusterThresholdMetadataFullness               *prometheus.Desc
-	ClusterThresholdSliceReserveUsedThresholdPct   *prometheus.Desc
-	ClusterThresholdStage2AwareThreshold           *prometheus.Desc
-	ClusterThresholdStage2BlockThresholdBytes      *prometheus.Desc
-	ClusterThresholdStage3BlockThresholdBytes      *prometheus.Desc
-	ClusterThresholdStage3BlockThresholdPercent    *prometheus.Desc
-	ClusterThresholdStage3LowThreshold             *prometheus.Desc
-	ClusterThresholdStage4BlockThresholdBytes      *prometheus.Desc
-	ClusterThresholdStage4CriticalThreshold        *prometheus.Desc
-	ClusterThresholdStage5BlockThresholdBytes      *prometheus.Desc
-	ClusterThresholdSumTotalClusterBytes           *prometheus.Desc
-	ClusterThresholdSumTotalMetadataClusterBytes   *prometheus.Desc
-	ClusterThresholdSumUsedClusterBytes            *prometheus.Desc
-	ClusterThresholdSumUsedMetadataClusterBytes    *prometheus.Desc
+	ClusterBlockFullness                  *prometheus.Desc
+	ClusterFullness                       *prometheus.Desc
+	ClusterMaxMetadataOverProvisionFactor *prometheus.Desc
+	ClusterMetadataFullness               *prometheus.Desc
+	ClusterSliceReserveUsedThresholdPct   *prometheus.Desc
+	ClusterStage2AwareThreshold           *prometheus.Desc
+	ClusterStage2BlockThresholdBytes      *prometheus.Desc
+	ClusterStage3BlockThresholdBytes      *prometheus.Desc
+	ClusterStage3BlockThresholdPercent    *prometheus.Desc
+	ClusterStage3LowThreshold             *prometheus.Desc
+	ClusterStage4BlockThresholdBytes      *prometheus.Desc
+	ClusterStage4CriticalThreshold        *prometheus.Desc
+	ClusterStage5BlockThresholdBytes      *prometheus.Desc
+	ClusterTotalBytes                     *prometheus.Desc
+	ClusterTotalMetadataBytes             *prometheus.Desc
+	ClusterUsedBytes                      *prometheus.Desc
+	ClusterUsedMetadataBytes              *prometheus.Desc
 
 	ListDrivesStatus   *prometheus.Desc
 	ListDrivesCapacity *prometheus.Desc
@@ -157,168 +160,168 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 		nil)
 
-	d.VolumeStatsActualIOPSDesc = prometheus.NewDesc(
+	d.VolumeStatsActualIOPS = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_actual_iops"),
 		"The current actual IOPS to the volume in the last 500 milliseconds",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsAverageIOPSizeDesc = prometheus.NewDesc(
+	d.VolumeStatsAverageIOPSize = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_average_iop_size"),
 		"The average size in bytes of recent I/O to the volume in the last 500 milliseconds",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsBurstIOPSCreditDesc = prometheus.NewDesc(
+	d.VolumeStatsBurstIOPSCredit = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_burst_iops_credit"),
 		"The total number of IOP credits available to the user. When volumes are not using up to the configured maxIOPS, credits are accrued.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsClientQueueDepthDesc = prometheus.NewDesc(
+	d.VolumeStatsClientQueueDepth = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_client_queue_depth"),
 		"The number of outstanding read and write operations to the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsLatencyUSecDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_stats_latency_usec"),
-		"The average time, in microseconds, to complete operations to the volume in the last 500 milliseconds. A '0' (zero) value means there is no I/O to the volume.",
+	d.VolumeStatsLatency = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_stats_latency_seconds"),
+		"The average time, in seconds, to complete operations to the volume in the last 500 milliseconds. A '0' (zero) value means there is no I/O to the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsNonZeroBlocksDesc = prometheus.NewDesc(
+	d.VolumeStatsNonZeroBlocks = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_non_zero_blocks"),
 		"The total number of 4KiB blocks that contain data after the last garbage collection operation has completed.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsReadBytesDesc = prometheus.NewDesc(
+	d.VolumeStatsReadBytes = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_read_bytes"),
 		"The total cumulative bytes read from the volume since the creation of the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsReadBytesLastSampleDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_stats_read_bytes_last_sample"),
+	d.VolumeStatsLastSampleReadBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_stats_last_sample_read_bytes"),
 		"The total number of bytes read from the volume during the last sample period.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsReadLatencyUSecDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_stats_read_latency_usec"),
-		"The average time, in microseconds, to complete read operations to the volume in the last 500 milliseconds.",
+	d.VolumeStatsReadLatency = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_stats_read_latency_seconds"),
+		"The average time, in seconds, to complete read operations to the volume in the last 500 milliseconds.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsReadLatencyUSecTotalDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_stats_read_latency_usec_total"),
+	d.VolumeStatsReadLatencyTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_stats_read_latency_seconds_total"),
 		"The total time spent performing read operations from the volume",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsReadOpsDesc = prometheus.NewDesc(
+	d.VolumeStatsReadOps = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_read_ops"),
 		"The total read operations to the volume since the creation of the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsReadOpsLastSampleDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_stats_read_ops_last_sample"),
+	d.VolumeStatsLastSampleReadOps = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_stats_last_sample_read_ops"),
 		"The total number of read operations during the last sample period",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsThrottleDesc = prometheus.NewDesc(
+	d.VolumeStatsThrottle = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_throttle"),
 		"A floating value between 0 and 1 that represents how much the system is throttling clients below their maxIOPS because of rereplication of data, transient errors, and snapshots taken.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsUnalignedReadsDesc = prometheus.NewDesc(
+	d.VolumeStatsUnalignedReads = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_unaligned_reads"),
 		"The total cumulative unaligned read operations to a volume since the creation of the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsUnalignedWritesDesc = prometheus.NewDesc(
+	d.VolumeStatsUnalignedWrites = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_unaligned_writes"),
 		"The total cumulative unaligned write operations to a volume since the creation of the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsVolumeSizeDesc = prometheus.NewDesc(
+	d.VolumeStatsVolumeSize = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_size"),
 		"Total provisioned capacity in bytes.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsVolumeUtilizationDesc = prometheus.NewDesc(
+	d.VolumeStatsVolumeUtilization = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_utilization"),
 		"A floating value that describes how much the client is using the volume. Value 0: The client is not using the volume. Value 1: The client is using their maximum. Value 1+: The client is using their burst.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsWriteBytesDesc = prometheus.NewDesc(
+	d.VolumeStatsWriteBytes = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_write_bytes"),
 		"The total cumulative bytes written to the volume since the creation of the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsWriteBytesLastSampleDesc = prometheus.NewDesc(
+	d.VolumeStatsWriteBytesLastSample = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_write_bytes_last_sample"),
 		"The total number of bytes written to the volume during the last sample period.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsWriteLatencyUSecDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_stats_write_latency_usec"),
-		"The average time, in microseconds, to complete write operations to a volume in the last 500 milliseconds.",
+	d.VolumeStatsWriteLatency = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_stats_write_latency_seconds"),
+		"The average time, in seconds, to complete write operations to a volume in the last 500 milliseconds.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsWriteLatencyUSecTotalDesc = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_stats_write_latency_usec_total"),
+	d.VolumeStatsWriteLatencyTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_stats_write_latency_seconds_total"),
 		"The total time spent performing write operations to the volume",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsWriteOpsDesc = prometheus.NewDesc(
+	d.VolumeStatsWriteOps = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_write_ops"),
 		"The total cumulative write operations to the volume since the creation of the volume.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsWriteOpsLastSampleDesc = prometheus.NewDesc(
+	d.VolumeStatsWriteOpsLastSample = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_write_ops_last_sample"),
 		"The total number of write operations during the last sample period.",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeStatsZeroBlocksDesc = prometheus.NewDesc(
+	d.VolumeStatsZeroBlocks = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_stats_zero_blocks"),
 		"The total number of empty 4KiB blocks without data after the last round of garbage collection operation has completed.",
 		[]string{"volume_id", "volume_name"},
@@ -490,120 +493,92 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.NodeStatsCBytesIn = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cbytes_in"),
-		"Bytes in on the cluster interface",
-		[]string{"node_id", "node_name"},
-		nil,
-	)
-
-	d.NodeStatsCBytesOut = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cbytes_out"),
-		"Bytes out on the cluster interface",
-		[]string{"node_id", "node_name"},
-		nil,
-	)
-
 	d.NodeStatsCount = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_count"),
+		prometheus.BuildFQName(namespace, "", "node_stats_samples"),
 		"Node stat sample count", // Undocumented metric
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsCPUPercentage = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cpu_percentage"),
+		prometheus.BuildFQName(namespace, "", "node_stats_cpu_percentage"),
 		"CPU usage in percent.",
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsCPUTotalSeconds = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_cpu_total_seconds"),
+		prometheus.BuildFQName(namespace, "", "node_stats_cpu_seconds_total"),
 		"CPU usage in seconds since last boot.", // undocumented metric
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
-	d.NodeStatsMBytesIn = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_mbytes_in"),
-		"Bytes in on the management interface.",
-		[]string{"node_id", "node_name"},
+	d.NodeStatsInterfaceInBytesTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_stats_interface_in_bytes_total"),
+		"Bytes in on network interface.",
+		[]string{"node_id", "node_name", "interface"},
 		nil,
 	)
 
-	d.NodeStatsMBytesOut = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_mbytes_out"),
-		"Bytes out on the management interface.",
-		[]string{"node_id", "node_name"},
+	d.NodeStatsInterfaceOutBytesTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_stats_interface_out_bytes_total"),
+		"Bytes out on network interface.",
+		[]string{"node_id", "node_name", "interface"},
 		nil,
 	)
 
-	d.NodeStatsNetworkUtilizationCluster = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_network_utilization_cluster_percentage"),
-		"Network interface utilization (in percent) for the cluster network interface.",
-		[]string{"node_id", "node_name"},
+	d.NodeStatsInterfaceUtilizationPercentage = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_stats_interface_utilization_percentage"),
+		"Network interface utilization (in percent) of network interface.",
+		[]string{"node_id", "node_name", "interface"},
 		nil,
 	)
 
-	d.NodeStatsNetworkUtilizationStorage = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_network_utilization_storage_percentage"),
-		"Network interface utilization (in percent) for the storage network interface.",
-		[]string{"node_id", "node_name"},
-		nil,
-	)
-
-	d.NodeStatsReadLatencyUSecTotal = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_read_latency_usec_total"),
-		"The number, in milliseconds, of read latency between clusters.",
+	d.NodeStatsReadLatencyTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_stats_read_latency_seconds_total"),
+		"The total time spent performing read operations since the creation of the cluster.",
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsReadOps = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_read_ops"),
+		prometheus.BuildFQName(namespace, "", "node_stats_read_ops"),
 		"Read Operations", // undocumented metric
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsWriteOps = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_write_ops"),
+		prometheus.BuildFQName(namespace, "", "node_stats_write_ops"),
 		"Write Operations", // undocumented metric
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
-	d.NodeStatsSBytesIn = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_sbytes_in"),
-		"Bytes in on the storage interface.",
-		[]string{"node_id", "node_name"},
-		nil,
-	)
-
-	d.NodeStatsSBytesOut = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_sbytes_out"),
-		"Bytes out on the storage interface.",
+	d.NodeStatsTotalMemory = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_stats_total_memory_bytes"),
+		"Cluster node total memory in GB",
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsUsedMemory = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_used_memory"),
+		prometheus.BuildFQName(namespace, "", "node_stats_used_memory_bytes"),
 		"Total memory usage in bytes.",
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
-	d.NodeStatsWriteLatencyUSecTotal = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_write_latency_usec_total"),
-		"The number, in milliseconds, of read latency between clusters.",
+	d.NodeStatsWriteLatencyTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_stats_write_latency_seconds_total"),
+		"The total time spent performing write operations since the creation of the cluster.",
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
 	d.NodeStatsLoadHistogram = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_node_stats_load_histogram"),
+		prometheus.BuildFQName(namespace, "", "node_stats_load"),
 		"System load histogram",
 		[]string{"node_id", "node_name"},
 		nil,
@@ -651,16 +626,9 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.Node = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "node_name"),
-		"Cluster node name",
-		[]string{"node_id", "node_name", "chassis_name", "associated_fservice_id", "associated_master_service_id", "chassis_type", "cpu_model", "node_type", "platform_config_version", "sip", "sipi", "software_version", "uuid"},
-		nil,
-	)
-
-	d.NodeMemory = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "node_total_memory_gb"),
-		"Cluster node total memory in GB",
+	d.NodeInfo = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_info"),
+		"Cluster node info",
 		[]string{"node_id", "node_name", "chassis_name", "associated_fservice_id", "associated_master_service_id", "chassis_type", "cpu_model", "node_type", "platform_config_version", "sip", "sipi", "software_version", "uuid"},
 		nil,
 	)
@@ -688,14 +656,14 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 
 	d.ClusterStatsClusterUtilization = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_stats_utilization"),
-		"The cluster capacity being utilized.",
+		"The cluster capacity being utilized. ",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsLatencyUSec = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_latency_usec"),
-		"The average time, in microseconds, to complete operations to a cluster in the last 500 milliseconds.",
+	d.ClusterStatsLatency = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_latency_seconds"),
+		"The average time, in seconds, to complete operations to a cluster in the last 500 milliseconds.",
 		nil,
 		nil,
 	)
@@ -707,43 +675,43 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.ClusterStatsReadBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_read_bytes"),
+	d.ClusterStatsReadBytesTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_bytes_total"),
 		"The total cumulative bytes read from the cluster since the creation of the cluster.",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsReadBytesLastSample = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_read_bytes_last_sample"),
+	d.ClusterStatsLastSampleReadBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_last_sample_read_bytes"),
 		"The total number of bytes read from the cluster during the last sample period.",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsReadLatencyUSec = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_read_latency_usec"),
-		"The average time, in microseconds, to complete read operations to the cluster in the last 500 milliseconds.",
+	d.ClusterStatsReadLatency = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_latency_seconds"),
+		"The average time, in seconds, to complete read operations to the cluster in the last 500 milliseconds.",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsReadLatencyUSecTotal = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_read_latency_usec_total"),
+	d.ClusterStatsReadLatencyTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_latency_seconds_total"),
 		"The total time spent performing read operations since the creation of the cluster.",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsReadOps = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_read_ops"),
+	d.ClusterStatsReadOpsTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_read_ops_total"),
 		"The total cumulative read operations to the cluster since the creation of the cluster.",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsReadOpsLastSample = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_read_ops_last_sample"),
+	d.ClusterStatsLastSampleReadOps = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_last_sample_read_ops"),
 		"The total number of read operations during the last sample period.",
 		nil,
 		nil,
@@ -757,7 +725,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	)
 
 	d.ClusterStatsServicesCount = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_services_count"),
+		prometheus.BuildFQName(namespace, "", "cluster_stats_services"),
 		"The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes.",
 		nil,
 		nil,
@@ -784,29 +752,29 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.ClusterStatsWriteBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_write_bytes"),
+	d.ClusterStatsWriteBytesTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_bytes_total"),
 		"The total cumulative bytes written to the cluster since the creation of the cluster",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsWriteBytesLastSample = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_write_bytes_last_sample"),
+	d.ClusterStatsLastSampleWriteBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_last_sample_write_bytes"),
 		"The total number of bytes written to the cluster during the last sample period.",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsWriteLatencyUSec = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_write_latency_usec"),
-		"The average time, in microseconds, to complete write operations to a cluster in the last 500 milliseconds.",
+	d.ClusterStatsWriteLatency = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_latency_seconds"),
+		"The average time, in seconds, to complete write operations to a cluster in the last 500 milliseconds.",
 		nil,
 		nil,
 	)
 
-	d.ClusterStatsWriteLatencyUSecTotal = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_write_latency_usec_total"),
+	d.ClusterStatsWriteLatencyTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_write_latency_seconds_total"),
 		"The total time spent performing write operations since the creation of the cluster.",
 		nil,
 		nil,
@@ -819,127 +787,127 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.ClusterStatsWriteOpsLastSample = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_stats_write_ops_last_sample"),
+	d.ClusterStatsLastSampleWriteOps = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stats_last_sample_write_ops"),
 		"The total number of write operations during the last sample period.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdBlockFullness = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_block_fullness"),
+	d.ClusterBlockFullness = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_block_fullness"),
 		"The current computed level of block fullness of the cluster.",
 		[]string{"level"},
 		nil,
 	)
 
-	d.ClusterThresholdFullness = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_fullness"),
+	d.ClusterFullness = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_fullness"),
 		"Reflects the highest level of fullness between 'blockFullness' and 'metadataFullness'.",
 		[]string{"level"},
 		nil,
 	)
 
-	d.ClusterThresholdMaxMetadataOverProvisionFactor = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_max_metadata_over_provision_factor"),
+	d.ClusterMaxMetadataOverProvisionFactor = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_max_metadata_over_provision_factor"),
 		"A value representative of the number of times metadata space can be over provisioned relative to the amount of space available.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdMetadataFullness = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_metadata_fullness"),
+	d.ClusterMetadataFullness = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_metadata_fullness"),
 		"The current computed level of metadata fullness of the cluster.",
 		[]string{"level"},
 		nil,
 	)
 
-	d.ClusterThresholdSliceReserveUsedThresholdPct = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_slice_reserve_used_threshold_percentage"),
+	d.ClusterSliceReserveUsedThresholdPct = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_slice_reserve_used_threshold_percentage"),
 		"Error condition. A system alert is triggered if the reserved slice utilization is greater than the sliceReserveUsedThresholdPct value returned.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage2AwareThreshold = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage2_aware_threshold"),
+	d.ClusterStage2AwareThreshold = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage2_aware_threshold"),
 		"Awareness condition. The value that is set for 'Stage 2' cluster threshold level.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage2BlockThresholdBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage2_block_threshold_bytes"),
+	d.ClusterStage2BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage2_block_threshold_bytes"),
 		"Number of bytes being used by the cluster at which a stage2 condition will exist.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage3BlockThresholdBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage3_block_threshold_bytes"),
+	d.ClusterStage3BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage3_block_threshold_bytes"),
 		"Number of bytes being used by the cluster at which a stage3 condition will exist.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage3BlockThresholdPercent = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage3_block_threshold_percentage"),
+	d.ClusterStage3BlockThresholdPercent = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage3_block_threshold_percentage"),
 		"Percent value set for stage3. At this percent full, a warning is posted in the Alerts log.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage3LowThreshold = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage3_low_threshold"),
+	d.ClusterStage3LowThreshold = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage3_low_threshold"),
 		"Error condition. The threshold at which a system alert is created due to low capacity on a cluster",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage4BlockThresholdBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage4_block_threshold_bytes"),
+	d.ClusterStage4BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage4_block_threshold_bytes"),
 		"Number of bytes being used by the cluster at which a stage4 condition will exist",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage4CriticalThreshold = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage4_critical_threshold"),
+	d.ClusterStage4CriticalThreshold = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage4_critical_threshold"),
 		"Error condition. The threshold at which a system alert is created to warn about critically low capacity on a cluster.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdStage5BlockThresholdBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_stage5_block_threshold_bytes"),
+	d.ClusterStage5BlockThresholdBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_stage5_block_threshold_bytes"),
 		"The number of bytes being used by the cluster at which a stage5 condition will exist.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdSumTotalClusterBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_total_cluster_bytes"),
+	d.ClusterTotalBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_total_bytes"),
 		"Physical capacity of the cluster, measured in bytes.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdSumTotalMetadataClusterBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_total_metadata_cluster_bytes"),
+	d.ClusterTotalMetadataBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_total_metadata_bytes"),
 		"Total amount of space that can be used to store metadata",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdSumUsedClusterBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_used_cluster_bytes"),
+	d.ClusterUsedBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_used_bytes"),
 		"Number of bytes used on the cluster.",
 		nil,
 		nil,
 	)
 
-	d.ClusterThresholdSumUsedMetadataClusterBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_threshold_sum_used_metadata_cluster_bytes"),
+	d.ClusterUsedMetadataBytes = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_used_metadata_bytes"),
 		"Amount of space used on volume drives to store metadata.",
 		nil,
 		nil,
@@ -965,13 +933,6 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		[]string{"node_id", "node_name", "volume_id", "volume_name"},
 		nil,
 	)
-
-	// d.NodeISCSIVolumes = prometheus.NewDesc(
-	// 	prometheus.BuildFQName(namespace, "", "volume_node_id"),
-	// 	"The node id where the volume is hosted.",
-	// 	[]string{"volume_id", "volume_name"},
-	// 	nil,
-	// )
 
 	return &d
 }

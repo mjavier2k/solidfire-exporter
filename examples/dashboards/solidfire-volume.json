@@ -673,7 +673,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "solidfire_volume_stats_latency_usec{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
+          "expr": "solidfire_volume_stats_latency_seconds{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -681,7 +681,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum(solidfire_volume_stats_latency_usec{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
+          "expr": "sum(solidfire_volume_stats_latency_seconds{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -693,7 +693,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "solidfire_volume_stats_latency_usec",
+      "title": "solidfire_volume_stats_latency_seconds",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -1359,7 +1359,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "solidfire_volume_stats_read_latency_usec{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
+          "expr": "solidfire_volume_stats_read_latency_seconds{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1367,7 +1367,7 @@
           "refId": "A"
         },
         {
-          "expr": "solidfire_volume_stats_write_latency_usec{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
+          "expr": "solidfire_volume_stats_write_latency_seconds{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{volume_name}} write latency",
