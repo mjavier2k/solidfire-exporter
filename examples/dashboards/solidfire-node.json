@@ -144,7 +144,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_write_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_node_write_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
@@ -246,7 +246,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_read_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Read",
@@ -347,21 +347,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_read_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Read",
           "refId": "A"
         },
         {
-          "expr": "rate(solidfire_node_write_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_node_write_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Write",
           "refId": "B"
         },
         {
-          "expr": "rate(solidfire_node_read_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval]) + rate(solidfire_node_write_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval]) + rate(solidfire_node_write_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Total",

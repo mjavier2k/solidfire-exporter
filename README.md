@@ -114,12 +114,12 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_node_interface_utilization_percentage | gauge | Network interface utilization (in percent) of network interface. |
 | solidfire_node_load | histogram | System load histogram |
 | solidfire_node_read_latency_seconds_total | counter | The total time spent performing read operations since the creation of the cluster. |
-| solidfire_node_read_ops | gauge | Read Operations |
+| solidfire_node_read_ops_total | counter | Total read operations to a node. |
 | solidfire_node_samples | gauge | Node stat sample count |
 | solidfire_node_total_memory_bytes | gauge | Total node memory in bytes. |
 | solidfire_node_used_memory_bytes | gauge | Total node memory used in bytes. |
 | solidfire_node_write_latency_seconds_total | counter | The total time spent performing write operations since the creation of the cluster. |
-| solidfire_node_write_ops | gauge | Write Operations |
+| solidfire_node_write_ops_total | counter | Total write operations to a node. |
 | solidfire_up | gauge | Whether last scrape against Solidfire API was successful |
 | solidfire_volume_actual_iops | gauge | The current actual IOPS to the volume in the last 500 milliseconds |
 | solidfire_volume_average_iop_size_bytes | gauge | The average size in bytes of recent I/O to the volume in the last 500 milliseconds |
