@@ -44,98 +44,98 @@ func strCompare(str1 string, str2 string) int {
 func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.upDesc
 
-	ch <- MetricDescriptions.VolumeStatsActualIOPS
-	ch <- MetricDescriptions.VolumeStatsAverageIOPSizeBytes
-	ch <- MetricDescriptions.VolumeStatsBurstIOPSCredit
-	ch <- MetricDescriptions.VolumeStatsClientQueueDepth
-	ch <- MetricDescriptions.VolumeStatsLatencySeconds
-	ch <- MetricDescriptions.VolumeStatsNonZeroBlocks
-	ch <- MetricDescriptions.VolumeStatsReadBytes
-	ch <- MetricDescriptions.VolumeStatsLastSampleReadBytes
-	ch <- MetricDescriptions.VolumeStatsReadLatencySeconds
-	ch <- MetricDescriptions.VolumeStatsReadLatencySecondsTotal
-	ch <- MetricDescriptions.VolumeStatsReadOpsTotal
-	ch <- MetricDescriptions.VolumeStatsLastSampleReadOps
-	ch <- MetricDescriptions.VolumeStatsThrottle
-	ch <- MetricDescriptions.VolumeStatsUnalignedReadsTotal
-	ch <- MetricDescriptions.VolumeStatsUnalignedWritesTotal
-	ch <- MetricDescriptions.VolumeStatsVolumeSizeBytes
-	ch <- MetricDescriptions.VolumeStatsVolumeUtilization
-	ch <- MetricDescriptions.VolumeStatsWriteBytes
-	ch <- MetricDescriptions.VolumeStatsLastSampleWriteBytes
-	ch <- MetricDescriptions.VolumeStatsWriteLatencySeconds
-	ch <- MetricDescriptions.VolumeStatsWriteLatencyTotal
-	ch <- MetricDescriptions.VolumeStatsWriteOpsTotal
-	ch <- MetricDescriptions.VolumeStatsWriteOpsLastSample
+	ch <- MetricDescriptions.VolumeActualIOPS
+	ch <- MetricDescriptions.VolumeAverageIOPSizeBytes
+	ch <- MetricDescriptions.VolumeBurstIOPSCredit
+	ch <- MetricDescriptions.VolumeClientQueueDepth
+	ch <- MetricDescriptions.VolumeLatencySeconds
+	ch <- MetricDescriptions.VolumeNonZeroBlocks
+	ch <- MetricDescriptions.VolumeReadBytesTotal
+	ch <- MetricDescriptions.VolumeLastSampleReadBytes
+	ch <- MetricDescriptions.VolumeReadLatencySeconds
+	ch <- MetricDescriptions.VolumeReadLatencySecondsTotal
+	ch <- MetricDescriptions.VolumeReadOpsTotal
+	ch <- MetricDescriptions.VolumeLastSampleReadOps
+	ch <- MetricDescriptions.VolumeThrottle
+	ch <- MetricDescriptions.VolumeUnalignedReadsTotal
+	ch <- MetricDescriptions.VolumeUnalignedWritesTotal
+	ch <- MetricDescriptions.VolumeSizeBytes
+	ch <- MetricDescriptions.VolumeUtilization
+	ch <- MetricDescriptions.VolumeWriteBytesTotal
+	ch <- MetricDescriptions.VolumeLastSampleWriteBytes
+	ch <- MetricDescriptions.VolumeWriteLatencySeconds
+	ch <- MetricDescriptions.VolumeWriteLatencyTotal
+	ch <- MetricDescriptions.VolumeWriteOpsTotal
+	ch <- MetricDescriptions.VolumeWriteOpsLastSample
 	ch <- MetricDescriptions.VolumeStatsZeroBlocks
 
-	ch <- MetricDescriptions.ClusterCapacityActiveBlockSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityActiveSessions
-	ch <- MetricDescriptions.ClusterCapacityAverageIOPS
-	ch <- MetricDescriptions.ClusterCapacityClusterRecentIOSizeBytes
-	ch <- MetricDescriptions.ClusterCapacityCurrentIOPS
-	ch <- MetricDescriptions.ClusterCapacityMaxIOPS
-	ch <- MetricDescriptions.ClusterCapacityMaxOverProvisionableSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityMaxProvisionedSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityMaxUsedMetadataSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityMaxUsedSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityNonZeroBlocks
-	ch <- MetricDescriptions.ClusterCapacityPeakActiveSessions
-	ch <- MetricDescriptions.ClusterCapacityPeakIOPS
-	ch <- MetricDescriptions.ClusterCapacityProvisionedSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacitySnapshotNonZeroBlocks
-	ch <- MetricDescriptions.ClusterCapacityIOPSTotal
-	ch <- MetricDescriptions.ClusterCapacityUniqueBlocks
-	ch <- MetricDescriptions.ClusterCapacityUniqueBlocksUsedSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityUsedMetadataSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityUsedMetadataSpaceInSnapshotsBytes
-	ch <- MetricDescriptions.ClusterCapacityUsedSpaceBytes
-	ch <- MetricDescriptions.ClusterCapacityZeroBlocks
-	ch <- MetricDescriptions.ClusterCapacityThinProvisioningFactor
-	ch <- MetricDescriptions.ClusterCapacityDeDuplicationFactor
-	ch <- MetricDescriptions.ClusterCapacityCompressionFactor
-	ch <- MetricDescriptions.ClusterCapacityEfficiencyFactor
+	ch <- MetricDescriptions.ClusterActiveBlockSpaceBytes
+	ch <- MetricDescriptions.ClusterActiveSessions
+	ch <- MetricDescriptions.ClusterAverageIOPS
+	ch <- MetricDescriptions.ClusterClusterRecentIOSizeBytes
+	ch <- MetricDescriptions.ClusterCurrentIOPS
+	ch <- MetricDescriptions.ClusterMaxIOPS
+	ch <- MetricDescriptions.ClusterMaxOverProvisionableSpaceBytes
+	ch <- MetricDescriptions.ClusterMaxProvisionedSpaceBytes
+	ch <- MetricDescriptions.ClusterMaxUsedMetadataSpaceBytes
+	ch <- MetricDescriptions.ClusterMaxUsedSpaceBytes
+	ch <- MetricDescriptions.ClusterNonZeroBlocks
+	ch <- MetricDescriptions.ClusterPeakActiveSessions
+	ch <- MetricDescriptions.ClusterPeakIOPS
+	ch <- MetricDescriptions.ClusterProvisionedSpaceBytes
+	ch <- MetricDescriptions.ClusterSnapshotNonZeroBlocks
+	ch <- MetricDescriptions.ClusterIOPSTotal
+	ch <- MetricDescriptions.ClusterUniqueBlocks
+	ch <- MetricDescriptions.ClusterUniqueBlocksUsedSpaceBytes
+	ch <- MetricDescriptions.ClusterUsedMetadataSpaceBytes
+	ch <- MetricDescriptions.ClusterUsedMetadataSpaceInSnapshotsBytes
+	ch <- MetricDescriptions.ClusterUsedSpaceBytes
+	ch <- MetricDescriptions.ClusterZeroBlocks
+	ch <- MetricDescriptions.ClusterThinProvisioningFactor
+	ch <- MetricDescriptions.ClusterDeDuplicationFactor
+	ch <- MetricDescriptions.ClusterCompressionFactor
+	ch <- MetricDescriptions.ClusterEfficiencyFactor
 
 	ch <- MetricDescriptions.ClusterActiveFaults
 
-	ch <- MetricDescriptions.NodeStatsCount
-	ch <- MetricDescriptions.NodeStatsCPUPercentage
-	ch <- MetricDescriptions.NodeStatsCPUTotalSeconds
-	ch <- MetricDescriptions.NodeStatsInterfaceInBytesTotal
-	ch <- MetricDescriptions.NodeStatsInterfaceOutBytesTotal
-	ch <- MetricDescriptions.NodeStatsInterfaceUtilizationPercentage
-	ch <- MetricDescriptions.NodeStatsReadLatencyTotal
-	ch <- MetricDescriptions.NodeStatsReadOps
-	ch <- MetricDescriptions.NodeStatsUsedMemoryBytes
-	ch <- MetricDescriptions.NodeStatsWriteLatencyTotal
-	ch <- MetricDescriptions.NodeStatsWriteOps
-	ch <- MetricDescriptions.NodeStatsLoadHistogram
+	ch <- MetricDescriptions.NodeSamples
+	ch <- MetricDescriptions.NodeCPUPercentage
+	ch <- MetricDescriptions.NodeCPUSecondsTotal
+	ch <- MetricDescriptions.NodeInterfaceInBytesTotal
+	ch <- MetricDescriptions.NodeInterfaceOutBytesTotal
+	ch <- MetricDescriptions.NodeInterfaceUtilizationPercentage
+	ch <- MetricDescriptions.NodeReadLatencyTotal
+	ch <- MetricDescriptions.NodeReadOps
+	ch <- MetricDescriptions.NodeUsedMemoryBytes
+	ch <- MetricDescriptions.NodeWriteLatencyTotal
+	ch <- MetricDescriptions.NodeWriteOps
+	ch <- MetricDescriptions.NodeLoadHistogram
 
 	ch <- MetricDescriptions.NodeInfo
 
-	ch <- MetricDescriptions.ClusterStatsActualIOPS
-	ch <- MetricDescriptions.ClusterStatsAverageIOBytes
-	ch <- MetricDescriptions.ClusterStatsClientQueueDepth
-	ch <- MetricDescriptions.ClusterStatsThroughputUtilization
-	ch <- MetricDescriptions.ClusterStatsLatencySeconds
-	ch <- MetricDescriptions.ClusterStatsNormalizedIOPS
-	ch <- MetricDescriptions.ClusterStatsReadBytesTotal
-	ch <- MetricDescriptions.ClusterStatsLastSampleReadBytes
-	ch <- MetricDescriptions.ClusterStatsReadLatencySeconds
-	ch <- MetricDescriptions.ClusterStatsReadLatencyTotal
-	ch <- MetricDescriptions.ClusterStatsReadOpsTotal
-	ch <- MetricDescriptions.ClusterStatsLastSampleReadOps
-	ch <- MetricDescriptions.ClusterStatsSamplePeriodSeconds
-	ch <- MetricDescriptions.ClusterStatsServices
-	ch <- MetricDescriptions.ClusterStatsExpectedServices
-	ch <- MetricDescriptions.ClusterStatsUnalignedReadsTotal
-	ch <- MetricDescriptions.ClusterStatsUnalignedWrites
-	ch <- MetricDescriptions.ClusterStatsWriteBytesTotal
-	ch <- MetricDescriptions.ClusterStatsLastSampleWriteBytes
-	ch <- MetricDescriptions.ClusterStatsWriteLatency
-	ch <- MetricDescriptions.ClusterStatsWriteLatencyTotal
-	ch <- MetricDescriptions.ClusterStatsWriteOpsTotal
-	ch <- MetricDescriptions.ClusterStatsLastSampleWriteOps
+	ch <- MetricDescriptions.ClusterActualIOPS
+	ch <- MetricDescriptions.ClusterAverageIOBytes
+	ch <- MetricDescriptions.ClusterClientQueueDepth
+	ch <- MetricDescriptions.ClusterThroughputUtilization
+	ch <- MetricDescriptions.ClusterLatencySeconds
+	ch <- MetricDescriptions.ClusterNormalizedIOPS
+	ch <- MetricDescriptions.ClusterReadBytesTotal
+	ch <- MetricDescriptions.ClusterLastSampleReadBytes
+	ch <- MetricDescriptions.ClusterReadLatencySeconds
+	ch <- MetricDescriptions.ClusterReadLatencyTotal
+	ch <- MetricDescriptions.ClusterReadOpsTotal
+	ch <- MetricDescriptions.ClusterLastSampleReadOps
+	ch <- MetricDescriptions.ClusterSamplePeriodSeconds
+	ch <- MetricDescriptions.ClusterServices
+	ch <- MetricDescriptions.ClusterExpectedServices
+	ch <- MetricDescriptions.ClusterUnalignedReadsTotal
+	ch <- MetricDescriptions.ClusterUnalignedWritesTotal
+	ch <- MetricDescriptions.ClusterWriteBytesTotal
+	ch <- MetricDescriptions.ClusterLastSampleWriteBytes
+	ch <- MetricDescriptions.ClusterWriteLatency
+	ch <- MetricDescriptions.ClusterWriteLatencyTotal
+	ch <- MetricDescriptions.ClusterWriteOpsTotal
+	ch <- MetricDescriptions.ClusterLastSampleWriteOps
 
 	ch <- MetricDescriptions.ClusterBlockFullness
 	ch <- MetricDescriptions.ClusterFullness
@@ -207,7 +207,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsTotalMemoryBytes,
+			MetricDescriptions.NodeTotalMemoryBytes,
 			prometheus.GaugeValue,
 			GBToBytes(node.PlatformInfo.NodeMemoryGB),
 			strconv.Itoa(node.NodeID),
@@ -224,161 +224,161 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	for _, vol := range volumeStats.Result.VolumeStats {
 		volumeNamesMux.Lock()
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsActualIOPS,
+			MetricDescriptions.VolumeActualIOPS,
 			prometheus.GaugeValue,
 			vol.ActualIOPS,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsAverageIOPSizeBytes,
+			MetricDescriptions.VolumeAverageIOPSizeBytes,
 			prometheus.GaugeValue,
 			vol.AverageIOPSize,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsBurstIOPSCredit,
+			MetricDescriptions.VolumeBurstIOPSCredit,
 			prometheus.GaugeValue,
 			vol.BurstIOPSCredit,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsClientQueueDepth,
+			MetricDescriptions.VolumeClientQueueDepth,
 			prometheus.GaugeValue,
 			vol.ClientQueueDepth,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsLatencySeconds,
+			MetricDescriptions.VolumeLatencySeconds,
 			prometheus.GaugeValue,
 			UsToSecondss(vol.LatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsNonZeroBlocks,
+			MetricDescriptions.VolumeNonZeroBlocks,
 			prometheus.GaugeValue,
 			vol.NonZeroBlocks,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsReadBytes,
+			MetricDescriptions.VolumeReadBytesTotal,
 			prometheus.CounterValue,
 			vol.ReadBytes,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsLastSampleReadBytes,
+			MetricDescriptions.VolumeLastSampleReadBytes,
 			prometheus.GaugeValue,
 			vol.ReadBytesLastSample,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsReadLatencySeconds,
+			MetricDescriptions.VolumeReadLatencySeconds,
 			prometheus.GaugeValue,
 			UsToSecondss(vol.ReadLatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsReadLatencySecondsTotal,
+			MetricDescriptions.VolumeReadLatencySecondsTotal,
 			prometheus.CounterValue,
 			UsToSecondss(vol.ReadLatencyUSecTotal),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsReadOpsTotal,
+			MetricDescriptions.VolumeReadOpsTotal,
 			prometheus.CounterValue,
 			vol.ReadOps,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsLastSampleReadOps,
+			MetricDescriptions.VolumeLastSampleReadOps,
 			prometheus.GaugeValue,
 			vol.ReadOpsLastSample,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsThrottle,
+			MetricDescriptions.VolumeThrottle,
 			prometheus.GaugeValue,
 			vol.Throttle,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsUnalignedReadsTotal,
+			MetricDescriptions.VolumeUnalignedReadsTotal,
 			prometheus.CounterValue,
 			vol.UnalignedReads,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsUnalignedWritesTotal,
+			MetricDescriptions.VolumeUnalignedWritesTotal,
 			prometheus.CounterValue,
 			vol.UnalignedWrites,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsVolumeSizeBytes,
+			MetricDescriptions.VolumeSizeBytes,
 			prometheus.GaugeValue,
 			vol.VolumeSize,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsVolumeUtilization,
+			MetricDescriptions.VolumeUtilization,
 			prometheus.GaugeValue,
 			vol.VolumeUtilization,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsWriteBytes,
+			MetricDescriptions.VolumeWriteBytesTotal,
 			prometheus.CounterValue,
 			vol.WriteBytes,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsLastSampleWriteBytes,
+			MetricDescriptions.VolumeLastSampleWriteBytes,
 			prometheus.GaugeValue,
 			vol.WriteBytesLastSample,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsWriteLatencySeconds,
+			MetricDescriptions.VolumeWriteLatencySeconds,
 			prometheus.GaugeValue,
 			UsToSecondss(vol.WriteLatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsWriteLatencyTotal,
+			MetricDescriptions.VolumeWriteLatencyTotal,
 			prometheus.CounterValue,
 			UsToSecondss(vol.WriteLatencyUSecTotal),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsWriteOpsTotal,
+			MetricDescriptions.VolumeWriteOpsTotal,
 			prometheus.CounterValue,
 			vol.WriteOps,
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.VolumeStatsWriteOpsLastSample,
+			MetricDescriptions.VolumeWriteOpsLastSample,
 			prometheus.GaugeValue,
 			vol.WriteOpsLastSample,
 			strconv.Itoa(vol.VolumeID),
@@ -401,112 +401,112 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 	cluster := clusterCapacity.Result.ClusterCapacity
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityActiveBlockSpaceBytes,
+		MetricDescriptions.ClusterActiveBlockSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.ActiveBlockSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityActiveSessions,
+		MetricDescriptions.ClusterActiveSessions,
 		prometheus.GaugeValue,
 		cluster.ActiveSessions)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityAverageIOPS,
+		MetricDescriptions.ClusterAverageIOPS,
 		prometheus.GaugeValue,
 		cluster.AverageIOPS)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityClusterRecentIOSizeBytes,
+		MetricDescriptions.ClusterClusterRecentIOSizeBytes,
 		prometheus.GaugeValue,
 		cluster.ClusterRecentIOSize)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityCurrentIOPS,
+		MetricDescriptions.ClusterCurrentIOPS,
 		prometheus.GaugeValue,
 		cluster.CurrentIOPS)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityMaxIOPS,
+		MetricDescriptions.ClusterMaxIOPS,
 		prometheus.GaugeValue,
 		cluster.MaxIOPS)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityMaxOverProvisionableSpaceBytes,
+		MetricDescriptions.ClusterMaxOverProvisionableSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.MaxOverProvisionableSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityMaxProvisionedSpaceBytes,
+		MetricDescriptions.ClusterMaxProvisionedSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.MaxProvisionedSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityMaxUsedMetadataSpaceBytes,
+		MetricDescriptions.ClusterMaxUsedMetadataSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.MaxUsedMetadataSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityMaxUsedSpaceBytes,
+		MetricDescriptions.ClusterMaxUsedSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.MaxUsedSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityNonZeroBlocks,
+		MetricDescriptions.ClusterNonZeroBlocks,
 		prometheus.GaugeValue,
 		cluster.NonZeroBlocks)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityPeakActiveSessions,
+		MetricDescriptions.ClusterPeakActiveSessions,
 		prometheus.GaugeValue,
 		cluster.PeakActiveSessions)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityPeakIOPS,
+		MetricDescriptions.ClusterPeakIOPS,
 		prometheus.GaugeValue,
 		cluster.PeakIOPS)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityProvisionedSpaceBytes,
+		MetricDescriptions.ClusterProvisionedSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.ProvisionedSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacitySnapshotNonZeroBlocks,
+		MetricDescriptions.ClusterSnapshotNonZeroBlocks,
 		prometheus.GaugeValue,
 		cluster.SnapshotNonZeroBlocks)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityIOPSTotal,
+		MetricDescriptions.ClusterIOPSTotal,
 		prometheus.CounterValue,
 		cluster.TotalOps)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityUniqueBlocks,
+		MetricDescriptions.ClusterUniqueBlocks,
 		prometheus.GaugeValue,
 		cluster.UniqueBlocks)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityUniqueBlocksUsedSpaceBytes,
+		MetricDescriptions.ClusterUniqueBlocksUsedSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.UniqueBlocksUsedSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityUsedMetadataSpaceBytes,
+		MetricDescriptions.ClusterUsedMetadataSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.UsedMetadataSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityUsedMetadataSpaceInSnapshotsBytes,
+		MetricDescriptions.ClusterUsedMetadataSpaceInSnapshotsBytes,
 		prometheus.GaugeValue,
 		cluster.UsedMetadataSpaceInSnapshots)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityUsedSpaceBytes,
+		MetricDescriptions.ClusterUsedSpaceBytes,
 		prometheus.GaugeValue,
 		cluster.UsedSpace)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityZeroBlocks,
+		MetricDescriptions.ClusterZeroBlocks,
 		prometheus.GaugeValue,
 		cluster.ZeroBlocks)
 
@@ -516,7 +516,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityThinProvisioningFactor,
+		MetricDescriptions.ClusterThinProvisioningFactor,
 		prometheus.GaugeValue,
 		clusterThinProvisioningFactor)
 
@@ -526,7 +526,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityDeDuplicationFactor,
+		MetricDescriptions.ClusterDeDuplicationFactor,
 		prometheus.GaugeValue,
 		clusterDeDuplicationFactor)
 
@@ -536,12 +536,12 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityCompressionFactor,
+		MetricDescriptions.ClusterCompressionFactor,
 		prometheus.GaugeValue,
 		clusterCompressionFactor)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterCapacityEfficiencyFactor,
+		MetricDescriptions.ClusterEfficiencyFactor,
 		prometheus.GaugeValue,
 		clusterThinProvisioningFactor*clusterDeDuplicationFactor*clusterCompressionFactor)
 
@@ -588,7 +588,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
-			MetricDescriptions.NodeStatsLoadHistogram,
+			MetricDescriptions.NodeLoadHistogram,
 			stats.Count,
 			float64(sumHistogram(SsLoadHistogram)),
 			SsLoadHistogram,
@@ -597,7 +597,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceInBytesTotal,
+			MetricDescriptions.NodeInterfaceInBytesTotal,
 			prometheus.CounterValue,
 			stats.CBytesIn,
 			strconv.Itoa(stats.NodeID),
@@ -606,7 +606,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceOutBytesTotal,
+			MetricDescriptions.NodeInterfaceOutBytesTotal,
 			prometheus.CounterValue,
 			stats.CBytesOut,
 			strconv.Itoa(stats.NodeID),
@@ -615,7 +615,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsCount,
+			MetricDescriptions.NodeSamples,
 			prometheus.GaugeValue,
 			float64(stats.Count),
 			strconv.Itoa(stats.NodeID),
@@ -623,7 +623,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsCPUPercentage,
+			MetricDescriptions.NodeCPUPercentage,
 			prometheus.GaugeValue,
 			stats.CPU,
 			strconv.Itoa(stats.NodeID),
@@ -631,15 +631,15 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsCPUTotalSeconds,
-			prometheus.GaugeValue,
+			MetricDescriptions.NodeCPUSecondsTotal,
+			prometheus.CounterValue,
 			stats.CPUTotal,
 			strconv.Itoa(stats.NodeID),
 			nodesNamesByID[stats.NodeID],
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceInBytesTotal,
+			MetricDescriptions.NodeInterfaceInBytesTotal,
 			prometheus.CounterValue,
 			stats.MBytesIn,
 			strconv.Itoa(stats.NodeID),
@@ -648,7 +648,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceOutBytesTotal,
+			MetricDescriptions.NodeInterfaceOutBytesTotal,
 			prometheus.CounterValue,
 			stats.MBytesOut,
 			strconv.Itoa(stats.NodeID),
@@ -657,7 +657,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceUtilizationPercentage,
+			MetricDescriptions.NodeInterfaceUtilizationPercentage,
 			prometheus.GaugeValue,
 			stats.NetworkUtilizationCluster,
 			strconv.Itoa(stats.NodeID),
@@ -666,7 +666,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceUtilizationPercentage,
+			MetricDescriptions.NodeInterfaceUtilizationPercentage,
 			prometheus.GaugeValue,
 			stats.NetworkUtilizationStorage,
 			strconv.Itoa(stats.NodeID),
@@ -675,7 +675,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsReadLatencyTotal,
+			MetricDescriptions.NodeReadLatencyTotal,
 			prometheus.CounterValue,
 			UsToSecondss(stats.ReadLatencyUSecTotal),
 			strconv.Itoa(stats.NodeID),
@@ -683,7 +683,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsReadOps,
+			MetricDescriptions.NodeReadOps,
 			prometheus.GaugeValue,
 			stats.ReadOps,
 			strconv.Itoa(stats.NodeID),
@@ -691,7 +691,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceInBytesTotal,
+			MetricDescriptions.NodeInterfaceInBytesTotal,
 			prometheus.CounterValue,
 			stats.SBytesIn,
 			strconv.Itoa(stats.NodeID),
@@ -700,7 +700,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsInterfaceOutBytesTotal,
+			MetricDescriptions.NodeInterfaceOutBytesTotal,
 			prometheus.CounterValue,
 			stats.SBytesOut,
 			strconv.Itoa(stats.NodeID),
@@ -709,7 +709,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsUsedMemoryBytes,
+			MetricDescriptions.NodeUsedMemoryBytes,
 			prometheus.GaugeValue,
 			stats.UsedMemory,
 			strconv.Itoa(stats.NodeID),
@@ -717,7 +717,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsWriteLatencyTotal,
+			MetricDescriptions.NodeWriteLatencyTotal,
 			prometheus.CounterValue,
 			UsToSecondss(stats.WriteLatencyUSecTotal),
 			strconv.Itoa(stats.NodeID),
@@ -725,7 +725,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeStatsWriteOps,
+			MetricDescriptions.NodeWriteOps,
 			prometheus.GaugeValue,
 			stats.WriteOps,
 			strconv.Itoa(stats.NodeID),
@@ -843,7 +843,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
-			MetricDescriptions.VolumeQoSWriteBlockSizes,
+			MetricDescriptions.VolumeQoSWriteBlockSizesBytes,
 			0,
 			float64(sumHistogram(WriteBlockSizes)),
 			WriteBlockSizes,
@@ -859,139 +859,139 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	}
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsActualIOPS,
+		MetricDescriptions.ClusterActualIOPS,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.ActualIOPS,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsAverageIOBytes,
+		MetricDescriptions.ClusterAverageIOBytes,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.AverageIOPSize,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsClientQueueDepth,
+		MetricDescriptions.ClusterClientQueueDepth,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.ClientQueueDepth,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsThroughputUtilization,
+		MetricDescriptions.ClusterThroughputUtilization,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.ClusterUtilization,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsLatencySeconds,
+		MetricDescriptions.ClusterLatencySeconds,
 		prometheus.GaugeValue,
 		UsToSecondss(clusterStats.Result.ClusterStats.LatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsNormalizedIOPS,
+		MetricDescriptions.ClusterNormalizedIOPS,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.NormalizedIOPS,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsReadBytesTotal,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterReadBytesTotal,
+		prometheus.CounterValue,
 		clusterStats.Result.ClusterStats.ReadBytes,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsLastSampleReadBytes,
+		MetricDescriptions.ClusterLastSampleReadBytes,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.ReadBytesLastSample,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsReadLatencySeconds,
+		MetricDescriptions.ClusterReadLatencySeconds,
 		prometheus.GaugeValue,
 		UsToSecondss(clusterStats.Result.ClusterStats.ReadLatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsReadLatencyTotal,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterReadLatencyTotal,
+		prometheus.CounterValue,
 		UsToSecondss(clusterStats.Result.ClusterStats.ReadLatencyUSecTotal),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsReadOpsTotal,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterReadOpsTotal,
+		prometheus.CounterValue,
 		clusterStats.Result.ClusterStats.ReadOps,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsLastSampleReadOps,
+		MetricDescriptions.ClusterLastSampleReadOps,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.ReadOpsLastSample,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsSamplePeriodSeconds,
+		MetricDescriptions.ClusterSamplePeriodSeconds,
 		prometheus.GaugeValue,
 		MsToSeconds(clusterStats.Result.ClusterStats.SamplePeriodMsec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsServices,
+		MetricDescriptions.ClusterServices,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.ServicesCount,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsExpectedServices,
+		MetricDescriptions.ClusterExpectedServices,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.ServicesTotal,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsUnalignedReadsTotal,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterUnalignedReadsTotal,
+		prometheus.CounterValue,
 		clusterStats.Result.ClusterStats.UnalignedReads,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsUnalignedWrites,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterUnalignedWritesTotal,
+		prometheus.CounterValue,
 		clusterStats.Result.ClusterStats.UnalignedWrites,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsWriteBytesTotal,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterWriteBytesTotal,
+		prometheus.CounterValue,
 		clusterStats.Result.ClusterStats.WriteBytes,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsLastSampleWriteBytes,
+		MetricDescriptions.ClusterLastSampleWriteBytes,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.WriteBytesLastSample,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsWriteLatency,
+		MetricDescriptions.ClusterWriteLatency,
 		prometheus.GaugeValue,
 		UsToSecondss(clusterStats.Result.ClusterStats.WriteLatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsWriteLatencyTotal,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterWriteLatencyTotal,
+		prometheus.CounterValue,
 		UsToSecondss(clusterStats.Result.ClusterStats.WriteLatencyUSecTotal),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsWriteOpsTotal,
-		prometheus.GaugeValue,
+		MetricDescriptions.ClusterWriteOpsTotal,
+		prometheus.CounterValue,
 		clusterStats.Result.ClusterStats.WriteOps,
 	)
 
 	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterStatsLastSampleWriteOps,
+		MetricDescriptions.ClusterLastSampleWriteOps,
 		prometheus.GaugeValue,
 		clusterStats.Result.ClusterStats.WriteOpsLastSample,
 	)
