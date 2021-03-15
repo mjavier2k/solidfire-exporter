@@ -82,12 +82,12 @@ type Descriptions struct {
 	NodeInterfaceUtilizationPercentage *prometheus.Desc
 	NodeLoadHistogram                  *prometheus.Desc
 	NodeReadLatencyTotal               *prometheus.Desc
-	NodeReadOps                        *prometheus.Desc
+	NodeReadOpsTotal                   *prometheus.Desc
 	NodeSamples                        *prometheus.Desc
 	NodeTotalMemoryBytes               *prometheus.Desc
 	NodeUsedMemoryBytes                *prometheus.Desc
 	NodeWriteLatencyTotal              *prometheus.Desc
-	NodeWriteOps                       *prometheus.Desc
+	NodeWriteOpsTotal                  *prometheus.Desc
 
 	// ListAllNodes
 	NodeInfo *prometheus.Desc
@@ -534,16 +534,16 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 
-	d.NodeReadOps = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "node_read_ops"),
-		"Read Operations", // undocumented metric
+	d.NodeReadOpsTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_read_ops_total"),
+		"Total read operations to a node.", // undocumented metric
 		[]string{"node_id", "node_name"},
 		nil,
 	)
 
-	d.NodeWriteOps = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "node_write_ops"),
-		"Write Operations", // undocumented metric
+	d.NodeWriteOpsTotal = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "node_write_ops_total"),
+		"Total write operations to a node", // undocumented metric
 		[]string{"node_id", "node_name"},
 		nil,
 	)
@@ -788,7 +788,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 
 	d.ClusterBlockFullness = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_block_fullness"),
-		"The current computed level of block fullness of the cluster.",
+		"The current computed level of block fullness of the cluster. See https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155 for more details.",
 		[]string{"level"},
 		nil,
 	)
@@ -809,7 +809,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 
 	d.ClusterMetadataFullness = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_metadata_fullness"),
-		"The current computed level of metadata fullness of the cluster.",
+		"The current computed level of metadata fullness of the cluster. See https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155 for more details.",
 		[]string{"level"},
 		nil,
 	)

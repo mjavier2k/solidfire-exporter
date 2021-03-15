@@ -105,10 +105,10 @@ func (c *solidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.NodeInterfaceOutBytesTotal
 	ch <- MetricDescriptions.NodeInterfaceUtilizationPercentage
 	ch <- MetricDescriptions.NodeReadLatencyTotal
-	ch <- MetricDescriptions.NodeReadOps
+	ch <- MetricDescriptions.NodeReadOpsTotal
 	ch <- MetricDescriptions.NodeUsedMemoryBytes
 	ch <- MetricDescriptions.NodeWriteLatencyTotal
-	ch <- MetricDescriptions.NodeWriteOps
+	ch <- MetricDescriptions.NodeWriteOpsTotal
 	ch <- MetricDescriptions.NodeLoadHistogram
 
 	ch <- MetricDescriptions.NodeInfo
@@ -683,8 +683,8 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeReadOps,
-			prometheus.GaugeValue,
+			MetricDescriptions.NodeReadOpsTotal,
+			prometheus.CounterValue,
 			stats.ReadOps,
 			strconv.Itoa(stats.NodeID),
 			nodesNamesByID[stats.NodeID],
@@ -725,8 +725,8 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		)
 
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.NodeWriteOps,
-			prometheus.GaugeValue,
+			MetricDescriptions.NodeWriteOpsTotal,
+			prometheus.CounterValue,
 			stats.WriteOps,
 			strconv.Itoa(stats.NodeID),
 			nodesNamesByID[stats.NodeID],
