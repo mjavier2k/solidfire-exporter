@@ -152,7 +152,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(solidfire_volume_stats_size{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
+          "expr": "sum(solidfire_volume_stats_size_bytes{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -322,7 +322,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(solidfire_volume_stats_non_zero_blocks{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum(solidfire_volume_stats_size{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})* 4096 * 100",
+          "expr": "sum(solidfire_volume_stats_non_zero_blocks{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum(solidfire_volume_stats_size_bytes{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})* 4096 * 100",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -407,7 +407,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(solidfire_volume_stats_read_ops {sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum((solidfire_volume_stats_read_ops{sfcluster=~\"$cluster\", volume_name=~\"$volume\"} +  solidfire_volume_stats_write_ops{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})) * 100",
+          "expr": "sum(solidfire_volume_stats_read_ops_total {sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum((solidfire_volume_stats_read_ops_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"} +  solidfire_volume_stats_write_ops_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})) * 100",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -492,7 +492,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(solidfire_volume_stats_write_ops{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum((solidfire_volume_stats_read_ops{sfcluster=~\"$cluster\", volume_name=~\"$volume\"} +  solidfire_volume_stats_write_ops{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})) * 100",
+          "expr": "sum(solidfire_volume_stats_write_ops_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}) / sum((solidfire_volume_stats_read_ops_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"} +  solidfire_volume_stats_write_ops_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})) * 100",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -565,7 +565,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (volume_name) (solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
+          "expr": "sum by (volume_name) (solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 4,
@@ -573,7 +573,7 @@
           "refId": "A"
         },
         {
-          "expr": "sum (solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
+          "expr": "sum (solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", volume_name=~\"$volume\"})",
           "format": "time_series",
           "instant": false,
           "intervalFactor": 4,
@@ -1140,7 +1140,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "solidfire_volume_stats_average_iop_size{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
+          "expr": "solidfire_volume_stats_average_iop_size_bytes{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 2,
@@ -1152,7 +1152,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "solidfire_volume_stats_average_iop_size",
+      "title": "solidfire_volume_stats_average_iop_size_bytes",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -1249,7 +1249,7 @@
           "refId": "A"
         },
         {
-          "expr": "increase(solidfire_volume_stats_read_ops{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
+          "expr": "increase(solidfire_volume_stats_read_ops_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 2,
@@ -1257,7 +1257,7 @@
           "refId": "B"
         },
         {
-          "expr": "increase(solidfire_volume_stats_write_ops{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
+          "expr": "increase(solidfire_volume_stats_write_ops_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -1552,7 +1552,7 @@
       "steppedLine": true,
       "targets": [
         {
-          "expr": "increase(solidfire_volume_stats_unaligned_reads{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
+          "expr": "increase(solidfire_volume_stats_unaligned_reads_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -1561,7 +1561,7 @@
           "refId": "A"
         },
         {
-          "expr": "increase(solidfire_volume_stats_unaligned_writes{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
+          "expr": "increase(solidfire_volume_stats_unaligned_writes_total{sfcluster=~\"$cluster\", volume_name=~\"$volume\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ volume_name }} unaligned writes",
@@ -1572,7 +1572,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "solidfire_volume_stats_unaligned_reads/writes",
+      "title": "solidfire_volume_stats_unaligned_reads_total/writes",
       "tooltip": {
         "shared": true,
         "sort": 2,

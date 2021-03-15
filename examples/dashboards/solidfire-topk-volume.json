@@ -647,16 +647,16 @@
           },
           {
             "selected": false,
-            "text": "solidfire_volume_stats_read_ops",
-            "value": "solidfire_volume_stats_read_ops"
+            "text": "solidfire_volume_stats_read_ops_total",
+            "value": "solidfire_volume_stats_read_ops_total"
           },
           {
             "selected": false,
-            "text": "solidfire_volume_stats_write_ops",
-            "value": "solidfire_volume_stats_write_ops"
+            "text": "solidfire_volume_stats_write_ops_total",
+            "value": "solidfire_volume_stats_write_ops_total"
           }
         ],
-        "query": "solidfire_volume_stats_read_ops,solidfire_volume_stats_write_ops",
+        "query": "solidfire_volume_stats_read_ops_total,solidfire_volume_stats_write_ops_total",
         "skipUrlSync": false,
         "type": "custom"
       }

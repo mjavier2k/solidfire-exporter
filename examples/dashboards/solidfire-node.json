@@ -789,7 +789,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(solidfire_drives_status{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
+          "expr": "count(solidfire_drive_status{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -877,7 +877,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(solidfire_drives_capacity{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
+          "expr": "sum(solidfire_drive_capacity_bytes{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -972,7 +972,7 @@
       ],
       "targets": [
         {
-          "expr": "solidfire_drives_status{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
+          "expr": "solidfire_drive_status{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1064,7 +1064,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(sum(solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", node_name=~\"$node\"})  / ($iscsi_max) * 100)",
+          "expr": "(sum(solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", node_name=~\"$node\"})  / ($iscsi_max) * 100)",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -1138,14 +1138,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (node_name) (solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", node_name=~\"$node\"})",
+          "expr": "sum by (node_name) (solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", node_name=~\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
           "refId": "A"
         },
         {
-          "expr": "sum(solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\"})",
+          "expr": "sum(solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Total",
@@ -1300,7 +1300,7 @@
       ],
       "targets": [
         {
-          "expr": "solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
+          "expr": "solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
