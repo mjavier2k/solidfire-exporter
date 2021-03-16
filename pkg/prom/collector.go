@@ -209,7 +209,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeTotalMemoryBytes,
 			prometheus.GaugeValue,
-			GBToBytes(node.PlatformInfo.NodeMemoryGB),
+			gigabytesToBytes(node.PlatformInfo.NodeMemoryGB),
 			strconv.Itoa(node.NodeID),
 			node.Name,
 		)
@@ -254,7 +254,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeLatencySeconds,
 			prometheus.GaugeValue,
-			UsToSecondss(vol.LatencyUSec),
+			microsecondsToSeconds(vol.LatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
@@ -282,14 +282,14 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeReadLatencySeconds,
 			prometheus.GaugeValue,
-			UsToSecondss(vol.ReadLatencyUSec),
+			microsecondsToSeconds(vol.ReadLatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeReadLatencySecondsTotal,
 			prometheus.CounterValue,
-			UsToSecondss(vol.ReadLatencyUSecTotal),
+			microsecondsToSeconds(vol.ReadLatencyUSecTotal),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
@@ -359,14 +359,14 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeWriteLatencySeconds,
 			prometheus.GaugeValue,
-			UsToSecondss(vol.WriteLatencyUSec),
+			microsecondsToSeconds(vol.WriteLatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeWriteLatencyTotal,
 			prometheus.CounterValue,
-			UsToSecondss(vol.WriteLatencyUSecTotal),
+			microsecondsToSeconds(vol.WriteLatencyUSecTotal),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
@@ -677,7 +677,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeReadLatencyTotal,
 			prometheus.CounterValue,
-			UsToSecondss(stats.ReadLatencyUSecTotal),
+			microsecondsToSeconds(stats.ReadLatencyUSecTotal),
 			strconv.Itoa(stats.NodeID),
 			nodesNamesByID[stats.NodeID],
 		)
@@ -719,7 +719,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeWriteLatencyTotal,
 			prometheus.CounterValue,
-			UsToSecondss(stats.WriteLatencyUSecTotal),
+			microsecondsToSeconds(stats.WriteLatencyUSecTotal),
 			strconv.Itoa(stats.NodeID),
 			nodesNamesByID[stats.NodeID],
 		)
@@ -885,7 +885,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterLatencySeconds,
 		prometheus.GaugeValue,
-		UsToSecondss(clusterStats.Result.ClusterStats.LatencyUSec),
+		microsecondsToSeconds(clusterStats.Result.ClusterStats.LatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -909,13 +909,13 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterReadLatencySeconds,
 		prometheus.GaugeValue,
-		UsToSecondss(clusterStats.Result.ClusterStats.ReadLatencyUSec),
+		microsecondsToSeconds(clusterStats.Result.ClusterStats.ReadLatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterReadLatencyTotal,
 		prometheus.CounterValue,
-		UsToSecondss(clusterStats.Result.ClusterStats.ReadLatencyUSecTotal),
+		microsecondsToSeconds(clusterStats.Result.ClusterStats.ReadLatencyUSecTotal),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -933,7 +933,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterSamplePeriodSeconds,
 		prometheus.GaugeValue,
-		MsToSeconds(clusterStats.Result.ClusterStats.SamplePeriodMsec),
+		millisecondsToSeconds(clusterStats.Result.ClusterStats.SamplePeriodMsec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -975,13 +975,13 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterWriteLatency,
 		prometheus.GaugeValue,
-		UsToSecondss(clusterStats.Result.ClusterStats.WriteLatencyUSec),
+		microsecondsToSeconds(clusterStats.Result.ClusterStats.WriteLatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterWriteLatencyTotal,
 		prometheus.CounterValue,
-		UsToSecondss(clusterStats.Result.ClusterStats.WriteLatencyUSecTotal),
+		microsecondsToSeconds(clusterStats.Result.ClusterStats.WriteLatencyUSecTotal),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -1178,14 +1178,14 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	for _, d := range ListDrives.Result.Drives {
 		for _, ds := range possibleDriveStatuses {
-			var driveStatus float64 = 0
+			var driveStatusValue float64 = 0
 			if ds == d.Status {
-				driveStatus = 1
+				driveStatusValue = 1
 			}
 			ch <- prometheus.MustNewConstMetric(
 				MetricDescriptions.DriveStatus,
 				prometheus.GaugeValue,
-				driveStatus,
+				driveStatusValue,
 				strconv.Itoa(d.NodeID),
 				nodesNamesByID[d.NodeID],
 				strconv.Itoa(d.DriveID),
@@ -1238,7 +1238,6 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 	}
 
-	// Set scrape success metric to scrapeSuccess
 	ch <- prometheus.MustNewConstMetric(MetricDescriptions.upDesc, prometheus.GaugeValue, up)
 }
 
@@ -1253,14 +1252,14 @@ func NewCollector() (*solidfireCollector, error) {
 	}, nil
 }
 
-func GBToBytes(gb float64) float64 {
+func gigabytesToBytes(gb float64) float64 {
 	return gb * 1e+9
 }
 
-func UsToSecondss(microSeconds float64) float64 {
+func microsecondsToSeconds(microSeconds float64) float64 {
 	return microSeconds * 1e-6
 }
 
-func MsToSeconds(milliseconds float64) float64 {
+func millisecondsToSeconds(milliseconds float64) float64 {
 	return milliseconds * 1e-3
 }
