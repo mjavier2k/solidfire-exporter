@@ -26,7 +26,7 @@ NetApp Solidfire-Exporter queries the Solidfire API and exports the results as P
 
 | API Version | Endpoint | Notes |
 |-|-|-|
-| [11.3](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155) | https://your-mgmt-vip/json-rpc/11.3 | There is a known bug in v11.3 where the api user requires <br>Administrator access is required to view the QoS data. |
+| [11.3](https://library.netapp.com/ecm/ecm_download_file/ECMLP2856155) | https://your-mgmt-vip/json-rpc/11.3 | There is a known bug in v11.3 where the api user requires Administrator access to retrieve the QoS data. |
 | [12.2](https://docs.netapp.com/sfe-122/index.jsp) | https://your-mgmt-vip/json-rpc/12.2 |  |
 
 ## Installation
@@ -49,7 +49,6 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_cluster_current_iops | gauge | The average IOPS for all volumes in the cluster over the last 5 seconds |
 | solidfire_cluster_de_duplication_factor | gauge | The cluster deDuplication factor. deDuplicationFactor = (nonZeroBlocks + snapshotNonZeroBlocks) / uniqueBlocks |
 | solidfire_cluster_efficiency_factor | gauge | The cluster efficiency factor. efficiencyFactor = thinProvisioningFactor * deDuplicationFactor * compressionFactor |
-| solidfire_cluster_expected_services | gauge | The total number of expected services running on the cluster. |
 | solidfire_cluster_fullness | gauge | Reflects the highest level of fullness between 'blockFullness' and 'metadataFullness'. |
 | solidfire_cluster_iops | gauge | Current actual IOPS for the entire cluster in the last 500 milliseconds. |
 | solidfire_cluster_iops_total | counter | The total number of I/O operations performed throughout the lifetime of the cluster. |
@@ -74,8 +73,9 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_cluster_read_latency_seconds | gauge | The average time, in seconds, to complete read operations to the cluster in the last 500 milliseconds. |
 | solidfire_cluster_read_latency_seconds_total | counter | The total time spent performing read operations since the creation of the cluster. |
 | solidfire_cluster_read_ops_total | counter | The total cumulative read operations to the cluster since the creation of the cluster. |
-| solidfire_cluster_running_services | gauge | The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes. |
 | solidfire_cluster_sample_period_seconds | gauge | The length of the sample period, in seconds. |
+| solidfire_cluster_services_expected | gauge | The total number of expected services running on the cluster. |
+| solidfire_cluster_services_running | gauge | The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes. |
 | solidfire_cluster_slice_reserve_used_threshold_percentage | gauge | Error condition. A system alert is triggered if the reserved slice utilization is greater than the sliceReserveUsedThresholdPct value returned. |
 | solidfire_cluster_snapshot_non_zero_blocks | gauge | The total number of 4KiB blocks that contain data after the last garbage collection operation has completed |
 | solidfire_cluster_stage2_aware_threshold_percentage | gauge | Awareness condition. The value that is set for 'Stage 2' cluster threshold level. |

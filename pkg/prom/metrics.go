@@ -717,14 +717,14 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	)
 
 	d.ClusterServices = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_running_services"),
+		prometheus.BuildFQName(namespace, "", "cluster_services_running"),
 		"The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes.",
 		nil,
 		nil,
 	)
 
 	d.ClusterExpectedServices = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_expected_services"),
+		prometheus.BuildFQName(namespace, "", "cluster_services_expected"),
 		"The total number of expected services running on the cluster.",
 		nil,
 		nil,
