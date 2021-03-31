@@ -612,7 +612,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	)
 
 	d.VolumeQoSWriteBlockSizesBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_qos_write_block_sizes_bytes"),
+		prometheus.BuildFQName(namespace, "", "volume_qos_write_block_sizes_bytes_bucket"),
 		"Volume QoS write block sizes",
 		[]string{"volume_id", "volume_name"},
 		nil,
