@@ -65,11 +65,7 @@
       "icon": "external link",
       "includeVars": true,
       "keepTime": true,
-      "tags": [
-        "solidfire",
-        "solidfire_exporter",
-        "prometheus"
-      ],
+      "tags": ["solidfire", "solidfire_exporter", "prometheus"],
       "targetBlank": true,
       "title": "Solidfire",
       "type": "dashboards"
@@ -94,11 +90,7 @@
       "cacheTimeout": null,
       "colorBackground": true,
       "colorValue": false,
-      "colors": [
-        "#37872D",
-        "#37872D",
-        "#37872D"
-      ],
+      "colors": ["#37872D", "#37872D", "#37872D"],
       "datasource": "${DS_PROMETHEUS}",
       "format": "bytes",
       "gauge": {
@@ -178,11 +170,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_PROMETHEUS}",
       "description": "A floating value that describes\nhow much the client is using the\nvolume. \n\nPossible values:\n\n• 0: The client is not using the\nvolume.\n\n• 100: The client is using their\nmaximum.\n\n• gt 100% : The client is using their\nburst.",
       "format": "none",
@@ -264,11 +252,7 @@
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
-      "colors": [
-        "#299c46",
-        "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
-      ],
+      "colors": ["#299c46", "rgba(237, 129, 40, 0.89)", "#d44a3a"],
       "datasource": "${DS_PROMETHEUS}",
       "format": "none",
       "gauge": {
@@ -348,11 +332,7 @@
       "cacheTimeout": null,
       "colorBackground": true,
       "colorValue": false,
-      "colors": [
-        "#37872D",
-        "#37872D",
-        "#37872D"
-      ],
+      "colors": ["#37872D", "#37872D", "#37872D"],
       "datasource": "${DS_PROMETHEUS}",
       "description": "The total read operations percentage to the\nvolume since the creation of the\nvolume.",
       "format": "percent",
@@ -433,11 +413,7 @@
       "cacheTimeout": null,
       "colorBackground": true,
       "colorValue": false,
-      "colors": [
-        "#37872D",
-        "#37872D",
-        "#37872D"
-      ],
+      "colors": ["#37872D", "#37872D", "#37872D"],
       "datasource": "${DS_PROMETHEUS}",
       "description": "The total cumulative write\noperations percentage to the volume since\nthe creation of the volume.",
       "format": "percent",
@@ -2263,11 +2239,7 @@
   "refresh": "1m",
   "schemaVersion": 21,
   "style": "dark",
-  "tags": [
-    "solidfire",
-    "solidfire_exporter",
-    "prometheus"
-  ],
+  "tags": ["solidfire", "solidfire_exporter", "prometheus"],
   "templating": {
     "list": [
       {
@@ -2389,17 +2361,7 @@
       "2h",
       "1d"
     ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h", "2d", "7d", "30d"]
   },
   "timezone": "",
   "title": "Prometheus - SolidFire Volume",

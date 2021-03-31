@@ -135,7 +135,7 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_volume_qos_read_block_sizes | histogram | Volume QoS read block sizes |
 | solidfire_volume_qos_target_utilization_percentage | histogram | Volume QoS target utilization percentage |
 | solidfire_volume_qos_throttle_percentage | histogram | Volume QoS throttle percentage |
-| solidfire_volume_qos_write_block_sizes_bytes | histogram | Volume QoS write block sizes |
+| solidfire_volume_qos_write_block_sizes_bytes_bucket | histogram | Volume QoS write block sizes |
 | solidfire_volume_read_bytes_total | counter | The total cumulative bytes read from the volume since the creation of the volume. |
 | solidfire_volume_read_latency_seconds | gauge | The average time, in seconds, to complete read operations to the volume in the last 500 milliseconds. |
 | solidfire_volume_read_latency_seconds_total | counter | The total time spent performing read operations from the volume |
