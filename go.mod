@@ -2,7 +2,7 @@ module github.com/mjavier2k/solidfire-exporter
 
 go 1.13
 
-replace github.com/K-Phoen/grabana => /Users/a-jneufeld/dev/nt/grabana
+replace github.com/K-Phoen/grabana => github.com/neufeldtech/grabana v0.0.0-20210406013955-7013907ae24a
 
 require (
 	github.com/K-Phoen/grabana v0.16.0
