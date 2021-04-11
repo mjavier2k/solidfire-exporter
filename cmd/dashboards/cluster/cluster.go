@@ -40,7 +40,7 @@ func efficiencySingleStat(metric string, title string, thresholds [2]string, col
 		strings.ToUpper(title),
 		singlestat.Span(3),
 		singlestat.Height("100px"),
-		singlestat.Decimals(1),
+		singlestat.Decimals(2),
 		singlestat.Postfix("x"),
 		singlestat.PostfixFontSize("75%"),
 		singlestat.DataSource(common.DatasourceVar),
@@ -75,6 +75,7 @@ func main() {
 				table.Span(12),
 				table.Height("150px"),
 				table.DataSource(common.DatasourceVar),
+				table.Transparent(),
 				table.WithPrometheusTarget(
 					fmt.Sprintf(`solidfire_cluster_active_faults{sfcluster=~"%s"} > 0`, common.ClusterVar),
 					prometheus.Format(prometheus.FormatTable),
@@ -93,6 +94,7 @@ func main() {
 			row.WithGraph("Capacity",
 				graph.DataSource(common.DatasourceVar),
 				graph.Span(12),
+				graph.Transparent(),
 				graph.WithPrometheusTarget(
 					fmt.Sprintf(`solidfire_cluster_max_used_space_bytes{sfcluster=~"%s"}`, common.ClusterVar),
 					prometheus.Legend(`{{sfcluster}} - Max Usable Capacity`),
@@ -115,10 +117,10 @@ func main() {
 			row.WithGraph("Cpu Usage",
 				graph.DataSource(common.DatasourceVar),
 				graph.Span(6),
-				// graph.Stack(),
+				graph.Transparent(),
 				graph.WithPrometheusTarget(
 					fmt.Sprintf(`solidfire_node_cpu_percentage{sfcluster=~"%s"}`, common.ClusterVar),
-					prometheus.Legend(`{{node_name}}`),
+					prometheus.Legend(`{{sfcluster}} - {{node_name}}`),
 				),
 				graph.SeriesOverride(series.Alias("/.*/"), series.Color(common.ColorGreen), series.Fill(7)),
 				graph.LeftYAxis(axis.Unit("percent")),
@@ -126,6 +128,7 @@ func main() {
 			row.WithGraph("Performance Utilization",
 				graph.DataSource(common.DatasourceVar),
 				graph.Span(6),
+				graph.Transparent(),
 				graph.WithPrometheusTarget(
 					fmt.Sprintf(`solidfire_cluster_throughput_utilization{sfcluster=~"%s"} * 100`, common.ClusterVar),
 					prometheus.Legend(`{{sfcluster}}`),
@@ -136,6 +139,7 @@ func main() {
 			row.WithGraph("IOPS",
 				graph.DataSource(common.DatasourceVar),
 				graph.Span(6),
+				graph.Transparent(),
 				graph.WithPrometheusTarget(
 					fmt.Sprintf(`sum by (sfcluster) (rate(solidfire_node_read_ops_total{sfcluster=~"%s"}[%s]))`, common.ClusterVar, common.IntervalVar),
 					prometheus.Legend(`{{sfcluster}} read iops`),
@@ -156,6 +160,7 @@ func main() {
 			row.WithGraph("Throughput/s",
 				graph.DataSource(common.DatasourceVar),
 				graph.Span(6),
+				graph.Transparent(),
 				graph.WithPrometheusTarget(
 					fmt.Sprintf(`sum by (sfcluster) (rate(solidfire_cluster_read_bytes_total{sfcluster=~"%s"}[%s]))`, common.ClusterVar, common.IntervalVar),
 					prometheus.Legend(`{{sfcluster}} read bytes`),
@@ -176,9 +181,10 @@ func main() {
 			row.WithGraph("iSCSI Sessions",
 				graph.DataSource(common.DatasourceVar),
 				graph.Span(6),
+				graph.Transparent(),
 				graph.WithPrometheusTarget(
-					fmt.Sprintf(`sum(solidfire_cluster_active_sessions{sfcluster=~"%s"})`, common.ClusterVar),
-					prometheus.Legend(`sessions`),
+					fmt.Sprintf(`sum by (sfcluster) (solidfire_cluster_active_sessions{sfcluster=~"%s"})`, common.ClusterVar),
+					prometheus.Legend(`{{sfcluster }} sessions`),
 				),
 				graph.SeriesOverride(series.Alias("/sessions/"), series.Color(common.ColorPurple), series.Fill(7)),
 				graph.LeftYAxis(axis.Unit("locale")),
@@ -186,9 +192,10 @@ func main() {
 			row.WithGraph("Queue Depth",
 				graph.DataSource(common.DatasourceVar),
 				graph.Span(6),
+				graph.Transparent(),
 				graph.WithPrometheusTarget(
-					fmt.Sprintf(`solidfire_cluster_client_queue_depth{sfcluster=~"%s"}`, common.ClusterVar),
-					prometheus.Legend(`queue depth`),
+					fmt.Sprintf(`sum by (sfcluster) (solidfire_cluster_client_queue_depth{sfcluster=~"%s"})`, common.ClusterVar),
+					prometheus.Legend(`{{sfcluster}} queue depth`),
 				),
 				graph.SeriesOverride(series.Alias("/queue depth/"), series.Color(common.ColorOrange), series.Fill(7)),
 				graph.LeftYAxis(axis.Unit("locale")),
