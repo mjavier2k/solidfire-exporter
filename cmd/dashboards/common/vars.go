@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/K-Phoen/grabana/dashboard"
@@ -13,10 +14,18 @@ var (
 	DatasourceVar   = "$datasource"
 	ClusterVar      = "$sfcluster"
 	IntervalVar     = "$interval"
+	VolumeVar       = "$volume"
 	ClusterVariable = dashboard.VariableAsQuery(
 		strings.TrimLeft(ClusterVar, "$"),
 		query.DataSource(DatasourceVar),
 		query.Request("label_values(solidfire_cluster_max_iops, sfcluster)"),
+		query.Refresh(query.TimeChange),
+	)
+	VolumeVariable = dashboard.VariableAsQuery(
+		strings.TrimLeft(VolumeVar, "$"),
+		query.Multi(),
+		query.DataSource(DatasourceVar),
+		query.Request(fmt.Sprintf(`label_values(solidfire_volume_size_bytes{sfcluster=~"%s"}, volume_name)`, ClusterVar)),
 		query.Refresh(query.TimeChange),
 	)
 	IntervalsVariable = dashboard.VariableAsInterval(
