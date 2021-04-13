@@ -175,7 +175,7 @@ func main() {
 					prometheus.Legend(`{{sfcluster}} total bytes`),
 				),
 				graph.SeriesOverride(series.Alias("/total/"), series.Color(common.ColorRed), series.Dashes(true), series.LineWidth(2), series.Fill(0)),
-				graph.LeftYAxis(axis.Unit("bytes")),
+				graph.LeftYAxis(axis.Unit("Bps")),
 			),
 
 			row.WithGraph("iSCSI Sessions",
