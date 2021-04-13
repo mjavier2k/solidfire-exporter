@@ -15,6 +15,7 @@ var (
 	ClusterVar      = "$sfcluster"
 	IntervalVar     = "$interval"
 	VolumeVar       = "$volume"
+	NodeVar         = "$node"
 	ClusterVariable = dashboard.VariableAsQuery(
 		strings.TrimLeft(ClusterVar, "$"),
 		query.DataSource(DatasourceVar),
@@ -26,6 +27,15 @@ var (
 		query.Multi(),
 		query.DataSource(DatasourceVar),
 		query.Request(fmt.Sprintf(`label_values(solidfire_volume_size_bytes{sfcluster=~"%s"}, volume_name)`, ClusterVar)),
+		query.Refresh(query.TimeChange),
+	)
+	NodeVariable = dashboard.VariableAsQuery(
+		strings.TrimLeft(NodeVar, "$"),
+		query.Multi(),
+		query.IncludeAll(),
+		query.DefaultAll(),
+		query.DataSource(DatasourceVar),
+		query.Request(fmt.Sprintf(`label_values(solidfire_node_cpu_percentage{sfcluster=~"%s"}, node_name)`, ClusterVar)),
 		query.Refresh(query.TimeChange),
 	)
 	IntervalsVariable = dashboard.VariableAsInterval(
