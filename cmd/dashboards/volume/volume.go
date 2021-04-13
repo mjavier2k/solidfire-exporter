@@ -5,18 +5,39 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/K-Phoen/grabana"
 	"github.com/K-Phoen/grabana/axis"
 	"github.com/K-Phoen/grabana/dashboard"
 	"github.com/K-Phoen/grabana/graph"
 	"github.com/K-Phoen/grabana/graph/series"
+	"github.com/K-Phoen/grabana/heatmap"
 	"github.com/K-Phoen/grabana/row"
 	"github.com/K-Phoen/grabana/singlestat"
 	"github.com/K-Phoen/grabana/target/prometheus"
 	"github.com/mjavier2k/solidfire-exporter/cmd/dashboards/common"
 )
 
+func CommonQosHeatmap(metric string) row.Option {
+	title := strings.TrimPrefix(metric, "solidfire_volume_qos_")
+	title = strings.TrimSuffix(title, "_bucket")
+	title = strings.ReplaceAll(title, "_", " ")
+	title = strings.ToTitle(title)
+	return row.WithHeatmap(
+		fmt.Sprintf("%s - %s", common.VolumeVar, title),
+		heatmap.Transparent(),
+		heatmap.DataSource(common.DatasourceVar),
+		heatmap.DataFormat(heatmap.TimeSeriesBuckets),
+		heatmap.WithPrometheusTarget(
+			fmt.Sprintf(`sum by(le, volume_name) (rate(%s{sfcluster=~"%s",volume_name=~"%s"}[%s]))`,
+				metric, common.ClusterVar, common.VolumeVar, common.IntervalVar,
+			),
+			prometheus.Legend(`{{le}}`),
+			prometheus.Format(prometheus.FormatHeatmap),
+		),
+	)
+}
 func main() {
 	builder := dashboard.New(
 		"Volume Detail",
@@ -357,6 +378,16 @@ func main() {
 				graph.SeriesOverride(series.Alias(`/writes/`), series.Color(common.ColorYellow)),
 				graph.LeftYAxis(axis.Min(0)),
 			),
+		),
+		dashboard.Row(
+			fmt.Sprintf("Volume QoS - %s", common.VolumeVar),
+			row.RepeatFor(strings.TrimPrefix(common.VolumeVar, "$")),
+			CommonQosHeatmap("solidfire_volume_qos_below_min_iops_percentage_bucket"),
+			CommonQosHeatmap("solidfire_volume_qos_min_to_max_iops_percentage_bucket"),
+			CommonQosHeatmap("solidfire_volume_qos_read_block_sizes_bytes_bucket"),
+			CommonQosHeatmap("solidfire_volume_qos_write_block_sizes_bytes_bucket"),
+			CommonQosHeatmap("solidfire_volume_qos_target_utilization_percentage_bucket"),
+			CommonQosHeatmap("solidfire_volume_qos_throttle_percentage_bucket"),
 		),
 	)
 
