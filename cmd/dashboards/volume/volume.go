@@ -48,7 +48,8 @@ func main() {
 		common.VolumeVariable,
 		common.IntervalsVariable,
 		dashboard.Row(
-			"Volume Summary",
+			fmt.Sprintf("Volume Summary - %s", common.VolumeVar),
+			row.RepeatFor(strings.TrimPrefix(common.VolumeVar, "$")),
 			row.WithSingleStat(
 				"VOLUME SIZE",
 				singlestat.Span(2),
@@ -300,7 +301,7 @@ func main() {
 				),
 				graph.SeriesOverride(series.Alias(`/utilization/`), series.Color(common.ColorYellow)),
 				graph.SeriesOverride(series.Alias(`/max/`), series.Color(common.ColorRed), series.Dashes(true), series.Fill(0), series.LineWidth(3)),
-				graph.LeftYAxis(axis.Unit("percent"), axis.Min(0), axis.Max(200)),
+				graph.LeftYAxis(axis.Unit("percent"), axis.Min(0)),
 			),
 			row.WithGraph("VOLUME ACTUAL IOPS",
 				graph.DataSource(common.DatasourceVar),
