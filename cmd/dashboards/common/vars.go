@@ -45,5 +45,5 @@ var (
 	ColorOrange = "#D74822"
 	ColorBlue   = "#0077BF"
 	ColorPurple = "#804C9D"
-	Coloryellow = "#E2AB80"
+	ColorYellow = "#E2AB80"
 )
