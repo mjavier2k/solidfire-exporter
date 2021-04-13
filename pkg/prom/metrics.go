@@ -35,12 +35,12 @@ type Descriptions struct {
 	VolumeStatsZeroBlocks         *prometheus.Desc
 
 	// ListVolumeQoSHistograms
-	VolumeQoSBelowMinIopsPercentagesHistogram *prometheus.Desc
-	VolumeQoSMinToMaxIopsPercentagesHistogram *prometheus.Desc
-	VolumeQoSReadBlockSizesHistogram          *prometheus.Desc
-	VolumeQoSTargetUtilizationPercentages     *prometheus.Desc
-	VolumeQoSThrottlePercentages              *prometheus.Desc
-	VolumeQoSWriteBlockSizesBytes             *prometheus.Desc
+	VolumeQoSBelowMinIopsPercentagesHistogram      *prometheus.Desc
+	VolumeQoSMinToMaxIopsPercentagesHistogram      *prometheus.Desc
+	VolumeQoSReadBlockSizesHistogram               *prometheus.Desc
+	VolumeQoSTargetUtilizationPercentagesHistogram *prometheus.Desc
+	VolumeQoSThrottlePercentagesHistogram          *prometheus.Desc
+	VolumeQoSWriteBlockSizesHistogram              *prometheus.Desc
 
 	// Cluster Capacity
 	ClusterActiveBlockSpaceBytes             *prometheus.Desc
@@ -591,28 +591,28 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	)
 
 	d.VolumeQoSReadBlockSizesHistogram = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_qos_read_block_sizes"),
+		prometheus.BuildFQName(namespace, "", "volume_qos_read_block_sizes_bytes"),
 		"Volume QoS read block sizes",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeQoSTargetUtilizationPercentages = prometheus.NewDesc(
+	d.VolumeQoSTargetUtilizationPercentagesHistogram = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_target_utilization_percentage"),
 		"Volume QoS target utilization percentage",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeQoSThrottlePercentages = prometheus.NewDesc(
+	d.VolumeQoSThrottlePercentagesHistogram = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "volume_qos_throttle_percentage"),
 		"Volume QoS throttle percentage",
 		[]string{"volume_id", "volume_name"},
 		nil,
 	)
 
-	d.VolumeQoSWriteBlockSizesBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_qos_write_block_sizes_bytes_bucket"),
+	d.VolumeQoSWriteBlockSizesHistogram = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "volume_qos_write_block_sizes_bytes"),
 		"Volume QoS write block sizes",
 		[]string{"volume_id", "volume_name"},
 		nil,

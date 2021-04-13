@@ -807,7 +807,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
-			MetricDescriptions.VolumeQoSTargetUtilizationPercentages,
+			MetricDescriptions.VolumeQoSTargetUtilizationPercentagesHistogram,
 			0,
 			float64(sumHistogram(TargetUtilizationPercentages)),
 			TargetUtilizationPercentages,
@@ -825,7 +825,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
-			MetricDescriptions.VolumeQoSThrottlePercentages,
+			MetricDescriptions.VolumeQoSThrottlePercentagesHistogram,
 			0,
 			float64(sumHistogram(ThrottlePercentages)),
 			ThrottlePercentages,
@@ -843,7 +843,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		}
 
 		ch <- prometheus.MustNewConstHistogram(
-			MetricDescriptions.VolumeQoSWriteBlockSizesBytes,
+			MetricDescriptions.VolumeQoSWriteBlockSizesHistogram,
 			0,
 			float64(sumHistogram(WriteBlockSizes)),
 			WriteBlockSizes,

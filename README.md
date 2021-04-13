@@ -132,7 +132,7 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_volume_non_zero_blocks | gauge | The total number of 4KiB blocks that contain data after the last garbage collection operation has completed. |
 | solidfire_volume_qos_below_min_iops_percentage | histogram | Volume QoS Below minimum IOPS percentage |
 | solidfire_volume_qos_min_to_max_iops_percentage | histogram | Volume QoS min to max IOPS percentage |
-| solidfire_volume_qos_read_block_sizes | histogram | Volume QoS read block sizes |
+| solidfire_volume_qos_read_block_sizes_bytes | histogram | Volume QoS read block sizes |
 | solidfire_volume_qos_target_utilization_percentage | histogram | Volume QoS target utilization percentage |
 | solidfire_volume_qos_throttle_percentage | histogram | Volume QoS throttle percentage |
 | solidfire_volume_qos_write_block_sizes_bytes_bucket | histogram | Volume QoS write block sizes |
