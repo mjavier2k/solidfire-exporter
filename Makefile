@@ -11,7 +11,7 @@ build_static:
 test:
 	go test ./...
 
+dash: dashboards
+dashboard: dashboards
 dashboards:
-	(cd dashboards && ./build.sh)
-	#!/usr/bin/env bash
-
+	go run ./cmd/dashboards

@@ -1,7 +1,8 @@
-# Fixes Needed
+# DEPRECATED
 
-- Convert solidfire_node_sbytes_in_total/solidfire_node_mbytes_in_total to solidfire_node_interface_in_bytes_total (etc)
-- solidfire_volume_node_id is gone?
-- fix write_block_sizes_bucket histogram... something funky happening here
-- Netapp Color scheme https://www-download.netapp.com/edm/email-guideline/
-- 
+- These are the legacy dashboards that work with v0.5.2 of solidfire-exporter and earlier.
+- They are here for backwards-compatibility reasons, but will not be updated in the future.
+
+## New Dashboards
+
+Please find the official dashboards at [dashboards](../../dashboards)

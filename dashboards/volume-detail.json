@@ -1,0 +1,1846 @@
+{
+  "slug": "",
+  "title": "Volume Detail",
+  "originalTitle": "",
+  "tags": [
+    "solidfire",
+    "generated"
+  ],
+  "style": "dark",
+  "timezone": "",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": true,
+  "panels": null,
+  "rows": [
+    {
+      "title": "Volume Summary - $volume",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 34,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "VOLUME SIZE",
+          "transparent": true,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "bytes",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_size_bytes{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 35,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "VOLUME BLOCK UTILIZATION",
+          "description": "Percentage of nonzero blocks (This is the closest measurement we have to 'volume fullness')",
+          "transparent": true,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#D74822",
+            "#AA342C"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "#0077BF",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_non_zero_blocks{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} / \n\t\t\t\t\t(solidfire_volume_zero_blocks{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} + \n\t\t\t\t\tsolidfire_volume_non_zero_blocks{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}) * 100",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "85,95",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 36,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "VOLUME THROUGHPUT UTILIZATION",
+          "description": "How much of the volume's throughput capacity (IOPS) is being utilized",
+          "transparent": true,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#D74822",
+            "#AA342C"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "#0077BF",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_utilization{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} * 100",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "80,90",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 37,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "ISCSI SESSIONS",
+          "description": "Number of ISCSI sessions to the volume",
+          "transparent": true,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "locale",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "#0077BF",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_iscsi_sessions{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 38,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "OVERALL READ %",
+          "description": "The total read operations percentage to the volume since the creation of the volume.",
+          "transparent": true,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "#0077BF",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_read_ops_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} /\n\t\t\t\t\t(solidfire_volume_read_ops_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} + \n\t\t\t\t\t\tsolidfire_volume_write_ops_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}) * 100",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 39,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "OVERALL WRITE %",
+          "description": "The total write operations percentage to the volume since the creation of the volume.",
+          "transparent": true,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "#0077BF",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_write_ops_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} /\n\t\t\t\t\t(solidfire_volume_read_ops_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} + \n\t\t\t\t\t\tsolidfire_volume_write_ops_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}) * 100",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "repeat": "volume"
+    },
+    {
+      "title": "Volume Detail",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 40,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME CAPACITY",
+          "description": "Volume nonzero blocks / (nonzero blocks + zero blocks)",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/Zero Blocks/",
+              "color": "#0077BF"
+            },
+            {
+              "alias": "/Non-Zero Blocks/",
+              "color": "#E2AB80"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_non_zero_blocks{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "legendFormat": "{{volume_name}} - Non-Zero Blocks",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "solidfire_volume_zero_blocks{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "legendFormat": "{{volume_name}} - Zero Blocks",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "min": 0,
+              "show": true,
+              "label": "blocks"
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 41,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "ISCSI SESSIONS",
+          "description": "Number of ISCSI sessions to the volume",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/.*/",
+              "color": "#804C9D"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_iscsi_sessions{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "legendFormat": "{{volume_name}} - ISCSI Sessions",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "locale",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null
+    },
+    {
+      "title": "Volume Performance",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 42,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME LATENCY",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/write/",
+              "color": "#D74822"
+            },
+            {
+              "alias": "/read/",
+              "color": "#118B42"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_volume_read_latency_seconds_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval])",
+              "legendFormat": "{{volume_name}} - read latency",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_volume_write_latency_seconds_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval])",
+              "legendFormat": "{{volume_name}} - write latency",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 43,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME THROUGHPUT",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/write/",
+              "color": "#D74822"
+            },
+            {
+              "alias": "/read/",
+              "color": "#118B42"
+            },
+            {
+              "alias": "/total/",
+              "color": "#804C9D",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 3
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_volume_read_bytes_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval])",
+              "legendFormat": "{{volume_name}} - read bytes",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_volume_write_bytes_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval])",
+              "legendFormat": "{{volume_name}} - write bytes",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_volume_read_bytes_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval]) +\n\t\t\t\t\trate(solidfire_volume_write_bytes_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval])",
+              "legendFormat": "{{volume_name}} - total bytes",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 44,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME BURST CREDIT",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/burst/",
+              "color": "#0077BF"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_burst_iops_credit{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "legendFormat": "{{volume_name}} - burst credits",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 45,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME UTILIZATION",
+          "description": "Percentage of allotted IOPS consumed by volume. Note: it's possible to burst to above 100% by making use of burst credits the volume has accumulated.",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/utilization/",
+              "color": "#E2AB80"
+            },
+            {
+              "alias": "/max/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 3
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_utilization{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} * 100",
+              "legendFormat": "{{volume_name}} - utilization",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "vector(100)",
+              "legendFormat": "max",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 46,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME ACTUAL IOPS",
+          "description": "The current actual IOPS for the volume in the last 500 milliseconds",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/actual/",
+              "color": "#118B42"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_actual_iops{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "legendFormat": "{{volume_name}} - actual iops",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "iops",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 47,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME IOP SIZE",
+          "description": "The average size in bytes of recent I/O to the volume in the last 500 milliseconds.",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/iop size/",
+              "color": "#804C9D"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_average_iop_size_bytes{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "legendFormat": "{{volume_name}} - iop size",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 48,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME CLIENT QUEUE DEPTH",
+          "description": "The number of outstanding read and write operations to the volume.",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/queue/",
+              "color": "#D74822"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_client_queue_depth{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}",
+              "legendFormat": "{{volume_name}} - queue depth",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 49,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME THROTTLE",
+          "description": "Represents how much the system is throttling clients below their maxIOPS because of replication of data, transient errors, and snapshots taken.",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/throttle/",
+              "color": "#AA342C"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_volume_throttle{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"} * 100",
+              "legendFormat": "{{volume_name}} - throttle",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 50,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "VOLUME UNALIGNED I/O",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/reads/",
+              "color": "#D74822"
+            },
+            {
+              "alias": "/writes/",
+              "color": "#E2AB80"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_volume_unaligned_reads_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval])",
+              "legendFormat": "{{volume_name}} - unaligned reads",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_volume_unaligned_writes_total{sfcluster=~\"$sfcluster\", volume_name=~\"$volume\"}[$interval])",
+              "legendFormat": "{{volume_name}} - unaligned writes",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null
+    },
+    {
+      "title": "Volume QoS - $volume",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 51,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "$volume - BELOW MIN IOPS PERCENTAGE",
+          "transparent": true,
+          "type": "heatmap",
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateSpectral",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "hideZeroBuckets": true,
+          "highlightCards": true,
+          "legend": {
+            "show": true
+          },
+          "reverseYBuckets": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by(le, volume_name) (rate(solidfire_volume_qos_below_min_iops_percentage_bucket{sfcluster=~\"$sfcluster\",volume_name=~\"$volume\"}[$interval]))",
+              "legendFormat": "{{le}}",
+              "format": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "show": true,
+            "showHistogram": true
+          },
+          "tooltipDecimals": 0,
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "show": true,
+            "max": null,
+            "min": null,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 52,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "$volume - MIN TO MAX IOPS PERCENTAGE",
+          "transparent": true,
+          "type": "heatmap",
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateSpectral",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "hideZeroBuckets": true,
+          "highlightCards": true,
+          "legend": {
+            "show": true
+          },
+          "reverseYBuckets": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by(le, volume_name) (rate(solidfire_volume_qos_min_to_max_iops_percentage_bucket{sfcluster=~\"$sfcluster\",volume_name=~\"$volume\"}[$interval]))",
+              "legendFormat": "{{le}}",
+              "format": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "show": true,
+            "showHistogram": true
+          },
+          "tooltipDecimals": 0,
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "show": true,
+            "max": null,
+            "min": null,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 53,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "$volume - READ BLOCK SIZES BYTES",
+          "transparent": true,
+          "type": "heatmap",
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateSpectral",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "hideZeroBuckets": true,
+          "highlightCards": true,
+          "legend": {
+            "show": true
+          },
+          "reverseYBuckets": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by(le, volume_name) (rate(solidfire_volume_qos_read_block_sizes_bytes_bucket{sfcluster=~\"$sfcluster\",volume_name=~\"$volume\"}[$interval]))",
+              "legendFormat": "{{le}}",
+              "format": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "show": true,
+            "showHistogram": true
+          },
+          "tooltipDecimals": 0,
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "show": true,
+            "max": null,
+            "min": null,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 54,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "$volume - WRITE BLOCK SIZES BYTES",
+          "transparent": true,
+          "type": "heatmap",
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateSpectral",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "hideZeroBuckets": true,
+          "highlightCards": true,
+          "legend": {
+            "show": true
+          },
+          "reverseYBuckets": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by(le, volume_name) (rate(solidfire_volume_qos_write_block_sizes_bytes_bucket{sfcluster=~\"$sfcluster\",volume_name=~\"$volume\"}[$interval]))",
+              "legendFormat": "{{le}}",
+              "format": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "show": true,
+            "showHistogram": true
+          },
+          "tooltipDecimals": 0,
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "show": true,
+            "max": null,
+            "min": null,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 55,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "$volume - TARGET UTILIZATION PERCENTAGE",
+          "transparent": true,
+          "type": "heatmap",
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateSpectral",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "hideZeroBuckets": true,
+          "highlightCards": true,
+          "legend": {
+            "show": true
+          },
+          "reverseYBuckets": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by(le, volume_name) (rate(solidfire_volume_qos_target_utilization_percentage_bucket{sfcluster=~\"$sfcluster\",volume_name=~\"$volume\"}[$interval]))",
+              "legendFormat": "{{le}}",
+              "format": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "show": true,
+            "showHistogram": true
+          },
+          "tooltipDecimals": 0,
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "show": true,
+            "max": null,
+            "min": null,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 56,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "$volume - THROTTLE PERCENTAGE",
+          "transparent": true,
+          "type": "heatmap",
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateSpectral",
+            "exponent": 0.5,
+            "mode": "spectrum"
+          },
+          "dataFormat": "tsbuckets",
+          "hideZeroBuckets": true,
+          "highlightCards": true,
+          "legend": {
+            "show": true
+          },
+          "reverseYBuckets": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by(le, volume_name) (rate(solidfire_volume_qos_throttle_percentage_bucket{sfcluster=~\"$sfcluster\",volume_name=~\"$volume\"}[$interval]))",
+              "legendFormat": "{{le}}",
+              "format": "heatmap"
+            }
+          ],
+          "tooltip": {
+            "show": true,
+            "showHistogram": true
+          },
+          "tooltipDecimals": 0,
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "show": true,
+            "max": null,
+            "min": null,
+            "splitFactor": null
+          },
+          "yBucketBound": "auto",
+          "yBucketNumber": null,
+          "yBucketSize": null
+        }
+      ],
+      "repeat": "volume"
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "datasource": null,
+        "refresh": false,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "prometheus",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "datasource",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "sfcluster",
+        "type": "query",
+        "datasource": "$datasource",
+        "refresh": 2,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "label_values(solidfire_cluster_max_iops, sfcluster)",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "sfcluster",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "volume",
+        "type": "query",
+        "datasource": "$datasource",
+        "refresh": 2,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": true,
+        "multiFormat": "",
+        "query": "label_values(solidfire_volume_size_bytes{sfcluster=~\"$sfcluster\"}, volume_name)",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "volume",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "interval",
+        "type": "interval",
+        "datasource": null,
+        "refresh": false,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "30s,1m,5m,10m,30m,1h,6h,12h",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "interval",
+        "hide": 0,
+        "sort": 0
+      }
+    ]
+  },
+  "annotations": {
+    "list": null
+  },
+  "refresh": "30s",
+  "schemaVersion": 0,
+  "version": 0,
+  "links": null,
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  }
+}

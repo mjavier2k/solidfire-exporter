@@ -1,13 +1,9 @@
-package main
+package cluster
 
 import (
-	"context"
 	"fmt"
-	"net/http"
-	"os"
 	"strings"
 
-	"github.com/K-Phoen/grabana"
 	"github.com/K-Phoen/grabana/axis"
 	"github.com/K-Phoen/grabana/dashboard"
 	"github.com/K-Phoen/grabana/graph"
@@ -54,8 +50,8 @@ func efficiencySingleStat(metric string, title string, thresholds [2]string, col
 	)
 }
 
-func main() {
-	builder := dashboard.New(
+func NewClusterOverviewDashboard() dashboard.Builder {
+	return dashboard.New(
 		"Cluster Overview",
 		common.DashboardTags,
 		common.DashboardAutoRefresh,
@@ -202,19 +198,4 @@ func main() {
 			),
 		),
 	)
-
-	ctx := context.Background()
-	client := grabana.NewClient(&http.Client{}, "http://localhost:3000", grabana.WithBasicAuth("admin", "admin"))
-
-	// create the folder holding the dashboard for the service
-	folder, err := client.FindOrCreateFolder(ctx, "Solidfire")
-	if err != nil {
-		fmt.Printf("Could not find or create folder: %s\n", err)
-		os.Exit(1)
-	}
-
-	if _, err := client.UpsertDashboard(ctx, folder, builder); err != nil {
-		fmt.Printf("Could not create dashboard: %s\n", err)
-		os.Exit(1)
-	}
 }

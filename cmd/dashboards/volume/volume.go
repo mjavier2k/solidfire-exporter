@@ -1,13 +1,9 @@
-package main
+package volume
 
 import (
-	"context"
 	"fmt"
-	"net/http"
-	"os"
 	"strings"
 
-	"github.com/K-Phoen/grabana"
 	"github.com/K-Phoen/grabana/axis"
 	"github.com/K-Phoen/grabana/dashboard"
 	"github.com/K-Phoen/grabana/graph"
@@ -19,7 +15,7 @@ import (
 	"github.com/mjavier2k/solidfire-exporter/cmd/dashboards/common"
 )
 
-func CommonQosHeatmap(metric string) row.Option {
+func commonQosHeatmap(metric string) row.Option {
 	title := strings.TrimPrefix(metric, "solidfire_volume_qos_")
 	title = strings.TrimSuffix(title, "_bucket")
 	title = strings.ReplaceAll(title, "_", " ")
@@ -38,8 +34,8 @@ func CommonQosHeatmap(metric string) row.Option {
 		),
 	)
 }
-func main() {
-	builder := dashboard.New(
+func NewVolumeDetailDashboard() dashboard.Builder {
+	return dashboard.New(
 		"Volume Detail",
 		common.DashboardTags,
 		common.DashboardAutoRefresh,
@@ -383,27 +379,12 @@ func main() {
 		dashboard.Row(
 			fmt.Sprintf("Volume QoS - %s", common.VolumeVar),
 			row.RepeatFor(strings.TrimPrefix(common.VolumeVar, "$")),
-			CommonQosHeatmap("solidfire_volume_qos_below_min_iops_percentage_bucket"),
-			CommonQosHeatmap("solidfire_volume_qos_min_to_max_iops_percentage_bucket"),
-			CommonQosHeatmap("solidfire_volume_qos_read_block_sizes_bytes_bucket"),
-			CommonQosHeatmap("solidfire_volume_qos_write_block_sizes_bytes_bucket"),
-			CommonQosHeatmap("solidfire_volume_qos_target_utilization_percentage_bucket"),
-			CommonQosHeatmap("solidfire_volume_qos_throttle_percentage_bucket"),
+			commonQosHeatmap("solidfire_volume_qos_below_min_iops_percentage_bucket"),
+			commonQosHeatmap("solidfire_volume_qos_min_to_max_iops_percentage_bucket"),
+			commonQosHeatmap("solidfire_volume_qos_read_block_sizes_bytes_bucket"),
+			commonQosHeatmap("solidfire_volume_qos_write_block_sizes_bytes_bucket"),
+			commonQosHeatmap("solidfire_volume_qos_target_utilization_percentage_bucket"),
+			commonQosHeatmap("solidfire_volume_qos_throttle_percentage_bucket"),
 		),
 	)
-
-	ctx := context.Background()
-	client := grabana.NewClient(&http.Client{}, "http://localhost:3000", grabana.WithBasicAuth("admin", "admin"))
-
-	// create the folder holding the dashboard for the service
-	folder, err := client.FindOrCreateFolder(ctx, "Solidfire")
-	if err != nil {
-		fmt.Printf("Could not find or create folder: %s\n", err)
-		os.Exit(1)
-	}
-
-	if _, err := client.UpsertDashboard(ctx, folder, builder); err != nil {
-		fmt.Printf("Could not create dashboard: %s\n", err)
-		os.Exit(1)
-	}
 }
