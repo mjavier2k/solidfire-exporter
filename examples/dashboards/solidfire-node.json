@@ -144,7 +144,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_write_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_write_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
@@ -246,7 +246,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_read_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Read",
@@ -347,21 +347,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_read_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Read",
           "refId": "A"
         },
         {
-          "expr": "rate(solidfire_node_write_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_write_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Write",
           "refId": "B"
         },
         {
-          "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval]) + rate(solidfire_node_write_ops_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_read_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval]) + rate(solidfire_cluster_node_stats_write_ops{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} Total",
@@ -489,7 +489,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "solidfire_node_cpu_percentage{sfcluster=~\"$cluster\",node_name=~\"$node\"}",
+          "expr": "solidfire_cluster_node_stats_cpu_percentage{sfcluster=~\"$cluster\",node_name=~\"$node\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} CPU",
@@ -559,7 +559,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "solidfire_node_cpu_percentage{sfcluster=~\"$cluster\",node_name=~\"$node\"}",
+          "expr": "solidfire_cluster_node_stats_cpu_percentage{sfcluster=~\"$cluster\",node_name=~\"$node\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
@@ -654,7 +654,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "solidfire_node_used_memory_bytes{sfcluster=~\"$cluster\",node_name=~\"$node\"}",
+          "expr": "solidfire_cluster_node_stats_used_memory{sfcluster=~\"$cluster\",node_name=~\"$node\"}",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -662,7 +662,7 @@
           "refId": "A"
         },
         {
-          "expr": "(sum by (node_name) (solidfire_node_used_memory_bytes{sfcluster=~\"$cluster\",node_name=~\"$node\"} / 1e+9) / sum by (node_name) (solidfire_node_total_memory_bytes{sfcluster=~\"$cluster\",node_name=~\"$node\"})) * 100",
+          "expr": "(sum by (node_name) (solidfire_cluster_node_stats_used_memory{sfcluster=~\"$cluster\",node_name=~\"$node\"} / 1e+9) / sum by (node_name) (solidfire_node_total_memory_gb{sfcluster=~\"$cluster\",node_name=~\"$node\"})) * 100",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
@@ -789,7 +789,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(solidfire_drive_status{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
+          "expr": "count(solidfire_drives_status{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -877,7 +877,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(solidfire_drive_capacity_bytes{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
+          "expr": "sum(solidfire_drives_capacity{sfcluster=~\"$cluster\", node_name=~\"$node\", status=~\"$drive_status\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -972,7 +972,7 @@
       ],
       "targets": [
         {
-          "expr": "solidfire_drive_status{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
+          "expr": "solidfire_drives_status{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1064,7 +1064,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(sum(solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", node_name=~\"$node\"})  / ($iscsi_max) * 100)",
+          "expr": "(sum(solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", node_name=~\"$node\"})  / ($iscsi_max) * 100)",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -1138,14 +1138,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (node_name) (solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", node_name=~\"$node\"})",
+          "expr": "sum by (node_name) (solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", node_name=~\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
           "refId": "A"
         },
         {
-          "expr": "sum(solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\"})",
+          "expr": "sum(solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Total",
@@ -1300,7 +1300,7 @@
       ],
       "targets": [
         {
-          "expr": "solidfire_node_iscsi_sessions{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
+          "expr": "solidfire_node_iscsi_sessions_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -1467,14 +1467,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_sbytes_in_total{sfcluster=~\"$cluster\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_sbytes_in{sfcluster=~\"$cluster\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
           "refId": "A"
         },
         {
-          "expr": "rate(solidfire_node_sbytes_out_total{sfcluster=~\"$cluster\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_sbytes_out{sfcluster=~\"$cluster\"}[$interval])",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -1570,7 +1570,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_sbytes_out_total{sfcluster=~\"$cluster\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_sbytes_out{sfcluster=~\"$cluster\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1665,14 +1665,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_sbytes_in_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_sbytes_in{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} sbytes_in",
           "refId": "A"
         },
         {
-          "expr": "rate(solidfire_node_sbytes_out_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_sbytes_out{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} sbytes_out",
@@ -1781,7 +1781,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_mbytes_in_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_mbytes_in{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}}",
@@ -1875,7 +1875,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_mbytes_out_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_mbytes_out{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1970,14 +1970,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(solidfire_node_mbytes_in_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_mbytes_in{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} mbytes_in",
           "refId": "A"
         },
         {
-          "expr": "rate(solidfire_node_mbytes_out_total{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
+          "expr": "rate(solidfire_cluster_node_stats_mbytes_out{sfcluster=~\"$cluster\", node_name=~\"$node\"}[$interval])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{node_name}} mbytes_out",
@@ -2040,14 +2040,14 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "label_values(solidfire_cluster_active_sessions, sfcluster)",
+        "definition": "label_values(solidfire_cluster_capacity_active_sessions, sfcluster)",
         "hide": 0,
         "includeAll": false,
         "label": "cluster",
         "multi": false,
         "name": "cluster",
         "options": [],
-        "query": "label_values(solidfire_cluster_active_sessions, sfcluster)",
+        "query": "label_values(solidfire_cluster_capacity_active_sessions, sfcluster)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2062,14 +2062,14 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "label_values(solidfire_node_cpu_percentage{sfcluster=~\"$cluster\"}, node_name)",
+        "definition": "label_values(solidfire_cluster_node_stats_cpu_percentage{sfcluster=~\"$cluster\"}, node_name)",
         "hide": 0,
         "includeAll": true,
         "label": "node",
         "multi": true,
         "name": "node",
         "options": [],
-        "query": "label_values(solidfire_node_cpu_percentage{sfcluster=~\"$cluster\"}, node_name)",
+        "query": "label_values(solidfire_cluster_node_stats_cpu_percentage{sfcluster=~\"$cluster\"}, node_name)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,

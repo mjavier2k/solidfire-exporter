@@ -466,14 +466,14 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "label_values(solidfire_cluster_active_sessions, sfcluster)",
+        "definition": "label_values(solidfire_cluster_capacity_active_sessions, sfcluster)",
         "hide": 0,
         "includeAll": false,
         "label": "cluster",
         "multi": false,
         "name": "cluster",
         "options": [],
-        "query": "label_values(solidfire_cluster_active_sessions, sfcluster)",
+        "query": "label_values(solidfire_cluster_capacity_active_sessions, sfcluster)",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -577,16 +577,16 @@
           },
           {
             "selected": false,
-            "text": "solidfire_volume_read_bytes_total",
-            "value": "solidfire_volume_read_bytes_total"
+            "text": "solidfire_volume_stats_read_bytes",
+            "value": "solidfire_volume_stats_read_bytes"
           },
           {
             "selected": false,
-            "text": "solidfire_volume_write_bytes_total",
-            "value": "solidfire_volume_write_bytes_total"
+            "text": "solidfire_volume_stats_write_bytes",
+            "value": "solidfire_volume_stats_write_bytes"
           }
         ],
-        "query": "solidfire_volume_read_bytes_total,solidfire_volume_write_bytes_total",
+        "query": "solidfire_volume_stats_read_bytes,solidfire_volume_stats_write_bytes",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -612,16 +612,16 @@
           },
           {
             "selected": false,
-            "text": "solidfire_volume_read_latency_seconds",
-            "value": "solidfire_volume_read_latency_seconds"
+            "text": "solidfire_volume_stats_read_latency_usec",
+            "value": "solidfire_volume_stats_read_latency_usec"
           },
           {
             "selected": false,
-            "text": "solidfire_volume_write_latency_seconds",
-            "value": "solidfire_volume_write_latency_seconds"
+            "text": "solidfire_volume_stats_write_latency_usec",
+            "value": "solidfire_volume_stats_write_latency_usec"
           }
         ],
-        "query": "solidfire_volume_read_latency_seconds,solidfire_volume_write_latency_seconds",
+        "query": "solidfire_volume_stats_read_latency_usec,solidfire_volume_stats_write_latency_usec",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -647,16 +647,16 @@
           },
           {
             "selected": false,
-            "text": "solidfire_volume_read_ops_total",
-            "value": "solidfire_volume_read_ops_total"
+            "text": "solidfire_volume_stats_read_ops",
+            "value": "solidfire_volume_stats_read_ops"
           },
           {
             "selected": false,
-            "text": "solidfire_volume_write_ops_total",
-            "value": "solidfire_volume_write_ops_total"
+            "text": "solidfire_volume_stats_write_ops",
+            "value": "solidfire_volume_stats_write_ops"
           }
         ],
-        "query": "solidfire_volume_read_ops_total,solidfire_volume_write_ops_total",
+        "query": "solidfire_volume_stats_read_ops,solidfire_volume_stats_write_ops",
         "skipUrlSync": false,
         "type": "custom"
       }
