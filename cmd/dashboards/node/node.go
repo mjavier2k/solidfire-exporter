@@ -33,7 +33,7 @@ func driveSingleStat(status, triggerColor string, span float32) row.Option {
 
 func NewNodeDetailDashboard() dashboard.Builder {
 	return dashboard.New(
-		"Node Detail",
+		"Solidfire Node Detail",
 		common.DashboardTags,
 		common.DashboardAutoRefresh,
 		common.DatasourceVariable,

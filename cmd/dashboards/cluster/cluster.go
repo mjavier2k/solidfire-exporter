@@ -52,7 +52,7 @@ func efficiencySingleStat(metric string, title string, thresholds [2]string, col
 
 func NewClusterOverviewDashboard() dashboard.Builder {
 	return dashboard.New(
-		"Cluster Overview",
+		"Solidfire Cluster Overview",
 		common.DashboardTags,
 		common.DashboardAutoRefresh,
 		common.DatasourceVariable,

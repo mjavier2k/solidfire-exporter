@@ -339,7 +339,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		nil,
 	)
 	d.ClusterClusterRecentIOSizeBytes = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "cluster_cluster_recent_io_size_bytes"),
+		prometheus.BuildFQName(namespace, "", "cluster_recent_io_size_bytes"),
 		"The average size of IOPS to all volumes in the cluster",
 		nil,
 		nil,

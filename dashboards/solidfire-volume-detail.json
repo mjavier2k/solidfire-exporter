@@ -1,6 +1,6 @@
 {
   "slug": "",
-  "title": "Volume Detail",
+  "title": "Solidfire Volume Detail",
   "originalTitle": "",
   "tags": [
     "solidfire",
@@ -1795,7 +1795,7 @@
         "allValue": "",
         "multi": false,
         "multiFormat": "",
-        "query": "30s,1m,5m,10m,30m,1h,6h,12h",
+        "query": "2m,5m,10m,30m,1h,6h,12h",
         "regex": "",
         "current": {
           "text": null,

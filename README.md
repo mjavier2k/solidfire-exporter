@@ -44,7 +44,7 @@ Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/s
 | solidfire_cluster_average_iops | gauge | The average IOPS for the cluster since midnight Coordinated Universal Time (UTC) |
 | solidfire_cluster_block_fullness | gauge | The current computed level of block fullness of the cluster. |
 | solidfire_cluster_client_queue_depth | gauge | The number of outstanding read and write operations to the cluster. |
-| solidfire_cluster_cluster_recent_io_size_bytes | gauge | The average size of IOPS to all volumes in the cluster |
+| solidfire_cluster_recent_io_size_bytes | gauge | The average size of IOPS to all volumes in the cluster |
 | solidfire_cluster_compression_factor | gauge | The cluster compression factor. compressionFactor = (uniqueBlocks * 4096) / (uniqueBlocksUsedSpace * 0.93) |
 | solidfire_cluster_current_iops | gauge | The average IOPS for all volumes in the cluster over the last 5 seconds |
 | solidfire_cluster_de_duplication_factor | gauge | The cluster deDuplication factor. deDuplicationFactor = (nonZeroBlocks + snapshotNonZeroBlocks) / uniqueBlocks |
@@ -181,7 +181,7 @@ There are two different options to configure the solidfire-exporter
 
 #### Shell-Like Environments
 
-Note that we *are* allowed to double-quote the values here
+Note that you **MAY** double-quote the values here:
 
 ```bash
 export SOLIDFIRE_CLIENT_USERNAME="mySolidfireUsername"
@@ -193,7 +193,7 @@ export SOLIDFIRE_CLIENT_TIMEOUT=30
 ```
 #### Docker-Type Environments / SystemD EnvironmentFile Environment
 
-Note that we **MAY NOT** have any double quotes in the values below!
+Note that you **MAY NOT** have any double quotes in the values below!
 
 ```bash
 SOLIDFIRE_CLIENT_USERNAME=mySolidfireUsername
@@ -218,6 +218,8 @@ client:
 ```
 
 ## Prometheus Configuration
+
+**NOTE: If you plan to use the official grafana dashboards, you must add the `sfcluster` label as shown below.**
 
 ```
 - job_name: solidfire_exporter

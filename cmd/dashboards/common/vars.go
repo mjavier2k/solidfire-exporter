@@ -40,7 +40,7 @@ var (
 	)
 	IntervalsVariable = dashboard.VariableAsInterval(
 		strings.TrimLeft(IntervalVar, "$"),
-		interval.Values([]string{"30s", "1m", "5m", "10m", "30m", "1h", "6h", "12h"}),
+		interval.Values([]string{"2m", "5m", "10m", "30m", "1h", "6h", "12h"}),
 	)
 	DatasourceVariable = dashboard.VariableAsDatasource(
 		strings.TrimLeft(DatasourceVar, "$"),

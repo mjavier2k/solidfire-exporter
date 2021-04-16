@@ -36,7 +36,7 @@ func commonQosHeatmap(metric string) row.Option {
 }
 func NewVolumeDetailDashboard() dashboard.Builder {
 	return dashboard.New(
-		"Volume Detail",
+		"Solidfire Volume Detail",
 		common.DashboardTags,
 		common.DashboardAutoRefresh,
 		common.DatasourceVariable,
