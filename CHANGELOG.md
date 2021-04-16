@@ -27,7 +27,7 @@ Example Format Below:
 - Added CHANGELOG
 - Added new versions of cluster overview, node detail, and volume detail dashboard powered by grabana. These new dashboards use the new metric names.
 ### Changed
-- Most metric names have been updated to follow Prometheus conventions. See README for the new metric names and types.
+- BREAKING CHANGE: Most metric names have been updated to follow Prometheus conventions. See README for the new metric names and types.
 
 ### Deprecated
 - Marked old json dashboards as deprecated in examples/dashboards/README.md
