@@ -6,3 +6,5 @@ tmp
 ./solidfire-exporter
 archive.tar.gz
 bin/*
+
+dist/
