@@ -23,7 +23,6 @@ Example Format Below:
 -->
 ## [Unreleased]
 
-## [0.6.0] - 2021-04-17
 ### Added
 - Added CHANGELOG
 - Added new versions of cluster overview, node detail, and volume detail dashboard powered by grabana. These new dashboards use the new metric names.
