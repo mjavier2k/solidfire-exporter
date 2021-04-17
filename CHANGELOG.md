@@ -2,12 +2,12 @@
 <!-- https://keepachangelog.com/en/1.0.0/
 
 Types of Changes:
-Added - for new features.
-Changed - for changes in existing functionality.
-Deprecated - for soon-to-be removed features.
-Removed - for now removed features.
-Fixed - for any bug fixes.
-Security - in case of vulnerabilities.
+### Added - for new features.
+### Changed - for changes in existing functionality.
+### Deprecated - for soon-to-be removed features.
+### Removed - for now removed features.
+### Fixed - for any bug fixes.
+### Security - in case of vulnerabilities.
 
 Example Format Below:
 
@@ -25,11 +25,12 @@ Example Format Below:
 
 ### Added
 - Added CHANGELOG
+- Added new versions of cluster overview, node detail, and volume detail dashboard powered by grabana. These new dashboards use the new metric names.
 ### Changed
+- BREAKING CHANGE: Most metric names have been updated to follow Prometheus conventions. See README for the new metric names and types.
+
 ### Deprecated
-### Removed
-### Fixed
-### Security
+- Marked old json dashboards as deprecated in examples/dashboards/README.md
 
 ## [0.5.2] - 2021-03-11
 

@@ -1,0 +1,1471 @@
+{
+  "slug": "",
+  "title": "Solidfire Node Detail",
+  "originalTitle": "",
+  "tags": [
+    "solidfire",
+    "generated"
+  ],
+  "style": "dark",
+  "timezone": "",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": true,
+  "panels": null,
+  "rows": [
+    {
+      "title": "Node Performance Summary - $node",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 17,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "CPU USAGE",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#D74822",
+            "#AA342C"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_cpu_percentage{sfcluster=~\"$sfcluster\",node_name=~\"$node\"}",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "80,90",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 18,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "MEMORY USAGE",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#D74822",
+            "#AA342C"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_used_memory_bytes{sfcluster=~\"$sfcluster\",node_name=~\"$node\"} / \n\t\t\t\t\tsolidfire_node_total_memory_bytes{sfcluster=~\"$sfcluster\",node_name=~\"$node\"} * 100",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "80,90",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 19,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "ISCSI SESSIONS",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_iscsi_sessions{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 20,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "MGMT BANDWIDTH",
+          "description": "Bytes i/o on management network interface",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "Bps",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_in_bytes_total{interface=\"management\",sfcluster=~\"$sfcluster\",node_name=~\"$node\"}[$interval]) +\n\t\t\t\t\trate(solidfire_node_interface_out_bytes_total{interface=\"management\",sfcluster=~\"$sfcluster\",node_name=~\"$node\"}[$interval])",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 21,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "STORAGE BANDWIDTH",
+          "description": "Bytes i/o on storage network interface",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "Bps",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_in_bytes_total{interface=\"storage\",sfcluster=~\"$sfcluster\",node_name=~\"$node\"}[$interval]) +\n\t\t\t\t\trate(solidfire_node_interface_out_bytes_total{interface=\"storage\",sfcluster=~\"$sfcluster\",node_name=~\"$node\"}[$interval])",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 22,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "IOPS",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 1,
+          "format": "iops",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}[$interval]) +\n\t\t\t\t\trate(solidfire_node_write_ops_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}[$interval])",
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "repeat": "node"
+    },
+    {
+      "title": "Node Drive Summary - $node",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 23,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "ACTIVE",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_drive_status{sfcluster=~\"$sfcluster\",node_name=~\"$node\",status=\"active\"}) by (node_name)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 24,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "AVAILABLE",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#0077BF"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_drive_status{sfcluster=~\"$sfcluster\",node_name=~\"$node\",status=\"available\"}) by (node_name)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 25,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "REMOVING",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#0077BF"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_drive_status{sfcluster=~\"$sfcluster\",node_name=~\"$node\",status=\"removing\"}) by (node_name)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 26,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "FAILED",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#AA342C"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_drive_status{sfcluster=~\"$sfcluster\",node_name=~\"$node\",status=\"failed\"}) by (node_name)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "120px",
+          "id": 27,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 2,
+          "title": "ERASING",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#118B42",
+            "#D74822"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_drive_status{sfcluster=~\"$sfcluster\",node_name=~\"$node\",status=\"erasing\"}) by (node_name)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "repeat": "node"
+    },
+    {
+      "title": "Node Performance Detail",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 28,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "CPU",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/.*/",
+              "color": "#118B42"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_cpu_percentage{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}",
+              "legendFormat": "{{node_name}} - cpu usage",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 29,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "MEMORY",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/.*/",
+              "color": "#E2AB80"
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_used_memory_bytes{sfcluster=~\"$sfcluster\",node_name=~\"$node\"} / \n\t\t\t\t\tsolidfire_node_total_memory_bytes{sfcluster=~\"$sfcluster\",node_name=~\"$node\"} * 100",
+              "legendFormat": "{{node_name}} - memory usage",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "max": 100,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 30,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "IOPS",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/read/",
+              "color": "#118B42"
+            },
+            {
+              "alias": "/write/",
+              "color": "#E2AB80"
+            },
+            {
+              "alias": "/total/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 3
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}[$interval])",
+              "legendFormat": "{{node_name}} - read iops",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_write_ops_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}[$interval])",
+              "legendFormat": "{{node_name}} - write iops",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_read_ops_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}[$interval]) +\n\t\t\t\t\trate(solidfire_node_write_ops_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}[$interval])",
+              "legendFormat": "{{node_name}} - total iops",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "iops",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 31,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "ISCSI SESSIONS",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/sessions/",
+              "color": "#0077BF"
+            },
+            {
+              "alias": "/total/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 3
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_iscsi_sessions{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}",
+              "legendFormat": "{{node_name}} - {{volume_name}} sessions",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "sum(solidfire_node_iscsi_sessions{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}) by (node_name)",
+              "legendFormat": "{{node_name}} - total",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null
+    },
+    {
+      "title": "Node Throughput Detail",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 32,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "MGMT IFACE THROUGHPUT ",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/in/",
+              "color": "#E2AB80"
+            },
+            {
+              "alias": "/out/",
+              "color": "#0077BF"
+            },
+            {
+              "alias": "/total/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 3
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_in_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"management\"}[$interval])",
+              "legendFormat": "{{node_name}} - in",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_out_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"management\"}[$interval])",
+              "legendFormat": "{{node_name}} - out",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_in_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"management\"}[$interval]) +\n\t\t\t\t\trate(solidfire_node_interface_out_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"management\"}[$interval])",
+              "legendFormat": "{{node_name}} - total",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 33,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "STORAGE IFACE THROUGHPUT ",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/in/",
+              "color": "#E2AB80"
+            },
+            {
+              "alias": "/out/",
+              "color": "#0077BF"
+            },
+            {
+              "alias": "/total/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 3
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_in_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"storage\"}[$interval])",
+              "legendFormat": "{{node_name}} - in",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_out_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"storage\"}[$interval])",
+              "legendFormat": "{{node_name}} - out",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "rate(solidfire_node_interface_in_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"storage\"}[$interval]) +\n\t\t\t\t\trate(solidfire_node_interface_out_bytes_total{sfcluster=~\"$sfcluster\", node_name=~\"$node\", interface=\"storage\"}[$interval])",
+              "legendFormat": "{{node_name}} - total",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "datasource": null,
+        "refresh": false,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "prometheus",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "datasource",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "sfcluster",
+        "type": "query",
+        "datasource": "$datasource",
+        "refresh": 2,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "label_values(solidfire_cluster_max_iops, sfcluster)",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "sfcluster",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "node",
+        "type": "query",
+        "datasource": "$datasource",
+        "refresh": 2,
+        "options": [
+          {
+            "text": "All",
+            "value": "$__all",
+            "selected": false
+          }
+        ],
+        "includeAll": true,
+        "allFormat": "",
+        "allValue": "",
+        "multi": true,
+        "multiFormat": "",
+        "query": "label_values(solidfire_node_cpu_percentage{sfcluster=~\"$sfcluster\"}, node_name)",
+        "regex": "",
+        "current": {
+          "text": [
+            "All"
+          ],
+          "value": "$__all"
+        },
+        "label": "node",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "interval",
+        "type": "interval",
+        "datasource": null,
+        "refresh": false,
+        "options": [
+          {
+            "text": "2m",
+            "value": "2m",
+            "selected": false
+          },
+          {
+            "text": "5m",
+            "value": "5m",
+            "selected": false
+          },
+          {
+            "text": "10m",
+            "value": "10m",
+            "selected": false
+          },
+          {
+            "text": "30m",
+            "value": "30m",
+            "selected": false
+          },
+          {
+            "text": "1h",
+            "value": "1h",
+            "selected": false
+          },
+          {
+            "text": "6h",
+            "value": "6h",
+            "selected": false
+          },
+          {
+            "text": "12h",
+            "value": "12h",
+            "selected": false
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "2m,5m,10m,30m,1h,6h,12h",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "interval",
+        "hide": 0,
+        "sort": 0
+      }
+    ]
+  },
+  "annotations": {
+    "list": null
+  },
+  "refresh": "30s",
+  "schemaVersion": 0,
+  "version": 0,
+  "links": null,
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  }
+}

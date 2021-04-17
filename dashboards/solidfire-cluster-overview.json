@@ -1,0 +1,1339 @@
+{
+  "slug": "",
+  "title": "Solidfire Cluster Overview",
+  "originalTitle": "",
+  "tags": [
+    "solidfire",
+    "generated"
+  ],
+  "style": "dark",
+  "timezone": "",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": true,
+  "panels": null,
+  "rows": [
+    {
+      "title": "Fault Summary",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 1,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "BESTPRACTICE",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#0077BF",
+            "#0077BF"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_cluster_active_faults{sfcluster=~\"$sfcluster\",severity=\"bestpractice\"}) or vector(0)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 2,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "WARNING",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#D74822",
+            "#D74822"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_cluster_active_faults{sfcluster=~\"$sfcluster\",severity=\"warning\"}) or vector(0)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 3,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "ERRORS",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#AA342C",
+            "#AA342C"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_cluster_active_faults{sfcluster=~\"$sfcluster\",severity=\"errors\"}) or vector(0)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 4,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "CRITICAL",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#118B42",
+            "#AA342C",
+            "#AA342C"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 0,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum(solidfire_cluster_active_faults{sfcluster=~\"$sfcluster\",severity=\"critical\"}) or vector(0)",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "1,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        }
+      ],
+      "repeat": null
+    },
+    {
+      "title": "Fault Detail",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "150px",
+          "id": 5,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 12,
+          "title": "Faults",
+          "transparent": true,
+          "type": "table",
+          "columns": null,
+          "styles": [
+            {
+              "alias": null,
+              "pattern": "Time|__name__|Value",
+              "type": "hidden"
+            },
+            {
+              "alias": "",
+              "pattern": "/.*/",
+              "type": "string"
+            }
+          ],
+          "transform": "timeseries_to_rows",
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_active_faults{sfcluster=~\"$sfcluster\"} \u003e 0",
+              "instant": true,
+              "format": "table"
+            }
+          ],
+          "scroll": false
+        }
+      ],
+      "repeat": null
+    },
+    {
+      "title": "Storage Capacity",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 6,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "THIN PROVISIONING FACTOR",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#AA342C",
+            "#D74822",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "postfix": "x",
+          "postfixFontSize": "75%",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_thin_provisioning_factor{sfcluster=~\"$sfcluster\"}",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "0.5,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 7,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "EFFICIENCY FACTOR",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#AA342C",
+            "#D74822",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "postfix": "x",
+          "postfixFontSize": "75%",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_efficiency_factor{sfcluster=~\"$sfcluster\"}",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "0.5,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 8,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "COMPRESSION FACTOR",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#AA342C",
+            "#D74822",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "postfix": "x",
+          "postfixFontSize": "75%",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_compression_factor{sfcluster=~\"$sfcluster\"}",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "0.5,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "height": "100px",
+          "id": 9,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 3,
+          "title": "DEDUPLICATION FACTOR",
+          "transparent": false,
+          "type": "singlestat",
+          "colors": [
+            "#AA342C",
+            "#D74822",
+            "#118B42"
+          ],
+          "colorValue": false,
+          "colorBackground": true,
+          "decimals": 2,
+          "format": "",
+          "gauge": {
+            "maxValue": 0,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "nullPointMode": "",
+          "postfix": "x",
+          "postfixFontSize": "75%",
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "lineColor": "rgb(31, 120, 193)"
+          },
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_de_duplication_factor{sfcluster=~\"$sfcluster\"}",
+              "instant": true,
+              "format": "time_series"
+            }
+          ],
+          "thresholds": "0.5,1",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "avg"
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 10,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 12,
+          "title": "Capacity",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/Max Usable Capacity/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 2
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_max_used_space_bytes{sfcluster=~\"$sfcluster\"}",
+              "legendFormat": "{{sfcluster}} - Max Usable Capacity",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_unique_blocks_used_space_bytes{sfcluster=~\"$sfcluster\"}",
+              "legendFormat": "{{sfcluster}} - Unique Blocks Space Used",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_provisioned_space_bytes{sfcluster=~\"$sfcluster\"}",
+              "legendFormat": "{{sfcluster}} - Provisioned Space",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null
+    },
+    {
+      "title": "Cluster Performance",
+      "showTitle": true,
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 11,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "Cpu Usage",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/.*/",
+              "color": "#118B42",
+              "fill": 7
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_node_cpu_percentage{sfcluster=~\"$sfcluster\"}",
+              "legendFormat": "{{sfcluster}} - {{node_name}}",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 12,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "Performance Utilization",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/.*/",
+              "color": "#0077BF",
+              "fill": 7
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "solidfire_cluster_throughput_utilization{sfcluster=~\"$sfcluster\"} * 100",
+              "legendFormat": "{{sfcluster}}",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 13,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "IOPS",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/write/",
+              "color": "#118B42"
+            },
+            {
+              "alias": "/write/",
+              "color": "#0077BF"
+            },
+            {
+              "alias": "/total/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 2
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (rate(solidfire_node_read_ops_total{sfcluster=~\"$sfcluster\"}[$interval]))",
+              "legendFormat": "{{sfcluster}} read iops",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (rate(solidfire_node_write_ops_total{sfcluster=~\"$sfcluster\"}[$interval]))",
+              "legendFormat": "{{sfcluster}} write iops",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (rate(solidfire_node_read_ops_total{sfcluster=~\"$sfcluster\"}[$interval])) + sum by (sfcluster) (rate(solidfire_node_write_ops_total{sfcluster=~\"$sfcluster\"}[$interval]))",
+              "legendFormat": "{{sfcluster}} total iops",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "iops",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 14,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "Throughput/s",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/write/",
+              "color": "#0077BF"
+            },
+            {
+              "alias": "/total/",
+              "color": "#AA342C",
+              "dashes": true,
+              "fill": 0,
+              "linewidth": 2
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (rate(solidfire_cluster_read_bytes_total{sfcluster=~\"$sfcluster\"}[$interval]))",
+              "legendFormat": "{{sfcluster}} read bytes",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (rate(solidfire_cluster_write_bytes_total{sfcluster=~\"$sfcluster\"}[$interval]))",
+              "legendFormat": "{{sfcluster}} write bytes",
+              "format": "time_series"
+            },
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (rate(solidfire_cluster_read_bytes_total{sfcluster=~\"$sfcluster\"}[$interval])) + sum by (sfcluster) (rate(solidfire_cluster_write_bytes_total{sfcluster=~\"$sfcluster\"}[$interval]))",
+              "legendFormat": "{{sfcluster}} total bytes",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 15,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "iSCSI Sessions",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/sessions/",
+              "color": "#804C9D",
+              "fill": 7
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (solidfire_cluster_active_sessions{sfcluster=~\"$sfcluster\"})",
+              "legendFormat": "{{sfcluster }} sessions",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "locale",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        },
+        {
+          "datasource": "$datasource",
+          "editable": false,
+          "error": false,
+          "gridPos": {},
+          "id": 16,
+          "isNew": false,
+          "renderer": "flot",
+          "span": 6,
+          "title": "Queue Depth",
+          "transparent": true,
+          "type": "graph",
+          "aliasColors": {},
+          "bars": false,
+          "fill": 1,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "seriesOverrides": [
+            {
+              "alias": "/queue depth/",
+              "color": "#D74822",
+              "fill": 7
+            }
+          ],
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "",
+              "expr": "sum by (sfcluster) (solidfire_cluster_client_queue_depth{sfcluster=~\"$sfcluster\"})",
+              "legendFormat": "{{sfcluster}} queue depth",
+              "format": "time_series"
+            }
+          ],
+          "tooltip": {
+            "shared": true,
+            "value_type": "",
+            "sort": 2
+          },
+          "x-axis": true,
+          "y-axis": true,
+          "xaxis": {
+            "format": "time",
+            "logBase": 1,
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "locale",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "datasource": null,
+        "refresh": false,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "prometheus",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "datasource",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "sfcluster",
+        "type": "query",
+        "datasource": "$datasource",
+        "refresh": 2,
+        "options": null,
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "label_values(solidfire_cluster_max_iops, sfcluster)",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "sfcluster",
+        "hide": 0,
+        "sort": 0
+      },
+      {
+        "name": "interval",
+        "type": "interval",
+        "datasource": null,
+        "refresh": false,
+        "options": [
+          {
+            "text": "2m",
+            "value": "2m",
+            "selected": false
+          },
+          {
+            "text": "5m",
+            "value": "5m",
+            "selected": false
+          },
+          {
+            "text": "10m",
+            "value": "10m",
+            "selected": false
+          },
+          {
+            "text": "30m",
+            "value": "30m",
+            "selected": false
+          },
+          {
+            "text": "1h",
+            "value": "1h",
+            "selected": false
+          },
+          {
+            "text": "6h",
+            "value": "6h",
+            "selected": false
+          },
+          {
+            "text": "12h",
+            "value": "12h",
+            "selected": false
+          }
+        ],
+        "includeAll": false,
+        "allFormat": "",
+        "allValue": "",
+        "multi": false,
+        "multiFormat": "",
+        "query": "2m,5m,10m,30m,1h,6h,12h",
+        "regex": "",
+        "current": {
+          "text": null,
+          "value": null
+        },
+        "label": "interval",
+        "hide": 0,
+        "sort": 0
+      }
+    ]
+  },
+  "annotations": {
+    "list": null
+  },
+  "refresh": "30s",
+  "schemaVersion": 0,
+  "version": 0,
+  "links": null,
+  "time": {
+    "from": "now-3h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  }
+}
