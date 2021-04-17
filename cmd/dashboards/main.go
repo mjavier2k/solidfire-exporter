@@ -22,6 +22,8 @@ func main() {
 	dashes = append(dashes, volume.NewVolumeDetailDashboard())
 
 	for _, builder := range dashes {
+		// Need schemaVersion filled out in order for uploading to grafana.com to work
+		builder.Internal().SchemaVersion = 21
 		dashBytes, err := json.MarshalIndent(builder.Internal(), "", "  ")
 		if err != nil {
 			fmt.Printf("Could not marshal JSON: %s\n", err)

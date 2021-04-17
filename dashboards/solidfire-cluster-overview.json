@@ -1304,7 +1304,7 @@
     "list": null
   },
   "refresh": "30s",
-  "schemaVersion": 0,
+  "schemaVersion": 21,
   "version": 0,
   "links": null,
   "time": {
