@@ -242,7 +242,8 @@ client:
 Create an file with the environment variables set and pass it to docker run. 
 
 ```
-docker run --env-file=.env_file  --rm -p 8080:8080 mjavier/solidfire-exporter:latest
+docker build . -t sf-exporter:latest
+docker run --env-file=.env_file  --rm -p 9987:9987 sf-exporter:latest
 ```
 
 ## Grafana Dashboards
