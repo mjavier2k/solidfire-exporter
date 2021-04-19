@@ -197,7 +197,7 @@
           "targets": [
             {
               "refId": "",
-              "expr": "solidfire_node_iscsi_sessions{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}",
+              "expr": "sum(solidfire_node_iscsi_sessions{sfcluster=~\"$sfcluster\", node_name=~\"$node\"}) by (sfcluster,node_name)",
               "format": "time_series"
             }
           ],
