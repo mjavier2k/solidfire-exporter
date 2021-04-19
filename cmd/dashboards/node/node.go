@@ -91,7 +91,7 @@ func NewNodeDetailDashboard() dashboard.Builder {
 				singlestat.SparkLine(),
 				singlestat.Colors([3]string{common.ColorGreen, common.ColorGreen, common.ColorGreen}),
 				singlestat.WithPrometheusTarget(
-					fmt.Sprintf(`solidfire_node_iscsi_sessions{sfcluster=~"%s", node_name=~"%s"}`,
+					fmt.Sprintf(`sum(solidfire_node_iscsi_sessions{sfcluster=~"%s", node_name=~"%s"}) by (sfcluster,node_name)`,
 						common.ClusterVar, common.NodeVar,
 					),
 				),
