@@ -1,6 +1,7 @@
 # NetApp Solidfire Exporter
 
 ![Go](https://github.com/mjavier2k/solidfire-exporter/workflows/Go/badge.svg?event=push)
+[![Go Report Card](https://goreportcard.com/badge/mjavier2k/solidfire-exporter)](https://goreportcard.com/report/mjavier2k/solidfire-exporter)
 
 NetApp Solidfire-Exporter queries the Solidfire API and exports the results as Prometheus metrics
 
