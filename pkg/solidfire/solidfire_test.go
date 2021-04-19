@@ -33,7 +33,7 @@ func TestClient_ListVolumeStats(t *testing.T) {
 	}{
 		{
 			name: "VolumeSize of first volume should match fixture",
-			want: 5000658944,
+			want: 2000683008,
 		},
 	}
 
@@ -79,7 +79,7 @@ func TestClient_ListVolumes(t *testing.T) {
 	}{
 		{
 			name: "Volume Name of first volume should match fixture",
-			want: "testVolume1",
+			want: "test-volume1",
 		},
 	}
 
@@ -123,7 +123,7 @@ func TestClient_GetClusterCapacity(t *testing.T) {
 	}{
 		{
 			name: "Cluster Capacity TotalOps should match fixture",
-			want: 422890150883,
+			want: 24181537,
 		},
 	}
 
@@ -166,7 +166,7 @@ func TestClient_ListClusterFaults(t *testing.T) {
 	}{
 		{
 			name: "Cluster Faults Response should match fixture",
-			want: 1,
+			want: 18,
 		},
 	}
 
@@ -214,7 +214,7 @@ func TestClient_ListNodeStats(t *testing.T) {
 	}{
 		{
 			name: "ListNodeStats Response should match fixture",
-			want: 685484495902625,
+			want: 282366,
 		},
 	}
 
@@ -351,7 +351,7 @@ func TestClient_GetClusterStats(t *testing.T) {
 	}{
 		{
 			name: "GetClusterStats Response should match fixture",
-			want: 7964,
+			want: 11092150,
 		},
 	}
 
@@ -370,14 +370,14 @@ func TestClient_GetClusterStats(t *testing.T) {
 				BodyString(string(fixture))
 
 			gotRaw, err := sfClient.GetClusterStats()
-			got := gotRaw.Result.ClusterStats.ActualIOPS
+			got := gotRaw.Result.ClusterStats.ReadOps
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Client.GetClusterStats() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Client.ListAllNodes() = %v, want %v", got, tt.want)
+				t.Errorf("Client.GetClusterStats() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -418,11 +418,11 @@ func TestClient_GetClusterFullThreshold(t *testing.T) {
 			got := gotRaw.Result.Stage2AwareThreshold
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Client.ListAllNodes() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Client.GetClusterFullThreshold() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Client.ListAllNodes() = %v, want %v", got, tt.want)
+				t.Errorf("Client.GetClusterFullThreshold() = %v, want %v", got, tt.want)
 			}
 		})
 	}

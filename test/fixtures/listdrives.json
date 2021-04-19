@@ -1,47 +1,75 @@
 {
-    "id": 1,
-    "result": {
-        "drives": [
-            {
-                "attributes": {},
-                "capacity": 299917139968,
-                "driveID": 35,
-                "nodeID": 5,
-                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR141502R3600FGN-part2",
-                "slot": 0,
-                "status": "active",
-                "type": "volume"
-            },
-            {
-                "attributes": {},
-                "capacity": 600127266816,
-                "driveID": 36,
-                "nodeID": 5,
-                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR1415037R600FGN",
-                "slot": 6,
-                "status": "active",
-                "type": "block"
-            },
-            {
-                "attributes": {},
-                "capacity": 600127266821,
-                "driveID": 37,
-                "nodeID": 5,
-                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR1415037R600FGN",
-                "slot": 6,
-                "status": "active",
-                "type": "block"
-            },
-            {
-                "attributes": {},
-                "capacity": 600127266825,
-                "driveID": 38,
-                "nodeID": 5,
-                "serial": "scsi-SATA_INTEL_SSDSA2CW6CVPR1415037R600FGN",
-                "slot": 6,
-                "status": "active",
-                "type": "block"
-            }
-        ]
-    }
+  "id": 1,
+  "result": {
+    "drives": [
+      {
+        "attributes": {},
+        "capacity": 32212254720,
+        "chassisSlot": "1",
+        "driveFailureDetail": "None",
+        "driveID": 1,
+        "driveSecurityFaultReason": "None",
+        "keyID": "00000000-0000-0000-0000-000000000000",
+        "keyProviderID": 0,
+        "nodeID": 1,
+        "segmentFileSize": 10485760,
+        "serial": "sdb",
+        "slot": 1,
+        "status": "active",
+        "type": "volume",
+        "usableCapacity": 32212254720
+      },
+      {
+        "attributes": {},
+        "capacity": 53687091200,
+        "chassisSlot": "2",
+        "driveFailureDetail": "None",
+        "driveID": 2,
+        "driveSecurityFaultReason": "None",
+        "keyID": "00000000-0000-0000-0000-000000000000",
+        "keyProviderID": 0,
+        "nodeID": 1,
+        "segmentFileSize": 10485760,
+        "serial": "sdc",
+        "slot": 2,
+        "status": "available",
+        "type": "block",
+        "usableCapacity": 53687091200
+      },
+      {
+        "attributes": {},
+        "capacity": 53687091200,
+        "chassisSlot": "3",
+        "driveFailureDetail": "None",
+        "driveID": 3,
+        "driveSecurityFaultReason": "None",
+        "keyID": "00000000-0000-0000-0000-000000000000",
+        "keyProviderID": 0,
+        "nodeID": 1,
+        "segmentFileSize": 10485760,
+        "serial": "sdd",
+        "slot": 3,
+        "status": "active",
+        "type": "block",
+        "usableCapacity": 53687091200
+      },
+      {
+        "attributes": {},
+        "capacity": 53687091200,
+        "chassisSlot": "4",
+        "driveFailureDetail": "None",
+        "driveID": 4,
+        "driveSecurityFaultReason": "None",
+        "keyID": "00000000-0000-0000-0000-000000000000",
+        "keyProviderID": 0,
+        "nodeID": 1,
+        "segmentFileSize": 10485760,
+        "serial": "sde",
+        "slot": 4,
+        "status": "active",
+        "type": "block",
+        "usableCapacity": 53687091200
+      }
+    ]
+  }
 }
