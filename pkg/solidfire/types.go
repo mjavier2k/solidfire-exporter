@@ -31,8 +31,21 @@ type Client struct {
 	RPCEndpoint string
 	HttpClient  *http.Client
 }
+type Interface interface {
+	GetClusterCapacity() (GetClusterCapacityResponse, error)
+	GetClusterFullThreshold() (GetClusterFullThresholdResponse, error)
+	GetClusterStats() (GetClusterStatsResponse, error)
+	ListAllNodes() (ListAllNodesResponse, error)
+	ListClusterFaults() (ListClusterFaultsResponse, error)
+	ListDrives() (ListDrivesResponse, error)
+	ListISCSISessions() (ListISCSISessionsResponse, error)
+	ListNodeStats() (ListNodeStatsResponse, error)
+	ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, error)
+	ListVolumes() (ListVolumesResponse, error)
+	ListVolumeStats() (ListVolumeStatsResponse, error)
+}
 type RPCBody struct {
-	Method string    `json:"method"`
+	Method RPC       `json:"method"`
 	Params RPCParams `json:"params"`
 	ID     int       `json:"id"`
 }
