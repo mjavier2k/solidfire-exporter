@@ -12,6 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+//prometheusOutput was originally copied from https://github.com/peterbourgon/fastly-exporter - thanks Peter
 func prometheusOutput(t *testing.T, registry *prometheus.Registry, prefix string) []string {
 	t.Helper()
 
