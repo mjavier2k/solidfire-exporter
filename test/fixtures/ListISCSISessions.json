@@ -1,0 +1,42 @@
+{
+  "id": 1,
+  "result": {
+    "sessions": [
+      {
+        "accountID": 1,
+        "accountName": "myuser",
+        "createTime": "2021-04-19T01:57:47.696633Z",
+        "driveID": 1,
+        "driveIDs": [
+          1
+        ],
+        "initiator": {
+          "alias": "iscsitest",
+          "attributes": {},
+          "chapCredentialsID": 0,
+          "initiatorID": 3,
+          "initiatorName": "iqn.1993-08.org.debian:01:4efdaa48c143",
+          "requireChap": false,
+          "volumeAccessGroups": [
+            1
+          ]
+        },
+        "initiatorIP": "10.0.0.149:33196",
+        "initiatorName": "iqn.1993-08.org.debian:01:4efdaa48c143",
+        "initiatorPortName": "iqn.1993-08.org.debian:01:4efdaa48c143,i,0x23d000001",
+        "initiatorSessionID": 9613344769,
+        "msSinceLastIscsiPDU": 3277,
+        "msSinceLastScsiCommand": 1416771,
+        "nodeID": 1,
+        "serviceID": 4,
+        "sessionID": 17179870185,
+        "targetIP": "10.0.0.91:3260",
+        "targetName": "iqn.2010-01.com.solidfire:1mhp.test-volume1.1",
+        "targetPortName": "iqn.2010-01.com.solidfire:1mhp.test-volume1.1,t,0x1",
+        "virtualNetworkID": 0,
+        "volumeID": 1,
+        "volumeInstance": 140605406784000
+      }
+    ]
+  }
+}

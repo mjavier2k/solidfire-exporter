@@ -1,0 +1,101 @@
+{
+  "id": 1,
+  "result": {
+    "volumes": [
+      {
+        "access": "readWrite",
+        "accountID": 1,
+        "attributes": {},
+        "blockSize": 4096,
+        "createTime": "2021-03-09T04:40:43Z",
+        "currentProtectionScheme": "singleHelix",
+        "deleteTime": "",
+        "enable512e": true,
+        "enableSnapMirrorReplication": false,
+        "iqn": "iqn.2010-01.com.solidfire:1mhp.test-volume1.1",
+        "lastAccessTime": "2021-04-19T01:57:47Z",
+        "lastAccessTimeIO": "2021-04-16T04:30:24Z",
+        "name": "test-volume1",
+        "previousProtectionScheme": null,
+        "purgeTime": "",
+        "qos": {
+          "burstIOPS": 15000,
+          "burstTime": 60,
+          "curve": {
+            "4096": 100,
+            "8192": 160,
+            "16384": 270,
+            "32768": 500,
+            "65536": 1000,
+            "131072": 1950,
+            "262144": 3900,
+            "524288": 7600,
+            "1048576": 15000
+          },
+          "maxIOPS": 5000,
+          "minIOPS": 50
+        },
+        "qosPolicyID": 1,
+        "scsiEUIDeviceID": "316d687000000001f47acc0100000000",
+        "scsiNAADeviceID": "6f47acc100000000316d687000000001",
+        "sliceCount": 1,
+        "status": "active",
+        "totalSize": 2000683008,
+        "virtualVolumeID": null,
+        "volumeAccessGroups": [
+          1
+        ],
+        "volumeConsistencyGroupUUID": "8918cf90-ccfc-4188-8438-744f891aa4fe",
+        "volumeID": 1,
+        "volumePairs": [],
+        "volumeUUID": "763a0938-6906-4006-af96-ed42a3ea807e"
+      },
+      {
+        "access": "readWrite",
+        "accountID": 1,
+        "attributes": {},
+        "blockSize": 4096,
+        "createTime": "2021-04-11T17:29:48Z",
+        "currentProtectionScheme": "singleHelix",
+        "deleteTime": "",
+        "enable512e": true,
+        "enableSnapMirrorReplication": false,
+        "iqn": "iqn.2010-01.com.solidfire:1mhp.test-volume2.2",
+        "lastAccessTime": null,
+        "lastAccessTimeIO": null,
+        "name": "test-volume2",
+        "previousProtectionScheme": null,
+        "purgeTime": "",
+        "qos": {
+          "burstIOPS": 15000,
+          "burstTime": 60,
+          "curve": {
+            "4096": 100,
+            "8192": 160,
+            "16384": 270,
+            "32768": 500,
+            "65536": 1000,
+            "131072": 1950,
+            "262144": 3900,
+            "524288": 7600,
+            "1048576": 15000
+          },
+          "maxIOPS": 5000,
+          "minIOPS": 50
+        },
+        "qosPolicyID": 1,
+        "scsiEUIDeviceID": "316d687000000002f47acc0100000000",
+        "scsiNAADeviceID": "6f47acc100000000316d687000000002",
+        "sliceCount": 1,
+        "status": "active",
+        "totalSize": 4000317440,
+        "virtualVolumeID": null,
+        "volumeAccessGroups": [],
+        "volumeConsistencyGroupUUID": "b20d084c-68c9-4945-a891-bd4fa0318f16",
+        "volumeID": 2,
+        "volumePairs": [],
+        "volumeUUID": "6826da37-cce7-41a0-9102-6bc2462b0f85"
+      }
+    ]
+  }
+}

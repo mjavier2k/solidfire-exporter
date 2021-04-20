@@ -1,0 +1,36 @@
+{
+  "id": 1,
+  "result": {
+    "nodes": [
+      {
+        "associatedFServiceID": 0,
+        "associatedMasterServiceID": 1,
+        "attributes": {},
+        "chassisName": "",
+        "cip": "10.0.0.91",
+        "cipi": "eth1",
+        "customProtectionDomainName": "__default__",
+        "fibreChannelTargetPortGroup": null,
+        "mip": "10.0.0.81",
+        "mipi": "eth0",
+        "name": "n01",
+        "nodeID": 1,
+        "nodeSlot": "",
+        "platformInfo": {
+          "chassisType": "SFVIRT",
+          "cpuModel": "Intel(R) Xeon(R) CPU E7-8891 v4 @ 2.80GHz\nUnknown Processor",
+          "nodeMemoryGB": 16,
+          "nodeType": "SFDEMO-NE",
+          "platformConfigVersion": "0.0.0.0"
+        },
+        "sip": "10.0.0.91",
+        "sipi": "eth1",
+        "softwareVersion": "11.7.0.76",
+        "uuid": "5329FE1F-A41F-DC41-8BD9-2016FF2DD8FF",
+        "virtualNetworks": []
+      }
+    ],
+    "pendingActiveNodes": [],
+    "pendingNodes": []
+  }
+}
