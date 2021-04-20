@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"path"
+	"sort"
 	"strings"
 	"testing"
 
@@ -184,6 +185,7 @@ func Test_Collect(t *testing.T) {
 	r := prometheus.NewRegistry()
 	r.MustRegister(collector)
 	got := prometheusOutput(t, r, "solidfire")
-
-	assert.Equal(t, expectedOutputSlice, got, fmt.Sprintf("Here is the full output I got from the collector:\n%s\n", strings.Join(got, "\n")))
+	sort.Strings(got)
+	sort.Strings(wantOutputSlice)
+	assert.Equal(t, wantOutputSlice, got, fmt.Sprintf("Here is the full output I got from the collector:\n%s\n", strings.Join(got, "\n")))
 }
