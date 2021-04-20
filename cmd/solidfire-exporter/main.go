@@ -64,7 +64,14 @@ func main() {
 	log.Infof("Version: %v", sha1ver)
 	log.Infof("Built: %v", buildTime)
 	listenAddress := fmt.Sprintf("%v", viper.GetString(solidfire.ListenAddress))
-	solidfireExporter, err := prom.NewCollector()
+
+	sfClient, err := solidfire.NewSolidfireClient()
+	if err != nil {
+		log.Errorf("error initializing solidfire client: %s\n", err.Error())
+		os.Exit(1)
+	}
+
+	solidfireExporter, err := prom.NewCollector(sfClient)
 	if err != nil {
 		log.Errorf("error initializing collector: %s\n", err.Error())
 		os.Exit(1)

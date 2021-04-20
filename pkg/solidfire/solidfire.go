@@ -14,6 +14,22 @@ import (
 	"github.com/spf13/viper"
 )
 
+type RPC string
+
+const (
+	RPCGetClusterCapacity      RPC = "GetClusterCapacity"
+	RPCGetClusterFullThreshold RPC = "GetClusterFullThreshold"
+	RPCGetClusterStats         RPC = "GetClusterStats"
+	RPCListAllNodes            RPC = "ListAllNodes"
+	RPCListClusterFaults       RPC = "ListClusterFaults"
+	RPCListDrives              RPC = "ListDrives"
+	RPCListISCSISessions       RPC = "ListISCSISessions"
+	RPCListNodeStats           RPC = "ListNodeStats"
+	RPCListVolumeQoSHistograms RPC = "ListVolumeQoSHistograms"
+	RPCListVolumes             RPC = "ListVolumes"
+	RPCListVolumeStats         RPC = "ListVolumeStats"
+)
+
 func NewSolidfireClient() (*Client, error) {
 	log.Infof("initializing new solidfire client")
 
@@ -69,7 +85,7 @@ func doRpcCall(c *Client, body []byte) ([]byte, error) {
 
 func (s *Client) ListVolumes() (ListVolumesResponse, error) {
 	payload := &RPCBody{
-		Method: "ListVolumes",
+		Method: RPCListVolumes,
 		Params: ListVolumesRPCParams{
 			IncludeVirtualVolumes: true,
 		},
@@ -90,7 +106,7 @@ func (s *Client) ListVolumes() (ListVolumesResponse, error) {
 
 func (s *Client) ListVolumeStats() (ListVolumeStatsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListVolumeStats",
+		Method: RPCListVolumeStats,
 		Params: ListVolumeStatsRPCParams{
 			VolumeIDs:             []int{}, // blank gives us all of them
 			IncludeVirtualVolumes: true,
@@ -113,7 +129,7 @@ func (s *Client) ListVolumeStats() (ListVolumeStatsResponse, error) {
 
 func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
 	payload := &RPCBody{
-		Method: "GetClusterCapacity",
+		Method: RPCGetClusterCapacity,
 		Params: GetClusterCapacityRPCParams{},
 		ID:     1,
 	}
@@ -130,9 +146,9 @@ func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
 	return r, nil
 }
 
-func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
+func (s *Client) ListClusterFaults() (ListClusterFaultsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListClusterFaults",
+		Method: RPCListClusterFaults,
 		Params: ListClusterFaultsRPCParams{
 			FaultTypes:    "current",
 			BestPractices: true,
@@ -156,7 +172,7 @@ func (s *Client) ListClusterActiveFaults() (ListClusterFaultsResponse, error) {
 
 func (s *Client) ListNodeStats() (ListNodeStatsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListNodeStats",
+		Method: RPCListNodeStats,
 		Params: ListNodeStatsRPCParams{},
 		ID:     1,
 	}
@@ -176,7 +192,7 @@ func (s *Client) ListNodeStats() (ListNodeStatsResponse, error) {
 
 func (s *Client) ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListVolumeQoSHistograms",
+		Method: RPCListVolumeQoSHistograms,
 		Params: ListVolumeQoSHistogramsRPCParams{
 			VolumeIDs: []int{}, // blank gives us all of them
 		},
@@ -200,7 +216,7 @@ func (s *Client) ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, err
 
 func (s *Client) ListAllNodes() (ListAllNodesResponse, error) {
 	payload := &RPCBody{
-		Method: "ListAllNodes",
+		Method: RPCListAllNodes,
 		Params: ListAllNodesRPCParams{},
 		ID:     1,
 	}
@@ -222,7 +238,7 @@ func (s *Client) ListAllNodes() (ListAllNodesResponse, error) {
 
 func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
 	payload := &RPCBody{
-		Method: "GetClusterStats",
+		Method: RPCGetClusterStats,
 		Params: GetClusterStatsRPCParams{},
 		ID:     1,
 	}
@@ -244,7 +260,7 @@ func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
 
 func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, error) {
 	payload := &RPCBody{
-		Method: "GetClusterFullThreshold",
+		Method: RPCGetClusterFullThreshold,
 		Params: GetClusterFullThresholdParams{},
 		ID:     1,
 	}
@@ -266,7 +282,7 @@ func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, err
 
 func (s *Client) ListDrives() (ListDrivesResponse, error) {
 	payload := &RPCBody{
-		Method: "ListDrives",
+		Method: RPCListDrives,
 		Params: ListDrivesParams{},
 		ID:     1,
 	}
@@ -288,7 +304,7 @@ func (s *Client) ListDrives() (ListDrivesResponse, error) {
 
 func (s *Client) ListISCSISessions() (ListISCSISessionsResponse, error) {
 	payload := &RPCBody{
-		Method: "ListISCSISessions",
+		Method: RPCListISCSISessions,
 		Params: ListISCSISessionsParams{},
 		ID:     1,
 	}

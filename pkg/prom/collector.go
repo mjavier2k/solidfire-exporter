@@ -14,7 +14,7 @@ import (
 )
 
 type solidfireCollector struct {
-	client *solidfire.Client
+	client solidfire.Interface
 }
 
 var (
@@ -209,7 +209,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeTotalMemoryBytes,
 			prometheus.GaugeValue,
-			gigabytesToBytes(node.PlatformInfo.NodeMemoryGB),
+			GigabytesToBytes(node.PlatformInfo.NodeMemoryGB),
 			strconv.Itoa(node.NodeID),
 			node.Name,
 		)
@@ -254,7 +254,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeLatencySeconds,
 			prometheus.GaugeValue,
-			microsecondsToSeconds(vol.LatencyUSec),
+			MicrosecondsToSeconds(vol.LatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
@@ -282,14 +282,14 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeReadLatencySeconds,
 			prometheus.GaugeValue,
-			microsecondsToSeconds(vol.ReadLatencyUSec),
+			MicrosecondsToSeconds(vol.ReadLatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeReadLatencySecondsTotal,
 			prometheus.CounterValue,
-			microsecondsToSeconds(vol.ReadLatencyUSecTotal),
+			MicrosecondsToSeconds(vol.ReadLatencyUSecTotal),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
@@ -359,14 +359,14 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeWriteLatencySeconds,
 			prometheus.GaugeValue,
-			microsecondsToSeconds(vol.WriteLatencyUSec),
+			MicrosecondsToSeconds(vol.WriteLatencyUSec),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeWriteLatencyTotal,
 			prometheus.CounterValue,
-			microsecondsToSeconds(vol.WriteLatencyUSecTotal),
+			MicrosecondsToSeconds(vol.WriteLatencyUSecTotal),
 			strconv.Itoa(vol.VolumeID),
 			volumeNamesByID[vol.VolumeID])
 
@@ -546,7 +546,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		clusterThinProvisioningFactor*clusterDeDuplicationFactor*clusterCompressionFactor)
 
 	// List Cluster Faults
-	ClusterActiveFaults, err := c.client.ListClusterActiveFaults()
+	ClusterActiveFaults, err := c.client.ListClusterFaults()
 	if err != nil {
 		up = 0
 		log.Errorln(err)
@@ -677,7 +677,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeReadLatencyTotal,
 			prometheus.CounterValue,
-			microsecondsToSeconds(stats.ReadLatencyUSecTotal),
+			MicrosecondsToSeconds(stats.ReadLatencyUSecTotal),
 			strconv.Itoa(stats.NodeID),
 			nodesNamesByID[stats.NodeID],
 		)
@@ -719,7 +719,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeWriteLatencyTotal,
 			prometheus.CounterValue,
-			microsecondsToSeconds(stats.WriteLatencyUSecTotal),
+			MicrosecondsToSeconds(stats.WriteLatencyUSecTotal),
 			strconv.Itoa(stats.NodeID),
 			nodesNamesByID[stats.NodeID],
 		)
@@ -885,7 +885,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterLatencySeconds,
 		prometheus.GaugeValue,
-		microsecondsToSeconds(clusterStats.Result.ClusterStats.LatencyUSec),
+		MicrosecondsToSeconds(clusterStats.Result.ClusterStats.LatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -909,13 +909,13 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterReadLatencySeconds,
 		prometheus.GaugeValue,
-		microsecondsToSeconds(clusterStats.Result.ClusterStats.ReadLatencyUSec),
+		MicrosecondsToSeconds(clusterStats.Result.ClusterStats.ReadLatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterReadLatencyTotal,
 		prometheus.CounterValue,
-		microsecondsToSeconds(clusterStats.Result.ClusterStats.ReadLatencyUSecTotal),
+		MicrosecondsToSeconds(clusterStats.Result.ClusterStats.ReadLatencyUSecTotal),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -933,7 +933,7 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterSamplePeriodSeconds,
 		prometheus.GaugeValue,
-		millisecondsToSeconds(clusterStats.Result.ClusterStats.SamplePeriodMsec),
+		MillisecondsToSeconds(clusterStats.Result.ClusterStats.SamplePeriodMsec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -975,13 +975,13 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterWriteLatency,
 		prometheus.GaugeValue,
-		microsecondsToSeconds(clusterStats.Result.ClusterStats.WriteLatencyUSec),
+		MicrosecondsToSeconds(clusterStats.Result.ClusterStats.WriteLatencyUSec),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		MetricDescriptions.ClusterWriteLatencyTotal,
 		prometheus.CounterValue,
-		microsecondsToSeconds(clusterStats.Result.ClusterStats.WriteLatencyUSecTotal),
+		MicrosecondsToSeconds(clusterStats.Result.ClusterStats.WriteLatencyUSecTotal),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
@@ -1241,25 +1241,28 @@ func (c *solidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	ch <- prometheus.MustNewConstMetric(MetricDescriptions.upDesc, prometheus.GaugeValue, up)
 }
 
-func NewCollector() (*solidfireCollector, error) {
-	log.Infof("initializing new solidfire collector")
-	c, err := solidfire.NewSolidfireClient()
-	if err != nil {
-		return nil, err
+func NewCollector(client solidfire.Interface) (*solidfireCollector, error) {
+	var err error
+	if client == nil {
+		log.Infof("initializing new solidfire client")
+		client, err = solidfire.NewSolidfireClient()
+		if err != nil {
+			return nil, err
+		}
 	}
 	return &solidfireCollector{
-		client: c,
+		client: client,
 	}, nil
 }
 
-func gigabytesToBytes(gb float64) float64 {
+func GigabytesToBytes(gb float64) float64 {
 	return gb * 1e+9
 }
 
-func microsecondsToSeconds(microSeconds float64) float64 {
+func MicrosecondsToSeconds(microSeconds float64) float64 {
 	return microSeconds * 1e-6
 }
 
-func millisecondsToSeconds(milliseconds float64) float64 {
+func MillisecondsToSeconds(milliseconds float64) float64 {
 	return milliseconds * 1e-3
 }

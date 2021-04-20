@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"path"
 	"reflect"
 	"testing"
 
 	"github.com/mjavier2k/solidfire-exporter/pkg/solidfire"
+	"github.com/mjavier2k/solidfire-exporter/pkg/testutils"
 	"gopkg.in/h2non/gock.v1"
 )
 
@@ -18,12 +20,13 @@ var (
 		RPCEndpoint: fmt.Sprintf("%v%v", sfHost, sfRPCEndpoint),
 		HttpClient:  &http.Client{},
 	}
+	fixtureBasePath = path.Join("..", "..", "test", "fixtures")
 )
 
 func TestClient_ListVolumeStats(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/listvolumestats.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListVolumeStats))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -46,7 +49,7 @@ func TestClient_ListVolumeStats(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListVolumeStats",
+					Method: solidfire.RPCListVolumeStats,
 					Params: solidfire.ListVolumeStatsRPCParams{
 						VolumeIDs:             []int{},
 						IncludeVirtualVolumes: true,
@@ -67,9 +70,9 @@ func TestClient_ListVolumeStats(t *testing.T) {
 }
 
 func TestClient_ListVolumes(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/listvolumes.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListVolumes))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -92,7 +95,7 @@ func TestClient_ListVolumes(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListVolumes",
+					Method: solidfire.RPCListVolumes,
 					Params: solidfire.ListVolumesRPCParams{
 						IncludeVirtualVolumes: true,
 					}}).
@@ -111,9 +114,9 @@ func TestClient_ListVolumes(t *testing.T) {
 	}
 }
 func TestClient_GetClusterCapacity(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/getclustercapacity.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCGetClusterCapacity))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -136,7 +139,7 @@ func TestClient_GetClusterCapacity(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "GetClusterCapacity",
+					Method: solidfire.RPCGetClusterCapacity,
 					Params: solidfire.GetClusterCapacityRPCParams{}}).
 				Reply(200).
 				BodyString(string(fixture))
@@ -154,9 +157,9 @@ func TestClient_GetClusterCapacity(t *testing.T) {
 }
 
 func TestClient_ListClusterFaults(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/listclusterfaults.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListClusterFaults))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -179,7 +182,7 @@ func TestClient_ListClusterFaults(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListClusterFaults",
+					Method: solidfire.RPCListClusterFaults,
 					Params: solidfire.ListClusterFaultsRPCParams{
 						FaultTypes:    "current",
 						BestPractices: true,
@@ -187,24 +190,24 @@ func TestClient_ListClusterFaults(t *testing.T) {
 				Reply(200).
 				BodyString(string(fixture))
 
-			gotRaw, err := sfClient.ListClusterActiveFaults()
+			gotRaw, err := sfClient.ListClusterFaults()
 			got := gotRaw.Result.Faults[0].ClusterFaultID
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Client.ListClusterActiveFaults() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Client.ListClusterFaults() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Client.ListClusterActiveFaults() = %v, want %v", got, tt.want)
+				t.Errorf("Client.ListClusterFaults() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 func TestClient_ListNodeStats(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/listnodestats.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListNodeStats))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -227,7 +230,7 @@ func TestClient_ListNodeStats(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListNodeStats",
+					Method: solidfire.RPCListNodeStats,
 					Params: solidfire.ListNodeStatsRPCParams{}}).
 				Reply(200).
 				BodyString(string(fixture))
@@ -247,9 +250,9 @@ func TestClient_ListNodeStats(t *testing.T) {
 }
 
 func TestClient_ListVolumeQoSHistograms(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/listvolumeqoshistograms.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListVolumeQoSHistograms))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -272,7 +275,7 @@ func TestClient_ListVolumeQoSHistograms(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListVolumeQoSHistograms",
+					Method: solidfire.RPCListVolumeQoSHistograms,
 					Params: solidfire.ListVolumeQoSHistogramsRPCParams{
 						VolumeIDs: []int{}, // blank gives us all of them
 					}}).
@@ -294,9 +297,9 @@ func TestClient_ListVolumeQoSHistograms(t *testing.T) {
 }
 
 func TestClient_ListAllNodes(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/listallnodes.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListAllNodes))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -319,7 +322,7 @@ func TestClient_ListAllNodes(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "ListAllNodes",
+					Method: solidfire.RPCListAllNodes,
 					Params: solidfire.ListAllNodesRPCParams{}}).
 				Reply(200).
 				BodyString(string(fixture))
@@ -339,9 +342,9 @@ func TestClient_ListAllNodes(t *testing.T) {
 }
 
 func TestClient_GetClusterStats(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/getclusterstats.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCGetClusterStats))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -364,7 +367,7 @@ func TestClient_GetClusterStats(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "GetClusterStats",
+					Method: solidfire.RPCGetClusterStats,
 					Params: solidfire.GetClusterStatsRPCParams{}}).
 				Reply(200).
 				BodyString(string(fixture))
@@ -384,9 +387,9 @@ func TestClient_GetClusterStats(t *testing.T) {
 }
 
 func TestClient_GetClusterFullThreshold(t *testing.T) {
-	fixture, err := ioutil.ReadFile("../../test/fixtures/getclusterfullthreshold.json")
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCGetClusterFullThreshold))
 	if err != nil {
-		panic(err)
+		t.Errorf(err.Error())
 	}
 	tests := []struct {
 		name    string
@@ -409,7 +412,7 @@ func TestClient_GetClusterFullThreshold(t *testing.T) {
 				MatchType("json").
 				JSON(solidfire.RPCBody{
 					ID:     1,
-					Method: "GetClusterFullThreshold",
+					Method: solidfire.RPCGetClusterFullThreshold,
 					Params: solidfire.GetClusterFullThresholdParams{}}).
 				Reply(200).
 				BodyString(string(fixture))
