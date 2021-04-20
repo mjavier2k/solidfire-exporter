@@ -14,6 +14,7 @@ import (
 	"github.com/mjavier2k/solidfire-exporter/pkg/testutils"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -104,78 +105,78 @@ func Test_Collect(t *testing.T) {
 	var getClusterCapacityResponse = solidfire.GetClusterCapacityResponse{}
 	var call solidfire.RPC = solidfire.RPCGetClusterCapacity
 	bytes, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &getClusterCapacityResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &getClusterCapacityResponse))
 	mockSfClient.On(string(call)).Return(getClusterCapacityResponse, nil)
 
 	getClusterFullThresholdResponse := solidfire.GetClusterFullThresholdResponse{}
 	call = solidfire.RPCGetClusterFullThreshold
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &getClusterFullThresholdResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &getClusterFullThresholdResponse))
 	mockSfClient.On(string(call)).Return(getClusterFullThresholdResponse, nil)
 
 	getClusterStatsResponse := solidfire.GetClusterStatsResponse{}
 	call = solidfire.RPCGetClusterStats
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &getClusterStatsResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &getClusterStatsResponse))
 	mockSfClient.On(string(call)).Return(getClusterStatsResponse, nil)
 
 	listAllNodesResponse := solidfire.ListAllNodesResponse{}
 	call = solidfire.RPCListAllNodes
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listAllNodesResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listAllNodesResponse))
 	mockSfClient.On(string(call)).Return(listAllNodesResponse, nil)
 
 	listClusterFaultsResponse := solidfire.ListClusterFaultsResponse{}
 	call = solidfire.RPCListClusterFaults
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listClusterFaultsResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listClusterFaultsResponse))
 	mockSfClient.On(string(call)).Return(listClusterFaultsResponse, nil)
 
 	listDrivesResponse := solidfire.ListDrivesResponse{}
 	call = solidfire.RPCListDrives
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listDrivesResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listDrivesResponse))
 	mockSfClient.On(string(call)).Return(listDrivesResponse, nil)
 
 	listISCSISessionsResponse := solidfire.ListISCSISessionsResponse{}
 	call = solidfire.RPCListISCSISessions
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listISCSISessionsResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listISCSISessionsResponse))
 	mockSfClient.On(string(call)).Return(listISCSISessionsResponse, nil)
 
 	listNodeStatsResponse := solidfire.ListNodeStatsResponse{}
 	call = solidfire.RPCListNodeStats
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listNodeStatsResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listNodeStatsResponse))
 	mockSfClient.On(string(call)).Return(listNodeStatsResponse, nil)
 
 	listVolumeQoSHistogramsResponse := solidfire.ListVolumeQoSHistogramsResponse{}
 	call = solidfire.RPCListVolumeQoSHistograms
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listVolumeQoSHistogramsResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listVolumeQoSHistogramsResponse))
 	mockSfClient.On(string(call)).Return(listVolumeQoSHistogramsResponse, nil)
 
 	listVolumesResponse := solidfire.ListVolumesResponse{}
 	call = solidfire.RPCListVolumes
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listVolumesResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listVolumesResponse))
 	mockSfClient.On(string(call)).Return(listVolumesResponse, nil)
 
 	listVolumeStatsResponse := solidfire.ListVolumeStatsResponse{}
 	call = solidfire.RPCListVolumeStats
 	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
-	assert.NoError(t, err)
-	assert.NoError(t, json.Unmarshal(bytes, &listVolumeStatsResponse))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listVolumeStatsResponse))
 	mockSfClient.On(string(call)).Return(listVolumeStatsResponse, nil)
 
 	collector, err := prom.NewCollector(mockSfClient)
