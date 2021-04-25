@@ -138,8 +138,11 @@ func Test_Collect(t *testing.T) {
 			r := prometheus.NewRegistry()
 			r.MustRegister(collector)
 			got := testutils.PrometheusOutput(t, r, "solidfire")
-			sort.Strings(got)
-			assert.Equal(t, tt.want, got, fmt.Sprintf("Here is the full output I got from the collector:\n%s\n", strings.Join(got, "\n")))
+			var sortedGot = make([]string, len(got))
+			copy(sortedGot, got)
+			sort.Strings(sortedGot)
+			sort.Strings(tt.want)
+			assert.Equal(t, tt.want, sortedGot, fmt.Sprintf("Here is the full output I got from the collector:\n%s\n", strings.Join(got, "\n")))
 		})
 	}
 }
