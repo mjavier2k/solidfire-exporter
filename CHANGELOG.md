@@ -22,6 +22,8 @@ Example Format Below:
 - Fix Markdown links to tag comparison URL with footnote-style links.
 -->
 ## [Unreleased]
+### Added
+- Call the SF API concurrently for scrape speed improvement #62
 ### Fixed
 - Sum ISCSI sessions for all volumes per node in singlestat panel #59 
 ## [0.6.0] - 2021-04-17
