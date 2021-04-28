@@ -1,10 +1,12 @@
 package prom
 
 import (
+	"context"
 	"fmt"
 	"math"
 	"strconv"
 	"strings"
+	"time"
 
 	log "github.com/amoghe/distillog"
 	"github.com/mjavier2k/solidfire-exporter/pkg/solidfire"
@@ -14,7 +16,8 @@ import (
 )
 
 type SolidfireCollector struct {
-	client solidfire.Interface
+	client  solidfire.Interface
+	timeout time.Duration
 }
 
 var (
@@ -158,6 +161,9 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 }
 
 func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
+	parentCtx, cancel := context.WithTimeout(context.Background(), c.timeout)
+	defer cancel()
+
 	var up float64 = 0
 	var volumeNamesByID = make(map[int]string)
 	var nodesNamesByID = make(map[int]string)
@@ -165,9 +171,9 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	// We must get volume and node details before anything else
 	// because we need this metadata for labels in other calls
-	metadataGroup := new(errgroup.Group)
+	metadataGroup, ctx := errgroup.WithContext(parentCtx)
 	metadataGroup.Go(func() error {
-		volumes, err := c.client.ListVolumes()
+		volumes, err := c.client.ListVolumes(ctx)
 		if err != nil {
 			return err
 		}
@@ -178,7 +184,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	metadataGroup.Go(func() error {
-		nodes, err := c.client.ListAllNodes()
+		nodes, err := c.client.ListAllNodes(ctx)
 		if err != nil {
 			return err
 		}
@@ -219,10 +225,11 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		return
 	}
 
-	metricsGroup := new(errgroup.Group)
+	// metricsGroup := new(errgroup.Group)
+	metricsGroup, ctx := errgroup.WithContext(parentCtx)
 
 	metricsGroup.Go(func() error {
-		volumeStats, err := c.client.ListVolumeStats()
+		volumeStats, err := c.client.ListVolumeStats(ctx)
 		if err != nil {
 			return err
 		}
@@ -399,7 +406,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	metricsGroup.Go(func() error {
-		clusterCapacity, err := c.client.GetClusterCapacity()
+		clusterCapacity, err := c.client.GetClusterCapacity(ctx)
 		if err != nil {
 			return err
 		}
@@ -552,7 +559,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	metricsGroup.Go(func() error {
-		ClusterActiveFaults, err := c.client.ListClusterFaults()
+		ClusterActiveFaults, err := c.client.ListClusterFaults(ctx)
 		if err != nil {
 			return err
 		}
@@ -578,7 +585,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	metricsGroup.Go(func() error {
-		ClusterNodeStats, err := c.client.ListNodeStats()
+		ClusterNodeStats, err := c.client.ListNodeStats(ctx)
 		if err != nil {
 			return err
 		}
@@ -742,7 +749,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	metricsGroup.Go(func() error {
-		VolumeQoSHistograms, err := c.client.ListVolumeQoSHistograms()
+		VolumeQoSHistograms, err := c.client.ListVolumeQoSHistograms(ctx)
 		if err != nil {
 			return err
 		}
@@ -861,7 +868,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	metricsGroup.Go(func() error {
-		clusterStats, err := c.client.GetClusterStats()
+		clusterStats, err := c.client.GetClusterStats(ctx)
 		if err != nil {
 			return err
 		}
@@ -1007,7 +1014,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	metricsGroup.Go(func() error {
-		clusterFullThreshold, err := c.client.GetClusterFullThreshold()
+		clusterFullThreshold, err := c.client.GetClusterFullThreshold(ctx)
 		if err != nil {
 			return err
 		}
@@ -1182,7 +1189,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		return nil
 	})
 	metricsGroup.Go(func() error {
-		ListDrives, err := c.client.ListDrives()
+		ListDrives, err := c.client.ListDrives(ctx)
 		if err != nil {
 			return err
 		}
@@ -1222,7 +1229,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 		return nil
 	})
 	metricsGroup.Go(func() error {
-		ListISCSISessions, err := c.client.ListISCSISessions()
+		ListISCSISessions, err := c.client.ListISCSISessions(ctx)
 		if err != nil {
 			return err
 		}
@@ -1259,7 +1266,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	up = 1
 }
 
-func NewCollector(client solidfire.Interface) (*SolidfireCollector, error) {
+func NewCollector(client solidfire.Interface, timeout time.Duration) (*SolidfireCollector, error) {
 	var err error
 	if client == nil {
 		log.Infof("initializing new solidfire client")
@@ -1269,7 +1276,8 @@ func NewCollector(client solidfire.Interface) (*SolidfireCollector, error) {
 		}
 	}
 	return &SolidfireCollector{
-		client: client,
+		client,
+		timeout,
 	}, nil
 }
 

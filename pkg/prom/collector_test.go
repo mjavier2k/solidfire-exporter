@@ -9,6 +9,7 @@ import (
 	"sort"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/mjavier2k/solidfire-exporter/pkg/prom"
 	"github.com/mjavier2k/solidfire-exporter/pkg/solidfire"
@@ -133,7 +134,7 @@ func Test_Collect(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			collector, err := prom.NewCollector(tt.args.client)
+			collector, err := prom.NewCollector(tt.args.client, time.Second)
 			require.NoError(t, err)
 			r := prometheus.NewRegistry()
 			r.MustRegister(collector)

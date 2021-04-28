@@ -1,6 +1,7 @@
 package solidfire
 
 import (
+	"context"
 	"net/http"
 	"time"
 )
@@ -16,10 +17,15 @@ const (
 
 	Endpoint        string = "client.endpoint"
 	DefaultEndpoint string = "http://127.0.0.1/json-rpc/11.3"
-	InsecureSSL     string = "client.insecure"
+
+	InsecureSSL        string = "client.insecure"
+	DefaultInsecureSSL bool   = false
 
 	HTTPClientTimeout        string = "client.timeout"
 	DefaultHTTPClientTimeout int    = 30
+
+	CollectTimeout        string = "collect.timeout"
+	DefaultCollectTimeout int    = 60
 
 	ConfigFile        string = "config"
 	DefaultConfigFile string = "config.yaml"
@@ -32,17 +38,17 @@ type Client struct {
 	HttpClient  *http.Client
 }
 type Interface interface {
-	GetClusterCapacity() (GetClusterCapacityResponse, error)
-	GetClusterFullThreshold() (GetClusterFullThresholdResponse, error)
-	GetClusterStats() (GetClusterStatsResponse, error)
-	ListAllNodes() (ListAllNodesResponse, error)
-	ListClusterFaults() (ListClusterFaultsResponse, error)
-	ListDrives() (ListDrivesResponse, error)
-	ListISCSISessions() (ListISCSISessionsResponse, error)
-	ListNodeStats() (ListNodeStatsResponse, error)
-	ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, error)
-	ListVolumes() (ListVolumesResponse, error)
-	ListVolumeStats() (ListVolumeStatsResponse, error)
+	GetClusterCapacity(ctx context.Context) (GetClusterCapacityResponse, error)
+	GetClusterFullThreshold(ctx context.Context) (GetClusterFullThresholdResponse, error)
+	GetClusterStats(ctx context.Context) (GetClusterStatsResponse, error)
+	ListAllNodes(ctx context.Context) (ListAllNodesResponse, error)
+	ListClusterFaults(ctx context.Context) (ListClusterFaultsResponse, error)
+	ListDrives(ctx context.Context) (ListDrivesResponse, error)
+	ListISCSISessions(ctx context.Context) (ListISCSISessionsResponse, error)
+	ListNodeStats(ctx context.Context) (ListNodeStatsResponse, error)
+	ListVolumeQoSHistograms(ctx context.Context) (ListVolumeQoSHistogramsResponse, error)
+	ListVolumes(ctx context.Context) (ListVolumesResponse, error)
+	ListVolumeStats(ctx context.Context) (ListVolumeStatsResponse, error)
 }
 type RPCBody struct {
 	Method RPC       `json:"method"`

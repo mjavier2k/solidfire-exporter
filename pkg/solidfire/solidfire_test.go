@@ -1,6 +1,7 @@
 package solidfire_test
 
 import (
+	"context"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -56,7 +57,7 @@ func TestClient_ListVolumeStats(t *testing.T) {
 					}}).
 				Reply(200).
 				BodyString(string(fixture))
-			gotRaw, err := sfClient.ListVolumeStats()
+			gotRaw, err := sfClient.ListVolumeStats(context.Background())
 			got := gotRaw.Result.VolumeStats[0].VolumeSize
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Client.ListVolumeStats() error = %v, wantErr %v", err, tt.wantErr)
@@ -101,7 +102,7 @@ func TestClient_ListVolumes(t *testing.T) {
 					}}).
 				Reply(200).
 				BodyString(string(fixture))
-			gotRaw, err := sfClient.ListVolumes()
+			gotRaw, err := sfClient.ListVolumes(context.Background())
 			got := gotRaw.Result.Volumes[0].Name
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Client.ListVolumes() error = %v, wantErr %v", err, tt.wantErr)
@@ -143,7 +144,7 @@ func TestClient_GetClusterCapacity(t *testing.T) {
 					Params: solidfire.GetClusterCapacityRPCParams{}}).
 				Reply(200).
 				BodyString(string(fixture))
-			gotRaw, err := sfClient.GetClusterCapacity()
+			gotRaw, err := sfClient.GetClusterCapacity(context.Background())
 			got := gotRaw.Result.ClusterCapacity.TotalOps
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Client.GetClusterCapacity() error = %v, wantErr %v", err, tt.wantErr)
@@ -190,7 +191,7 @@ func TestClient_ListClusterFaults(t *testing.T) {
 				Reply(200).
 				BodyString(string(fixture))
 
-			gotRaw, err := sfClient.ListClusterFaults()
+			gotRaw, err := sfClient.ListClusterFaults(context.Background())
 			got := gotRaw.Result.Faults[0].ClusterFaultID
 
 			if (err != nil) != tt.wantErr {
@@ -235,7 +236,7 @@ func TestClient_ListNodeStats(t *testing.T) {
 				Reply(200).
 				BodyString(string(fixture))
 
-			gotRaw, err := sfClient.ListNodeStats()
+			gotRaw, err := sfClient.ListNodeStats(context.Background())
 			got := gotRaw.Result.NodeStats.Nodes[0].CBytesIn
 
 			if (err != nil) != tt.wantErr {
@@ -282,7 +283,7 @@ func TestClient_ListVolumeQoSHistograms(t *testing.T) {
 				Reply(200).
 				BodyString(string(fixture))
 
-			gotRaw, err := sfClient.ListVolumeQoSHistograms()
+			gotRaw, err := sfClient.ListVolumeQoSHistograms(context.Background())
 			got := gotRaw.Result.QosHistograms[0].VolumeID
 
 			if (err != nil) != tt.wantErr {
@@ -327,7 +328,7 @@ func TestClient_ListAllNodes(t *testing.T) {
 				Reply(200).
 				BodyString(string(fixture))
 
-			gotRaw, err := sfClient.ListAllNodes()
+			gotRaw, err := sfClient.ListAllNodes(context.Background())
 			got := gotRaw.Result.Nodes[0].NodeID
 
 			if (err != nil) != tt.wantErr {
@@ -372,7 +373,7 @@ func TestClient_GetClusterStats(t *testing.T) {
 				Reply(200).
 				BodyString(string(fixture))
 
-			gotRaw, err := sfClient.GetClusterStats()
+			gotRaw, err := sfClient.GetClusterStats(context.Background())
 			got := gotRaw.Result.ClusterStats.ReadOps
 
 			if (err != nil) != tt.wantErr {
@@ -417,7 +418,7 @@ func TestClient_GetClusterFullThreshold(t *testing.T) {
 				Reply(200).
 				BodyString(string(fixture))
 
-			gotRaw, err := sfClient.GetClusterFullThreshold()
+			gotRaw, err := sfClient.GetClusterFullThreshold(context.Background())
 			got := gotRaw.Result.Stage2AwareThreshold
 
 			if (err != nil) != tt.wantErr {

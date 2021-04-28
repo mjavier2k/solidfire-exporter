@@ -4,5 +4,7 @@ client:
   endpoint: https://192.168.1.2/json-rpc/11.3
   username: mySolidfireUsername
   password: mySolidfirePassword
-  insecure: false
-  timeout: 130
+  insecure: true
+  timeout: 45
+collect:
+  timeout: 61
