@@ -70,7 +70,7 @@ func main() {
 		os.Exit(1)
 	}
 	collectTimeout := time.Second * time.Duration(viper.GetInt(solidfire.CollectTimeout))
-	solidfireExporter, err := prom.NewCollector(sfClient, collectTimeout)
+	solidfireExporter, err := prom.NewCollector(&prom.CollectorOpts{Client: sfClient, Timeout: collectTimeout})
 	if err != nil {
 		log.Errorf("error initializing collector: %s\n", err.Error())
 		os.Exit(1)

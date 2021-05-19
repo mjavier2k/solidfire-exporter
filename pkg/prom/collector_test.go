@@ -134,7 +134,7 @@ func Test_Collect(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			collector, err := prom.NewCollector(tt.args.client, time.Second)
+			collector, err := prom.NewCollector(&prom.CollectorOpts{Client: tt.args.client, Timeout: time.Second})
 			require.NoError(t, err)
 			r := prometheus.NewRegistry()
 			r.MustRegister(collector)
