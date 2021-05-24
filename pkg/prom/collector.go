@@ -181,6 +181,7 @@ func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context) error {
 	return nil
 }
 func (c *SolidfireCollector) collectNodeMeta(ctx context.Context, ch chan<- prometheus.Metric) error {
+
 	nodes, err := c.client.ListAllNodes(ctx)
 	if err != nil {
 		return err
@@ -207,7 +208,6 @@ func (c *SolidfireCollector) collectNodeMeta(ctx context.Context, ch chan<- prom
 			node.SoftwareVersion,
 			node.UUID,
 		)
-
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.NodeTotalMemoryBytes,
 			prometheus.GaugeValue,
@@ -1247,48 +1247,47 @@ func (c *SolidfireCollector) collectISCSISessions(ctx context.Context, ch chan<-
 func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	var up float64 = 0
 	defer func() { ch <- prometheus.MustNewConstMetric(MetricDescriptions.upDesc, prometheus.GaugeValue, up) }()
+	timeout := c.timeout
+	parentCtx, _ := context.WithTimeout(context.Background(), timeout)
 
-	metaCtxParent := context.Background()
-	metadataGroup, mgCtx := errgroup.WithContext(metaCtxParent)
+	metadataGroup, ctx := errgroup.WithContext(parentCtx)
 	metadataGroup.Go(func() error {
-		return c.collectVolumeMeta(mgCtx)
+		return c.collectVolumeMeta(ctx)
 	})
 	metadataGroup.Go(func() error {
-		return c.collectNodeMeta(mgCtx, ch)
+		return c.collectNodeMeta(ctx, ch)
 	})
 	if err := metadataGroup.Wait(); err != nil {
 		log.Errorln(err)
 		return
 	}
-	metricCtxParent := context.Background()
-	metricsGroup, metricCtx := errgroup.WithContext(metricCtxParent)
+	metricsGroup, ctx := errgroup.WithContext(parentCtx)
 	metricsGroup.Go(func() error {
-		return c.collectVolumeStats(metricCtx, ch)
+		return c.collectVolumeStats(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
-		return c.collectClusterCapacity(metricCtx, ch)
+		return c.collectClusterCapacity(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
-		return c.collectClusterFaults(metricCtx, ch)
+		return c.collectClusterFaults(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
-		return c.collectClusterNodeStats(metricCtx, ch)
+		return c.collectClusterNodeStats(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
-		return c.collectVolumeQosHistograms(metricCtx, ch)
+		return c.collectVolumeQosHistograms(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
-		return c.collectClusterStats(metricCtx, ch)
+		return c.collectClusterStats(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
-		return c.collectClusterFullThreshold(metricCtx, ch)
-	})
-
-	metricsGroup.Go(func() error {
-		return c.collectDriveDetails(metricCtx, ch)
+		return c.collectClusterFullThreshold(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
-		return c.collectISCSISessions(metricCtx, ch)
+		return c.collectDriveDetails(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectISCSISessions(ctx, ch)
 	})
 	if err := metricsGroup.Wait(); err != nil {
 		log.Errorln(err)
