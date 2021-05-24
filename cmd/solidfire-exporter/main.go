@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	log "github.com/amoghe/distillog"
+	"github.com/apex/log"
 	"github.com/mjavier2k/solidfire-exporter/pkg/prom"
 	"github.com/mjavier2k/solidfire-exporter/pkg/solidfire"
 	"github.com/prometheus/client_golang/prometheus"
@@ -19,11 +19,16 @@ import (
 var (
 	sha1ver   string // sha1 revision used to build the program
 	buildTime string // when the executable was built
+	logger    *log.Entry
 )
 
 func init() {
+	logger = log.WithField("app", "solidfire-exporter")
+
 	flag.CommandLine.SortFlags = true
 	flag.StringP(solidfire.ConfigFile, "c", solidfire.DefaultConfigFile, fmt.Sprintf("Specify configuration filename."))
+	flag.String(solidfire.LogLevel, solidfire.DefaultLogLevel, fmt.Sprintf("Log level."))
+	flag.String(solidfire.ListenAddress, solidfire.DefaultListenAddress, fmt.Sprintf("Listen address."))
 	flag.Parse()
 	viper.BindPFlags(flag.CommandLine)
 
@@ -36,10 +41,10 @@ func init() {
 
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			log.Warningf("No config file found.")
+			logger.Warn("no config file found")
 		}
 	} else {
-		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
+		logger.Infof("found configuration file on %v ", viper.GetViper().ConfigFileUsed())
 	}
 
 	// Set sensible defaults
@@ -49,6 +54,7 @@ func init() {
 	viper.SetDefault(solidfire.Username, solidfire.DefaultUsername)
 	viper.SetDefault(solidfire.Password, solidfire.DefaultPassword)
 	viper.SetDefault(solidfire.ConfigFile, solidfire.DefaultConfigFile)
+	viper.SetDefault(solidfire.LogLevel, solidfire.DefaultLogLevel)
 
 	// Bind the viper flags to ENV variables
 	viper.AutomaticEnv()
@@ -59,21 +65,23 @@ func init() {
 	viper.BindEnv(solidfire.Endpoint)
 	viper.BindEnv(solidfire.InsecureSSL)
 	viper.BindEnv(solidfire.HTTPClientTimeout)
+	viper.BindEnv(solidfire.LogLevel)
 }
 func main() {
-	log.Infof("Version: %v", sha1ver)
-	log.Infof("Built: %v", buildTime)
+	log.SetLevel(log.MustParseLevel(viper.GetString(solidfire.LogLevel)))
+	logger.WithField("version", sha1ver).Infof("version: %v", sha1ver)
+	logger.WithField("buildDate", buildTime).Infof("built: %v", buildTime)
 	listenAddress := fmt.Sprintf("%v", viper.GetString(solidfire.ListenAddress))
 
-	sfClient, err := solidfire.NewSolidfireClient()
+	sfClient, err := solidfire.NewSolidfireClient(logger)
 	if err != nil {
-		log.Errorf("error initializing solidfire client: %s\n", err.Error())
+		logger.Errorf("error initializing solidfire client: %s\n", err.Error())
 		os.Exit(1)
 	}
 
-	solidfireExporter, err := prom.NewCollector(sfClient)
+	solidfireExporter, err := prom.NewCollector(sfClient, logger)
 	if err != nil {
-		log.Errorf("error initializing collector: %s\n", err.Error())
+		logger.Errorf("error initializing collector: %s\n", err.Error())
 		os.Exit(1)
 	}
 	prometheus.MustRegister(solidfireExporter)
@@ -84,15 +92,24 @@ func main() {
 		if key == solidfire.Password {
 			value = "[REDACTED]"
 		}
-		log.Infof("Booting with setting %s: %v", key, value)
+		logger.WithField(key, value).Debugf("booted with setting %v", key)
 	}
-	log.Infof("Booted and listening on %v/metrics\n", listenAddress)
+	logger.Infof("Booted and listening on %v/metrics\n", listenAddress)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(`<html>
+			<head><title>Solidfire Exporter</title></head>
+			<body>
+			<h1>Solidfire Exporter</h1>
+			<p><a href="/metrics">Metrics</a></p>
+			</body>
+			</html>`))
+	})
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "UP")
 	})
 
 	err = http.ListenAndServe(listenAddress, nil)
 	if err != nil {
-		log.Errorln(err)
+		logger.WithError(err).Errorf("error listening on address %v", listenAddress)
 	}
 }

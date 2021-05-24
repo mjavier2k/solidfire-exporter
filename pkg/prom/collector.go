@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	log "github.com/amoghe/distillog"
+	log "github.com/apex/log"
 	"github.com/mjavier2k/solidfire-exporter/pkg/solidfire"
 	"golang.org/x/sync/errgroup"
 
@@ -15,6 +15,7 @@ import (
 
 type SolidfireCollector struct {
 	client solidfire.Interface
+	logger *log.Entry
 }
 
 var (
@@ -159,6 +160,7 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 
 func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	var up float64 = 0
+	logger := c.logger
 	var volumeNamesByID = make(map[int]string)
 	var nodesNamesByID = make(map[int]string)
 	defer func() { ch <- prometheus.MustNewConstMetric(MetricDescriptions.upDesc, prometheus.GaugeValue, up) }()
@@ -215,7 +217,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	if err := metadataGroup.Wait(); err != nil {
-		log.Errorln(err)
+		logger.WithError(err).Error("error collecting metadata")
 		return
 	}
 
@@ -1253,23 +1255,23 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 
 	if err := metricsGroup.Wait(); err != nil {
-		log.Errorln(err)
+		logger.WithError(err).Error("error collecting metrics")
 		return
 	}
 	up = 1
 }
 
-func NewCollector(client solidfire.Interface) (*SolidfireCollector, error) {
+func NewCollector(client solidfire.Interface, logger *log.Entry) (*SolidfireCollector, error) {
 	var err error
 	if client == nil {
-		log.Infof("initializing new solidfire client")
-		client, err = solidfire.NewSolidfireClient()
+		client, err = solidfire.NewSolidfireClient(logger)
 		if err != nil {
 			return nil, err
 		}
 	}
 	return &SolidfireCollector{
 		client: client,
+		logger: logger,
 	}, nil
 }
 

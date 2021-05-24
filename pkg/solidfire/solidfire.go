@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"time"
 
-	log "github.com/amoghe/distillog"
+	"github.com/apex/log"
 	"github.com/spf13/viper"
 )
 
@@ -30,19 +30,19 @@ const (
 	RPCListVolumeStats         RPC = "ListVolumeStats"
 )
 
-func NewSolidfireClient() (*Client, error) {
-	log.Infof("initializing new solidfire client")
+func NewSolidfireClient(logger *log.Entry) (*Client, error) {
+	logger.Debug("initializing new solidfire client")
 
 	insecure := viper.GetBool(InsecureSSL)
 	if insecure {
-		log.Warningln("TLS certificate verification is currently disabled - This is not recommended.")
+		logger.Warn("TLS certificate verification is currently disabled - this is not recommended.")
 	}
 	rpcServer := viper.GetString(Endpoint)
 	_, err := url.Parse(rpcServer)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing RPC Server url: %s", err.Error())
 	}
-	log.Infoln("RPC Server:", rpcServer)
+	logger.Debugf("RPC Server: %v", rpcServer)
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecure},

@@ -21,6 +21,9 @@ const (
 	HTTPClientTimeout        string = "client.timeout"
 	DefaultHTTPClientTimeout int    = 30
 
+	LogLevel        string = "log.level"
+	DefaultLogLevel        = "info"
+
 	ConfigFile        string = "config"
 	DefaultConfigFile string = "config.yaml"
 )
