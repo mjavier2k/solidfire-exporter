@@ -22,12 +22,16 @@ Example Format Below:
 - Fix Markdown links to tag comparison URL with footnote-style links.
 -->
 ## [Unreleased]
+
+## [0.6.1] - 2021-05-25
 ### Added
 - Call the SF API concurrently for scrape speed improvement #62
 - Added global scrape timeout #64
+- Added tests for collector #60
 
 ### Fixed
 - Sum ISCSI sessions for all volumes per node in singlestat panel #59 
+
 ## [0.6.0] - 2021-04-17
 ### Added
 - Added CHANGELOG
