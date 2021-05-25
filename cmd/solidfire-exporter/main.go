@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	log "github.com/amoghe/distillog"
 	"github.com/mjavier2k/solidfire-exporter/pkg/prom"
@@ -42,23 +43,21 @@ func init() {
 		log.Infof("Found configuration file on %v ", viper.GetViper().ConfigFileUsed())
 	}
 
-	// Set sensible defaults
+	viper.SetDefault(solidfire.ConfigFile, solidfire.DefaultConfigFile)
 	viper.SetDefault(solidfire.ListenAddress, solidfire.DefaultListenAddress)
-	viper.SetDefault(solidfire.Endpoint, solidfire.DefaultEndpoint)
-	viper.SetDefault(solidfire.HTTPClientTimeout, solidfire.DefaultHTTPClientTimeout)
+
 	viper.SetDefault(solidfire.Username, solidfire.DefaultUsername)
 	viper.SetDefault(solidfire.Password, solidfire.DefaultPassword)
-	viper.SetDefault(solidfire.ConfigFile, solidfire.DefaultConfigFile)
+	viper.SetDefault(solidfire.Endpoint, solidfire.DefaultEndpoint)
+	viper.SetDefault(solidfire.InsecureSSL, solidfire.DefaultInsecureSSL)
 
-	// Bind the viper flags to ENV variables
+	viper.SetDefault(solidfire.HTTPClientTimeout, solidfire.DefaultHTTPClientTimeout)
+	viper.SetDefault(solidfire.CollectTimeout, solidfire.DefaultCollectTimeout)
+
 	viper.AutomaticEnv()
 	viper.SetEnvPrefix("SOLIDFIRE")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
-	viper.BindEnv(solidfire.Username)
-	viper.BindEnv(solidfire.Password)
-	viper.BindEnv(solidfire.Endpoint)
-	viper.BindEnv(solidfire.InsecureSSL)
-	viper.BindEnv(solidfire.HTTPClientTimeout)
+
 }
 func main() {
 	log.Infof("Version: %v", sha1ver)
@@ -70,8 +69,8 @@ func main() {
 		log.Errorf("error initializing solidfire client: %s\n", err.Error())
 		os.Exit(1)
 	}
-
-	solidfireExporter, err := prom.NewCollector(sfClient)
+	collectTimeout := time.Second * time.Duration(viper.GetInt(solidfire.CollectTimeout))
+	solidfireExporter, err := prom.NewCollector(&prom.CollectorOpts{Client: sfClient, Timeout: collectTimeout})
 	if err != nil {
 		log.Errorf("error initializing collector: %s\n", err.Error())
 		os.Exit(1)

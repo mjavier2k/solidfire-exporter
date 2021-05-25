@@ -24,6 +24,8 @@ Example Format Below:
 ## [Unreleased]
 ### Added
 - Call the SF API concurrently for scrape speed improvement #62
+- Added global scrape timeout #64
+
 ### Fixed
 - Sum ISCSI sessions for all volumes per node in singlestat panel #59 
 ## [0.6.0] - 2021-04-17

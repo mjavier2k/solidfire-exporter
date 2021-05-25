@@ -2,6 +2,7 @@ package solidfire
 
 import (
 	"bytes"
+	"context"
 	"crypto/tls"
 	"encoding/json"
 	"fmt"
@@ -58,8 +59,8 @@ func NewSolidfireClient() (*Client, error) {
 	}, nil
 }
 
-func doRpcCall(c *Client, body []byte) ([]byte, error) {
-	req, err := http.NewRequest("POST", c.RPCEndpoint, bytes.NewReader(body))
+func (c *Client) doRpcCall(ctx context.Context, body []byte) ([]byte, error) {
+	req, err := http.NewRequestWithContext(ctx, "POST", c.RPCEndpoint, bytes.NewReader(body))
 	if err != nil {
 		return nil, fmt.Errorf("Error building RPC request to %v: %v", c.RPCEndpoint, err)
 	}
@@ -83,7 +84,7 @@ func doRpcCall(c *Client, body []byte) ([]byte, error) {
 	return body, nil
 }
 
-func (s *Client) ListVolumes() (ListVolumesResponse, error) {
+func (s *Client) ListVolumes(ctx context.Context) (ListVolumesResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListVolumes,
 		Params: ListVolumesRPCParams{
@@ -93,7 +94,7 @@ func (s *Client) ListVolumes() (ListVolumesResponse, error) {
 	}
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListVolumesResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 	if err != nil {
 		return r, err
 	}
@@ -104,7 +105,7 @@ func (s *Client) ListVolumes() (ListVolumesResponse, error) {
 	return r, nil
 }
 
-func (s *Client) ListVolumeStats() (ListVolumeStatsResponse, error) {
+func (s *Client) ListVolumeStats(ctx context.Context) (ListVolumeStatsResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListVolumeStats,
 		Params: ListVolumeStatsRPCParams{
@@ -115,7 +116,7 @@ func (s *Client) ListVolumeStats() (ListVolumeStatsResponse, error) {
 	}
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListVolumeStatsResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 	if err != nil {
 		return r, err
 	}
@@ -127,7 +128,7 @@ func (s *Client) ListVolumeStats() (ListVolumeStatsResponse, error) {
 	return r, nil
 }
 
-func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
+func (s *Client) GetClusterCapacity(ctx context.Context) (GetClusterCapacityResponse, error) {
 	payload := &RPCBody{
 		Method: RPCGetClusterCapacity,
 		Params: GetClusterCapacityRPCParams{},
@@ -135,7 +136,7 @@ func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
 	}
 	payloadBytes, err := json.Marshal(&payload)
 	r := GetClusterCapacityResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 	if err != nil {
 		return r, err
 	}
@@ -146,7 +147,7 @@ func (s *Client) GetClusterCapacity() (GetClusterCapacityResponse, error) {
 	return r, nil
 }
 
-func (s *Client) ListClusterFaults() (ListClusterFaultsResponse, error) {
+func (s *Client) ListClusterFaults(ctx context.Context) (ListClusterFaultsResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListClusterFaults,
 		Params: ListClusterFaultsRPCParams{
@@ -158,7 +159,7 @@ func (s *Client) ListClusterFaults() (ListClusterFaultsResponse, error) {
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListClusterFaultsResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 	if err != nil {
 		return r, err
 	}
@@ -170,7 +171,7 @@ func (s *Client) ListClusterFaults() (ListClusterFaultsResponse, error) {
 	return r, nil
 }
 
-func (s *Client) ListNodeStats() (ListNodeStatsResponse, error) {
+func (s *Client) ListNodeStats(ctx context.Context) (ListNodeStatsResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListNodeStats,
 		Params: ListNodeStatsRPCParams{},
@@ -179,7 +180,7 @@ func (s *Client) ListNodeStats() (ListNodeStatsResponse, error) {
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListNodeStatsResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 	if err != nil {
 		return r, err
 	}
@@ -190,7 +191,7 @@ func (s *Client) ListNodeStats() (ListNodeStatsResponse, error) {
 	return r, nil
 }
 
-func (s *Client) ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, error) {
+func (s *Client) ListVolumeQoSHistograms(ctx context.Context) (ListVolumeQoSHistogramsResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListVolumeQoSHistograms,
 		Params: ListVolumeQoSHistogramsRPCParams{
@@ -201,7 +202,7 @@ func (s *Client) ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, err
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListVolumeQoSHistogramsResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
 		return r, err
@@ -214,7 +215,7 @@ func (s *Client) ListVolumeQoSHistograms() (ListVolumeQoSHistogramsResponse, err
 	return r, nil
 }
 
-func (s *Client) ListAllNodes() (ListAllNodesResponse, error) {
+func (s *Client) ListAllNodes(ctx context.Context) (ListAllNodesResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListAllNodes,
 		Params: ListAllNodesRPCParams{},
@@ -223,7 +224,7 @@ func (s *Client) ListAllNodes() (ListAllNodesResponse, error) {
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListAllNodesResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
 		return r, err
@@ -236,7 +237,7 @@ func (s *Client) ListAllNodes() (ListAllNodesResponse, error) {
 	return r, nil
 }
 
-func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
+func (s *Client) GetClusterStats(ctx context.Context) (GetClusterStatsResponse, error) {
 	payload := &RPCBody{
 		Method: RPCGetClusterStats,
 		Params: GetClusterStatsRPCParams{},
@@ -245,7 +246,7 @@ func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := GetClusterStatsResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
 		return r, err
@@ -258,7 +259,7 @@ func (s *Client) GetClusterStats() (GetClusterStatsResponse, error) {
 	return r, nil
 }
 
-func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, error) {
+func (s *Client) GetClusterFullThreshold(ctx context.Context) (GetClusterFullThresholdResponse, error) {
 	payload := &RPCBody{
 		Method: RPCGetClusterFullThreshold,
 		Params: GetClusterFullThresholdParams{},
@@ -267,7 +268,7 @@ func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, err
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := GetClusterFullThresholdResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
 		return r, err
@@ -280,7 +281,7 @@ func (s *Client) GetClusterFullThreshold() (GetClusterFullThresholdResponse, err
 	return r, nil
 }
 
-func (s *Client) ListDrives() (ListDrivesResponse, error) {
+func (s *Client) ListDrives(ctx context.Context) (ListDrivesResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListDrives,
 		Params: ListDrivesParams{},
@@ -289,7 +290,7 @@ func (s *Client) ListDrives() (ListDrivesResponse, error) {
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListDrivesResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
 		return r, err
@@ -302,7 +303,7 @@ func (s *Client) ListDrives() (ListDrivesResponse, error) {
 	return r, nil
 }
 
-func (s *Client) ListISCSISessions() (ListISCSISessionsResponse, error) {
+func (s *Client) ListISCSISessions(ctx context.Context) (ListISCSISessionsResponse, error) {
 	payload := &RPCBody{
 		Method: RPCListISCSISessions,
 		Params: ListISCSISessionsParams{},
@@ -311,7 +312,7 @@ func (s *Client) ListISCSISessions() (ListISCSISessionsResponse, error) {
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListISCSISessionsResponse{}
-	bodyBytes, err := doRpcCall(s, payloadBytes)
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
 		return r, err
