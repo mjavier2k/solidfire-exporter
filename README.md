@@ -216,7 +216,9 @@ client:
   username: mySolidfireUsername
   password: mySolidfirePassword
   insecure: false
-  timeout: 130
+  timeout: 20
+collect:
+  timeout: 75
 ```
 
 ## Prometheus Configuration
