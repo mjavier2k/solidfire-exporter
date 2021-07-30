@@ -22,6 +22,7 @@ Example Format Below:
 - Fix Markdown links to tag comparison URL with footnote-style links.
 -->
 ## [Unreleased]
+## [0.6.2] - 2021-07-30
 ### Fixed
 - avoid panic when reading maps #68
 ## [0.6.1] - 2021-05-25
