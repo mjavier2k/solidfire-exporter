@@ -223,6 +223,8 @@ func (c *SolidfireCollector) collectVolumeStats(ctx context.Context, ch chan<- p
 	if err != nil {
 		return err
 	}
+	mu.Lock()
+	defer mu.Unlock()
 	for _, vol := range volumeStats.Result.VolumeStats {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.VolumeActualIOPS,
@@ -551,7 +553,8 @@ func (c *SolidfireCollector) collectClusterFaults(ctx context.Context, ch chan<-
 	if err != nil {
 		return err
 	}
-
+	mu.Lock()
+	defer mu.Unlock()
 	for _, f := range ClusterActiveFaults.Result.Faults {
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.ClusterActiveFaults,
@@ -576,7 +579,8 @@ func (c *SolidfireCollector) collectClusterNodeStats(ctx context.Context, ch cha
 	if err != nil {
 		return err
 	}
-
+	mu.Lock()
+	defer mu.Unlock()
 	for _, stats := range ClusterNodeStats.Result.NodeStats.Nodes {
 		SsLoadHistogram := map[float64]uint64{
 			0:   stats.SsLoadHistogram.Bucket0,
@@ -739,7 +743,8 @@ func (c *SolidfireCollector) collectVolumeQosHistograms(ctx context.Context, ch 
 	if err != nil {
 		return err
 	}
-
+	mu.Lock()
+	defer mu.Unlock()
 	for _, h := range VolumeQoSHistograms.Result.QosHistograms {
 		// Below Min IOPS Percentage
 		BelowMinIopsPercentages := map[float64]uint64{
@@ -1178,7 +1183,8 @@ func (c *SolidfireCollector) collectDriveDetails(ctx context.Context, ch chan<- 
 	if err != nil {
 		return err
 	}
-
+	mu.Lock()
+	defer mu.Unlock()
 	for _, d := range ListDrives.Result.Drives {
 		for _, ds := range possibleDriveStatuses {
 			var driveStatusValue float64 = 0
@@ -1218,7 +1224,8 @@ func (c *SolidfireCollector) collectISCSISessions(ctx context.Context, ch chan<-
 	if err != nil {
 		return err
 	}
-
+	mu.Lock()
+	defer mu.Unlock()
 	sessions := make(map[int]map[int]float64)
 
 	for _, session := range ListISCSISessions.Result.Sessions {

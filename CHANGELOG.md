@@ -22,7 +22,8 @@ Example Format Below:
 - Fix Markdown links to tag comparison URL with footnote-style links.
 -->
 ## [Unreleased]
-
+### Fixed
+- avoid panic when reading maps #68
 ## [0.6.1] - 2021-05-25
 ### Added
 - Call the SF API concurrently for scrape speed improvement #62
