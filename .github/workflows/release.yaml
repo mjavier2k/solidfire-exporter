@@ -113,6 +113,12 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+        
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: mjavier2k/solidfire-exporter
       
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -125,4 +131,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: mjavier2k/solidfire-exporter:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
