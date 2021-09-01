@@ -1,3 +1,7 @@
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  
 on: release
 name: Build
 jobs:
@@ -111,21 +115,22 @@ jobs:
     name: Push Docker image 
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
+      - name: Checkout repository
         uses: actions/checkout@v2
+        
+      - name: Log in to the Container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }
         
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: mjavier2k/solidfire-exporter
-      
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.MJ_USERNAME }}
-          password: ${{ secrets.MJ_PASSWORD }}
-      
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
