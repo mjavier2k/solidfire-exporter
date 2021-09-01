@@ -125,4 +125,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: user/app:latest
+          tags: mjavier2k/solidfire-exporter:latest
