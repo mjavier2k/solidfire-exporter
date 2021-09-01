@@ -34,6 +34,12 @@ NetApp Solidfire-Exporter queries the Solidfire API and exports the results as P
 
 Binaries can be downloaded from [Github releases](https://github.com/mjavier2k/solidfire-exporter/releases) page. 
 
+Docker image are automatically uploaded to ghcr.io/mjavier2k/solidfire-exporter
+
+```
+docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
+```
+
 
 ## Metrics
 
