@@ -942,7 +942,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 
 	d.AccountCount = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_account_count"),
-		"The total number of acocunts in cluster",
+		"The total number of accounts in cluster",
 		nil,
 		nil,
 	)
