@@ -231,5 +231,33 @@ func newMockedClient(t *testing.T, mockErrs mockErrors) *testutils.MockSolidfire
 	require.NoError(t, json.Unmarshal(bytes, &listVolumeStatsResponse))
 	mockSfClient.On(string(call), mock.Anything).Return(listVolumeStatsResponse, mockErrs[call])
 
+	listAccountsResponse := solidfire.ListAccountsResponse{}
+	call = solidfire.RPCListAccounts
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listAccountsResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listAccountsResponse, mockErrs[call])
+
+	listClusterAdminsResponse := solidfire.ListClusterAdminsResponse{}
+	call = solidfire.RPCListClusterAdmins
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listClusterAdminsResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listClusterAdminsResponse, mockErrs[call])
+
+	listInitiatorsResponse := solidfire.ListInitiatorsResponse{}
+	call = solidfire.RPCListInitiators
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listInitiatorsResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listInitiatorsResponse, mockErrs[call])
+
+	listVolumeAccessGroupsResponse := solidfire.ListVolumeAccessGroupsResponse{}
+	call = solidfire.RPCListVolumeAccessGroups
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listVolumeAccessGroupsResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listVolumeAccessGroupsResponse, mockErrs[call])
+
 	return mockSfClient
 }

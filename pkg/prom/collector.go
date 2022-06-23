@@ -166,15 +166,28 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.DriveCapacityBytes
 
 	ch <- MetricDescriptions.NodeISCSISessions
+
+	ch <- MetricDescriptions.VolumeCount
+	ch <- MetricDescriptions.AccountCount
+	ch <- MetricDescriptions.ClusterAdminCount
+	ch <- MetricDescriptions.InitiatorCount
+	ch <- MetricDescriptions.VolumeAccessGroupCount
 }
 
-func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context) error {
+func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context, ch chan<- prometheus.Metric) error {
 	volumes, err := c.client.ListVolumes(ctx)
 	if err != nil {
 		return err
 	}
 	mu.Lock()
 	defer mu.Unlock()
+
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.VolumeCount,
+		prometheus.CounterValue,
+		float64(len(volumes.Result.Volumes)),
+	)
+
 	for _, vol := range volumes.Result.Volumes {
 		c.volumeNamesByID[vol.VolumeID] = vol.Name
 	}
@@ -218,6 +231,7 @@ func (c *SolidfireCollector) collectNodeMeta(ctx context.Context, ch chan<- prom
 	}
 	return nil
 }
+
 func (c *SolidfireCollector) collectVolumeStats(ctx context.Context, ch chan<- prometheus.Metric) error {
 	volumeStats, err := c.client.ListVolumeStats(ctx)
 	if err != nil {
@@ -1251,6 +1265,65 @@ func (c *SolidfireCollector) collectISCSISessions(ctx context.Context, ch chan<-
 	return nil
 }
 
+func (c *SolidfireCollector) collectAccounts(ctx context.Context, ch chan<- prometheus.Metric) error {
+	accounts, err := c.client.ListAccounts(ctx)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	defer mu.Unlock()
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.AccountCount,
+		prometheus.CounterValue,
+		float64(len(accounts.Result.Accounts)),
+	)
+	return nil
+}
+
+func (c *SolidfireCollector) collectClusterAdmins(ctx context.Context, ch chan<- prometheus.Metric) error {
+	clusterAdmins, err := c.client.ListClusterAdmins(ctx)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	defer mu.Unlock()
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.ClusterAdminCount,
+		prometheus.CounterValue,
+		float64(len(clusterAdmins.Result.ClusterAdmins)),
+	)
+	return nil
+}
+
+func (c *SolidfireCollector) collectInitiators(ctx context.Context, ch chan<- prometheus.Metric) error {
+	initiators, err := c.client.ListInitiators(ctx)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	defer mu.Unlock()
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.InitiatorCount,
+		prometheus.CounterValue,
+		float64(len(initiators.Result.Initiators)),
+	)
+	return nil
+}
+func (c *SolidfireCollector) collectVolumeAccessGroups(ctx context.Context, ch chan<- prometheus.Metric) error {
+	volumeAccessGroups, err := c.client.ListVolumeAccessGroups(ctx)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	defer mu.Unlock()
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.VolumeAccessGroupCount,
+		prometheus.CounterValue,
+		float64(len(volumeAccessGroups.Result.VolumeAccessGroups)),
+	)
+	return nil
+}
+
 func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	var up float64 = 0
 	defer func() { ch <- prometheus.MustNewConstMetric(MetricDescriptions.upDesc, prometheus.GaugeValue, up) }()
@@ -1259,7 +1332,7 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 
 	metadataGroup, ctx := errgroup.WithContext(parentCtx)
 	metadataGroup.Go(func() error {
-		return c.collectVolumeMeta(ctx)
+		return c.collectVolumeMeta(ctx, ch)
 	})
 	metadataGroup.Go(func() error {
 		return c.collectNodeMeta(ctx, ch)
@@ -1295,6 +1368,18 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 	metricsGroup.Go(func() error {
 		return c.collectISCSISessions(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectAccounts(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectClusterAdmins(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectInitiators(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectVolumeAccessGroups(ctx, ch)
 	})
 	if err := metricsGroup.Wait(); err != nil {
 		log.Errorln(err)

@@ -29,6 +29,10 @@ const (
 	RPCListVolumeQoSHistograms RPC = "ListVolumeQoSHistograms"
 	RPCListVolumes             RPC = "ListVolumes"
 	RPCListVolumeStats         RPC = "ListVolumeStats"
+	RPCListAccounts            RPC = "ListAccounts"
+	RPCListClusterAdmins       RPC = "ListClusterAdmins"
+	RPCListInitiators          RPC = "ListInitiators"
+	RPCListVolumeAccessGroups  RPC = "ListVolumeAccessGroups"
 )
 
 func NewSolidfireClient() (*Client, error) {
@@ -312,6 +316,94 @@ func (s *Client) ListISCSISessions(ctx context.Context) (ListISCSISessionsRespon
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListISCSISessionsResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListClusterAdmins(ctx context.Context) (ListClusterAdminsResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListClusterAdmins,
+		Params: ListClusterAdminsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListClusterAdminsResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListAccounts(ctx context.Context) (ListAccountsResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListAccounts,
+		Params: ListAccountsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListAccountsResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListInitiators(ctx context.Context) (ListInitiatorsResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListInitiators,
+		Params: ListInitiatorsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListInitiatorsResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListVolumeAccessGroups(ctx context.Context) (ListVolumeAccessGroupsResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListVolumeAccessGroups,
+		Params: ListVolumeAccessGroupsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListVolumeAccessGroupsResponse{}
 	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {

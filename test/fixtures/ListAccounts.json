@@ -1,0 +1,28 @@
+{
+  "result": {
+    "accounts": [
+      {
+        "attributes": {},
+        "username": "jamesw",
+        "targetSecret": "168#5A757ru268)",
+        "volumes": [],
+        "enableChap": false,
+        "status": "active",
+        "accountID": 16,
+        "storageContainerID": "abcdef01-1234-5678-90ab-cdef01234567",
+        "initiatorSecret": "168#5A757ru268)"
+      },
+      {
+        "attributes": {},
+        "username": "jimmyd",
+        "targetSecret": "targetsecret",
+        "volumes": [],
+        "enableChap": true,
+        "status": "active",
+        "accountID": 5,
+        "storageContainerID": "abcdef01-1234-5678-90ab-cdef01234567",
+        "initiatorSecret": "initiatorsecret"
+      }
+    ]
+  }
+}
