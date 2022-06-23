@@ -934,7 +934,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	)
 
 	d.VolumeCount = prometheus.NewDesc(
-		prometheus.BuildFQName(namespace, "", "volume_count"),
+		prometheus.BuildFQName(namespace, "", "cluster_volume_count"),
 		"The total number of volumes in cluster",
 		nil,
 		nil,
