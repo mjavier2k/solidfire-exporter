@@ -431,3 +431,178 @@ func TestClient_GetClusterFullThreshold(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_ListAccounts(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListAccounts))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "Username of first account should match fixture",
+			want: "jamesw",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListAccounts,
+					Params: solidfire.ListAccountsParams{},
+				}).
+				Reply(200).
+				BodyString(string(fixture))
+			gotRaw, err := sfClient.ListAccounts(context.Background())
+			got := gotRaw.Result.Accounts[0].Username
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListAccounts() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListAccounts() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+func TestClient_ListClusterAdmins(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListClusterAdmins))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "Username of first cluster admin should match fixture",
+			want: "admin",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListClusterAdmins,
+					Params: solidfire.ListClusterAdminsParams{},
+				}).
+				Reply(200).
+				BodyString(string(fixture))
+			gotRaw, err := sfClient.ListClusterAdmins(context.Background())
+			got := gotRaw.Result.ClusterAdmins[0].Username
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListClusterAdmins() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListClusterAdmins() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClient_ListInitiators(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListInitiators))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "Initiator name of first initiator should match fixture",
+			want: "iqn.1993-08.org.debian:01:c84ffd71216",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListInitiators,
+					Params: solidfire.ListInitiatorsParams{},
+				}).
+				Reply(200).
+				BodyString(string(fixture))
+			gotRaw, err := sfClient.ListInitiators(context.Background())
+			got := gotRaw.Result.Initiators[0].InitiatorName
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListInitiators() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListInitiators() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClient_ListVolumeAccessGroups(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListVolumeAccessGroups))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "Name of first volume access group should match fixture",
+			want: "example1",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListVolumeAccessGroups,
+					Params: solidfire.ListVolumeAccessGroupsParams{},
+				}).
+				Reply(200).
+				BodyString(string(fixture))
+			gotRaw, err := sfClient.ListVolumeAccessGroups(context.Background())
+			got := gotRaw.Result.VolumeAccessGroups[0].Name
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListVolumeAccessGroups() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListVolumeAccessGroups() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

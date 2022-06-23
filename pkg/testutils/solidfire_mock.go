@@ -55,3 +55,19 @@ func (m *MockSolidfireClient) ListVolumeStats(ctx context.Context) (solidfire.Li
 	args := m.Called(ctx)
 	return args.Get(0).(solidfire.ListVolumeStatsResponse), args.Error(1)
 }
+func (m *MockSolidfireClient) ListAccounts(ctx context.Context) (solidfire.ListAccountsResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListAccountsResponse), args.Error(1)
+}
+func (m *MockSolidfireClient) ListClusterAdmins(ctx context.Context) (solidfire.ListClusterAdminsResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListClusterAdminsResponse), args.Error(1)
+}
+func (m *MockSolidfireClient) ListInitiators(ctx context.Context) (solidfire.ListInitiatorsResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListInitiatorsResponse), args.Error(1)
+}
+func (m *MockSolidfireClient) ListVolumeAccessGroups(ctx context.Context) (solidfire.ListVolumeAccessGroupsResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListVolumeAccessGroupsResponse), args.Error(1)
+}

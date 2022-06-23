@@ -141,6 +141,13 @@ type Descriptions struct {
 
 	NodeISCSISessions *prometheus.Desc
 	//NodeISCSIVolumes       *prometheus.Desc
+
+	InitiatorCount         *prometheus.Desc
+	AccountCount           *prometheus.Desc
+	ClusterAdminCount      *prometheus.Desc
+	VolumeCount            *prometheus.Desc
+	VolumeAccessGroupCount *prometheus.Desc
+	VolumeAccessGroupLun   *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -923,6 +930,41 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		prometheus.BuildFQName(namespace, "", "node_iscsi_sessions"),
 		"The total number of iscsi sessions per node and volume",
 		[]string{"node_id", "node_name", "volume_id", "volume_name"},
+		nil,
+	)
+
+	d.VolumeCount = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_volume_count"),
+		"The total number of volumes in cluster",
+		nil,
+		nil,
+	)
+
+	d.AccountCount = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_account_count"),
+		"The total number of accounts in cluster",
+		nil,
+		nil,
+	)
+
+	d.ClusterAdminCount = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_admin_account"),
+		"The total number of admin accounts in the cluster",
+		nil,
+		nil,
+	)
+
+	d.InitiatorCount = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_initiator_count"),
+		"The total number of initiators in cluster",
+		nil,
+		nil,
+	)
+
+	d.VolumeAccessGroupCount = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_volume_access_group_count"),
+		"The total number of volume access groups in cluster",
+		nil,
 		nil,
 	)
 

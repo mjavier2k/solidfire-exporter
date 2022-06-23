@@ -49,6 +49,10 @@ type Interface interface {
 	ListVolumeQoSHistograms(ctx context.Context) (ListVolumeQoSHistogramsResponse, error)
 	ListVolumes(ctx context.Context) (ListVolumesResponse, error)
 	ListVolumeStats(ctx context.Context) (ListVolumeStatsResponse, error)
+	ListAccounts(ctx context.Context) (ListAccountsResponse, error)
+	ListClusterAdmins(ctx context.Context) (ListClusterAdminsResponse, error)
+	ListInitiators(ctx context.Context) (ListInitiatorsResponse, error)
+	ListVolumeAccessGroups(ctx context.Context) (ListVolumeAccessGroupsResponse, error)
 }
 type RPCBody struct {
 	Method RPC       `json:"method"`
@@ -96,6 +100,22 @@ type ListDrivesParams struct {
 }
 
 type ListISCSISessionsParams struct {
+	// No params needed
+}
+
+type ListAccountsParams struct {
+	// No params needed
+}
+
+type ListClusterAdminsParams struct {
+	// No params needed
+}
+
+type ListInitiatorsParams struct {
+	// No params needed
+}
+
+type ListVolumeAccessGroupsParams struct {
 	// No params needed
 }
 
@@ -478,5 +498,65 @@ type ListISCSISessionsResponse struct {
 			VolumeID               int         `json:"volumeID"`
 			VolumeInstance         int64       `json:"volumeInstance"`
 		} `json:"sessions"`
+	} `json:"result"`
+}
+
+type ListAccountsResponse struct {
+	Result struct {
+		Accounts []struct {
+			Attributes struct {
+			} `json:"attributes"`
+			Username           string        `json:"username"`
+			TargetSecret       string        `json:"targetSecret"`
+			Volumes            []interface{} `json:"volumes"`
+			EnableChap         bool          `json:"enableChap"`
+			Status             string        `json:"status"`
+			AccountID          int           `json:"accountID"`
+			StorageContainerID string        `json:"storageContainerID"`
+			InitiatorSecret    string        `json:"initiatorSecret"`
+		} `json:"accounts"`
+	} `json:"result"`
+}
+
+type ListClusterAdminsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		ClusterAdmins []struct {
+			Access         []string    `json:"access"`
+			Attributes     interface{} `json:"attributes"`
+			AuthMethod     string      `json:"authMethod"`
+			ClusterAdminID int         `json:"clusterAdminID"`
+			Username       string      `json:"username"`
+		} `json:"clusterAdmins"`
+	} `json:"result"`
+}
+
+type ListInitiatorsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Initiators []struct {
+			Alias      string `json:"alias"`
+			Attributes struct {
+			} `json:"attributes"`
+			InitiatorID        int    `json:"initiatorID"`
+			InitiatorName      string `json:"initiatorName"`
+			VolumeAccessGroups []int  `json:"volumeAccessGroups"`
+		} `json:"initiators"`
+	} `json:"result"`
+}
+
+type ListVolumeAccessGroupsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		VolumeAccessGroups []struct {
+			Attributes struct {
+			} `json:"attributes"`
+			DeletedVolumes      []interface{} `json:"deletedVolumes"`
+			InitiatorIDs        []interface{} `json:"initiatorIDs"`
+			Initiators          []interface{} `json:"initiators"`
+			Name                string        `json:"name"`
+			VolumeAccessGroupID int           `json:"volumeAccessGroupID"`
+			Volumes             []interface{} `json:"volumes"`
+		} `json:"volumeAccessGroups"`
 	} `json:"result"`
 }

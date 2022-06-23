@@ -1,0 +1,36 @@
+{
+  "id": 1,
+  "result": {
+    "clusterAdmins": [
+      {
+        "access": [
+          "administrator"
+        ],
+        "attributes": null,
+        "authMethod": "Cluster",
+        "clusterAdminID": 1,
+        "username": "admin"
+      },
+      {
+        "access": [
+          "read",
+          "administrator"
+        ],
+        "attributes": {},
+        "authMethod": "Ldap",
+        "clusterAdminID": 7,
+        "username": "john.smith"
+      },
+      {
+        "access": [
+          "read",
+          "administrator"
+        ],
+        "attributes": {},
+        "authMethod": "Ldap",
+        "clusterAdminID": 6,
+        "username": "cn=admin1 jones,ou=ptusers,c=prodtest,dc=solidfire,dc=net"
+      }
+    ]
+  }
+}
