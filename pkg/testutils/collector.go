@@ -146,7 +146,6 @@ solidfire_volume_burst_iops_credit{volume_id="1",volume_name="test-volume1"} 600
 solidfire_volume_burst_iops_credit{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_client_queue_depth{volume_id="1",volume_name="test-volume1"} 0
 solidfire_volume_client_queue_depth{volume_id="2",volume_name="test-volume2"} 0
-solidfire_cluster_volume_count 2
 solidfire_volume_last_sample_read_bytes{volume_id="1",volume_name="test-volume1"} 0
 solidfire_volume_last_sample_read_bytes{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_last_sample_read_ops{volume_id="1",volume_name="test-volume1"} 0
@@ -429,7 +428,6 @@ solidfire_node_used_memory_bytes{node_id="1",node_name="n01"} 9.000198144e+09
 solidfire_node_write_latency_seconds_total{node_id="1",node_name="n01"} 0
 solidfire_node_write_ops_total{node_id="1",node_name="n01"} 1.3089387e+07
 solidfire_up 0
-solidfire_cluster_volume_count 2
 solidfire_volume_qos_below_min_iops_percentage_bucket{volume_id="1",volume_name="test-volume1",le="19"} 32
 solidfire_volume_qos_below_min_iops_percentage_bucket{volume_id="1",volume_name="test-volume1",le="39"} 6
 solidfire_volume_qos_below_min_iops_percentage_bucket{volume_id="1",volume_name="test-volume1",le="59"} 4

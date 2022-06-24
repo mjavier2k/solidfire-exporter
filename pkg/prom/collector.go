@@ -167,7 +167,6 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 
 	ch <- MetricDescriptions.NodeISCSISessions
 
-	ch <- MetricDescriptions.VolumeCount
 	ch <- MetricDescriptions.AccountCount
 	ch <- MetricDescriptions.ClusterAdminCount
 	ch <- MetricDescriptions.InitiatorCount
@@ -181,12 +180,6 @@ func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context, ch chan<- pr
 	}
 	mu.Lock()
 	defer mu.Unlock()
-
-	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.VolumeCount,
-		prometheus.CounterValue,
-		float64(len(volumes.Result.Volumes)),
-	)
 
 	for _, vol := range volumes.Result.Volumes {
 		c.volumeNamesByID[vol.VolumeID] = vol.Name
