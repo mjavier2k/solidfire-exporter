@@ -475,49 +475,6 @@ func TestClient_ListAccounts(t *testing.T) {
 		})
 	}
 }
-func TestClient_ListClusterAdmins(t *testing.T) {
-	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListClusterAdmins))
-	if err != nil {
-		t.Errorf(err.Error())
-	}
-	tests := []struct {
-		name    string
-		s       solidfire.Client
-		want    string
-		wantErr bool
-	}{
-		{
-			name: "Username of first cluster admin should match fixture",
-			want: "admin",
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			defer gock.Off()
-			//gock.Observe(gock.DumpRequest)
-			gock.New(sfHost).
-				Post(sfRPCEndpoint).
-				MatchType("json").
-				JSON(solidfire.RPCBody{
-					ID:     1,
-					Method: solidfire.RPCListClusterAdmins,
-					Params: solidfire.ListClusterAdminsParams{},
-				}).
-				Reply(200).
-				BodyString(string(fixture))
-			gotRaw, err := sfClient.ListClusterAdmins(context.Background())
-			got := gotRaw.Result.ClusterAdmins[0].Username
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Client.ListClusterAdmins() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Client.ListClusterAdmins() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
 
 func TestClient_ListInitiators(t *testing.T) {
 	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListInitiators))

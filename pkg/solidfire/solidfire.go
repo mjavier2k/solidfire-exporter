@@ -30,7 +30,6 @@ const (
 	RPCListVolumes             RPC = "ListVolumes"
 	RPCListVolumeStats         RPC = "ListVolumeStats"
 	RPCListAccounts            RPC = "ListAccounts"
-	RPCListClusterAdmins       RPC = "ListClusterAdmins"
 	RPCListInitiators          RPC = "ListInitiators"
 	RPCListVolumeAccessGroups  RPC = "ListVolumeAccessGroups"
 )
@@ -316,28 +315,6 @@ func (s *Client) ListISCSISessions(ctx context.Context) (ListISCSISessionsRespon
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListISCSISessionsResponse{}
-	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
-
-	if err != nil {
-		return r, err
-	}
-	err = json.Unmarshal(bodyBytes, &r)
-
-	if err != nil {
-		return r, err
-	}
-	return r, nil
-}
-
-func (s *Client) ListClusterAdmins(ctx context.Context) (ListClusterAdminsResponse, error) {
-	payload := &RPCBody{
-		Method: RPCListClusterAdmins,
-		Params: ListClusterAdminsParams{},
-		ID:     1,
-	}
-
-	payloadBytes, err := json.Marshal(&payload)
-	r := ListClusterAdminsResponse{}
 	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
