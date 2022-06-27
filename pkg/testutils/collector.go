@@ -9,7 +9,6 @@ solidfire_cluster_account_count 2
 solidfire_cluster_active_block_space_bytes 4.977419581e+09
 solidfire_cluster_active_faults{code="driveAvailable",details="Node ID 1 has 1 available drive(s).",drive_id="0.000000",node_hardware_fault_id="0.000000",node_id="1",node_name="n01",resolved="false",service_id="0.000000",severity="warning",type="drive"} 1
 solidfire_cluster_active_sessions 1
-solidfire_cluster_admin_account 3
 solidfire_cluster_average_io_bytes 0
 solidfire_cluster_average_iops 0
 solidfire_cluster_block_fullness{level="stage1Happy"} 0
@@ -300,7 +299,6 @@ solidfire_cluster_account_count 2
 solidfire_cluster_active_block_space_bytes 4.977419581e+09
 solidfire_cluster_active_faults{code="driveAvailable",details="Node ID 1 has 1 available drive(s).",drive_id="0.000000",node_hardware_fault_id="0.000000",node_id="1",node_name="n01",resolved="false",service_id="0.000000",severity="warning",type="drive"} 1
 solidfire_cluster_active_sessions 1
-solidfire_cluster_admin_account 3
 solidfire_cluster_average_io_bytes 0
 solidfire_cluster_average_iops 0
 solidfire_cluster_block_fullness{level="stage1Happy"} 0

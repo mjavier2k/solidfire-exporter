@@ -1280,21 +1280,6 @@ func (c *SolidfireCollector) collectAccounts(ctx context.Context, ch chan<- prom
 	return nil
 }
 
-func (c *SolidfireCollector) collectClusterAdmins(ctx context.Context, ch chan<- prometheus.Metric) error {
-	clusterAdmins, err := c.client.ListClusterAdmins(ctx)
-	if err != nil {
-		return err
-	}
-	mu.Lock()
-	defer mu.Unlock()
-	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.ClusterAdminCount,
-		prometheus.CounterValue,
-		float64(len(clusterAdmins.Result.ClusterAdmins)),
-	)
-	return nil
-}
-
 func (c *SolidfireCollector) collectInitiators(ctx context.Context, ch chan<- prometheus.Metric) error {
 	initiators, err := c.client.ListInitiators(ctx)
 	if err != nil {
@@ -1371,9 +1356,6 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 	metricsGroup.Go(func() error {
 		return c.collectAccounts(ctx, ch)
-	})
-	metricsGroup.Go(func() error {
-		return c.collectClusterAdmins(ctx, ch)
 	})
 	metricsGroup.Go(func() error {
 		return c.collectInitiators(ctx, ch)

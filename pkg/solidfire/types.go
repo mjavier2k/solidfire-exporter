@@ -50,7 +50,6 @@ type Interface interface {
 	ListVolumes(ctx context.Context) (ListVolumesResponse, error)
 	ListVolumeStats(ctx context.Context) (ListVolumeStatsResponse, error)
 	ListAccounts(ctx context.Context) (ListAccountsResponse, error)
-	ListClusterAdmins(ctx context.Context) (ListClusterAdminsResponse, error)
 	ListInitiators(ctx context.Context) (ListInitiatorsResponse, error)
 	ListVolumeAccessGroups(ctx context.Context) (ListVolumeAccessGroupsResponse, error)
 }
@@ -104,10 +103,6 @@ type ListISCSISessionsParams struct {
 }
 
 type ListAccountsParams struct {
-	// No params needed
-}
-
-type ListClusterAdminsParams struct {
 	// No params needed
 }
 
@@ -515,19 +510,6 @@ type ListAccountsResponse struct {
 			StorageContainerID string        `json:"storageContainerID"`
 			InitiatorSecret    string        `json:"initiatorSecret"`
 		} `json:"accounts"`
-	} `json:"result"`
-}
-
-type ListClusterAdminsResponse struct {
-	ID     int `json:"id"`
-	Result struct {
-		ClusterAdmins []struct {
-			Access         []string    `json:"access"`
-			Attributes     interface{} `json:"attributes"`
-			AuthMethod     string      `json:"authMethod"`
-			ClusterAdminID int         `json:"clusterAdminID"`
-			Username       string      `json:"username"`
-		} `json:"clusterAdmins"`
 	} `json:"result"`
 }
 

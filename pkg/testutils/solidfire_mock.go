@@ -59,10 +59,6 @@ func (m *MockSolidfireClient) ListAccounts(ctx context.Context) (solidfire.ListA
 	args := m.Called(ctx)
 	return args.Get(0).(solidfire.ListAccountsResponse), args.Error(1)
 }
-func (m *MockSolidfireClient) ListClusterAdmins(ctx context.Context) (solidfire.ListClusterAdminsResponse, error) {
-	args := m.Called(ctx)
-	return args.Get(0).(solidfire.ListClusterAdminsResponse), args.Error(1)
-}
 func (m *MockSolidfireClient) ListInitiators(ctx context.Context) (solidfire.ListInitiatorsResponse, error) {
 	args := m.Called(ctx)
 	return args.Get(0).(solidfire.ListInitiatorsResponse), args.Error(1)
