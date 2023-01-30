@@ -121,9 +121,6 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_node_interface_utilization_percentage | gauge | Network interface utilization (in percent) of network interface. |
 | solidfire_node_iscsi_sessions | gauge | Number of active iscsi sessions |
 | solidfire_node_load | histogram | System load histogram
-| solidfire_node_load_bucket | histogram | 
-| solidfire_node_load_count | gauge | 
-| solidfire_node_load_sum | gauge | 
 | solidfire_node_read_latency_seconds_total | counter | The total time spent performing read operations since the creation of the cluster. |
 | solidfire_node_read_ops_total | counter | Total read operations to a node. |
 | solidfire_node_samples | gauge | Node stat sample count
@@ -142,28 +139,11 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_volume_latency_seconds | gauge | The average time, in seconds, to complete operations to the volume in the last 500 milliseconds. A '0' (zero) value means there is no I/O to the volume. |
 | solidfire_volume_non_zero_blocks | gauge | The total number of 4KiB blocks that contain data after the last garbage collection operation has completed. |
 | solidfire_volume_qos_below_min_iops_percentage | histogram | Volume QoS Below minimum IOPS percentage
-| solidfire_volume_qos_below_min_iops_percentage_bucket | histogram | 
-| solidfire_volume_qos_below_min_iops_percentage_count | gauge | 
-| solidfire_volume_qos_below_min_iops_percentage_sum | gauge | 
 | solidfire_volume_qos_min_to_max_iops_percentage | histogram | Volume QoS min to max IOPS percentage
-| solidfire_volume_qos_min_to_max_iops_percentage_bucket | histogram | 
-| solidfire_volume_qos_min_to_max_iops_percentage_count | gauge | 
-| solidfire_volume_qos_min_to_max_iops_percentage_sum | gauge | 
 | solidfire_volume_qos_read_block_sizes_bytes | histogram | Volume QoS read block sizes
-| solidfire_volume_qos_read_block_sizes_bytes_bucket | histogram | 
-| solidfire_volume_qos_read_block_sizes_bytes_count | gauge | 
-| solidfire_volume_qos_read_block_sizes_bytes_sum | gauge | 
 | solidfire_volume_qos_target_utilization_percentage | histogram | Volume QoS target utilization percentage
-| solidfire_volume_qos_target_utilization_percentage_bucket | histogram | 
-| solidfire_volume_qos_target_utilization_percentage_count | gauge | 
-| solidfire_volume_qos_target_utilization_percentage_sum | gauge | 
 | solidfire_volume_qos_throttle_percentage | histogram | Volume QoS throttle percentage
-| solidfire_volume_qos_throttle_percentage_bucket | histogram | 
-| solidfire_volume_qos_throttle_percentage_count | gauge | 
-| solidfire_volume_qos_throttle_percentage_sum | gauge | 
 | solidfire_volume_qos_write_block_sizes_bytes_bucket | histogram | Volume QoS write block sizes
-| solidfire_volume_qos_write_block_sizes_bytes_count | gauge | 
-| solidfire_volume_qos_write_block_sizes_bytes_sum | gauge | 
 | solidfire_volume_read_bytes_total | counter | The total cumulative bytes read from the volume since the creation of the volume. |
 | solidfire_volume_read_latency_seconds | gauge | The average time, in seconds, to complete read operations to the volume in the last 500 milliseconds. |
 | solidfire_volume_read_latency_seconds_total | counter | The total time spent performing read operations from the volume
