@@ -51,7 +51,6 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_cluster_average_iops | gauge | The average IOPS for the cluster since midnight Coordinated Universal Time (UTC) |
 | solidfire_cluster_block_fullness | gauge | The current computed level of block fullness of the cluster. |
 | solidfire_cluster_client_queue_depth | gauge | The number of outstanding read and write operations to the cluster. |
-| solidfire_cluster_recent_io_size_bytes | gauge | The average size of IOPS to all volumes in the cluster |
 | solidfire_cluster_compression_factor | gauge | The cluster compression factor. compressionFactor = (uniqueBlocks * 4096) / (uniqueBlocksUsedSpace * 0.93) |
 | solidfire_cluster_current_iops | gauge | The average IOPS for all volumes in the cluster over the last 5 seconds |
 | solidfire_cluster_de_duplication_factor | gauge | The cluster deDuplication factor. deDuplicationFactor = (nonZeroBlocks + snapshotNonZeroBlocks) / uniqueBlocks |
@@ -80,6 +79,7 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_cluster_read_latency_seconds | gauge | The average time, in seconds, to complete read operations to the cluster in the last 500 milliseconds. |
 | solidfire_cluster_read_latency_seconds_total | counter | The total time spent performing read operations since the creation of the cluster. |
 | solidfire_cluster_read_ops_total | counter | The total cumulative read operations to the cluster since the creation of the cluster. |
+| solidfire_cluster_recent_io_size_bytes | gauge | The average size of IOPS to all volumes in the cluster |
 | solidfire_cluster_sample_period_seconds | gauge | The length of the sample period, in seconds. |
 | solidfire_cluster_services_expected | gauge | The total number of expected services running on the cluster. |
 | solidfire_cluster_services_running | gauge | The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes. |
@@ -119,6 +119,7 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_node_interface_in_bytes_total | counter | Bytes in on network interface. |
 | solidfire_node_interface_out_bytes_total | counter | Bytes out on network interface. |
 | solidfire_node_interface_utilization_percentage | gauge | Network interface utilization (in percent) of network interface. |
+| solidfire_node_iscsi_sessions | gauge | Number of active iscsi sessions per node and volume |
 | solidfire_node_load | histogram | System load histogram |
 | solidfire_node_read_latency_seconds_total | counter | The total time spent performing read operations since the creation of the cluster. |
 | solidfire_node_read_ops_total | counter | Total read operations to a node. |
