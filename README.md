@@ -48,7 +48,7 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_cluster_active_block_space_bytes | gauge | The amount of space on the block drives. This includes additional information such as metadata entries and space which can be cleaned up. |
 | solidfire_cluster_active_sessions | gauge | The number of active iSCSI sessions communicating with the cluster. |
 | solidfire_cluster_average_io_bytes | gauge | Average size in bytes of recent I/O to the cluster in the last 500 milliseconds. |
-| solidfire_cluster_average_iops | gauge | The average IOPS for the cluster since midnight Coordinated Universal Time (UTC)
+| solidfire_cluster_average_iops | gauge | The average IOPS for the cluster since midnight Coordinated Universal Time (UTC) |
 | solidfire_cluster_block_fullness | gauge | The current computed level of block fullness of the cluster. |
 | solidfire_cluster_client_queue_depth | gauge | The number of outstanding read and write operations to the cluster. |
 | solidfire_cluster_compression_factor | gauge | The cluster compression factor. compressionFactor = (uniqueBlocks * 4096) / (uniqueBlocksUsedSpace * 0.93) |
@@ -84,7 +84,7 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_cluster_services_expected | gauge | The total number of expected services running on the cluster. |
 | solidfire_cluster_services_running | gauge | The number of services running on the cluster. If equal to the servicesTotal, this indicates that valid statistics were collected from all nodes. |
 | solidfire_cluster_slice_reserve_used_threshold_percentage | gauge | Error condition. A system alert is triggered if the reserved slice utilization is greater than the sliceReserveUsedThresholdPct value returned. |
-| solidfire_cluster_snapshot_non_zero_blocks | gauge | The total number of 4KiB blocks that contain data after the last garbage collection operation has completed
+| solidfire_cluster_snapshot_non_zero_blocks | gauge | The total number of 4KiB blocks that contain data after the last garbage collection operation has completed |
 | solidfire_cluster_stage2_aware_threshold_percentage | gauge | Awareness condition. The value that is set for 'Stage 2' cluster threshold level. |
 | solidfire_cluster_stage2_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage2 condition will exist. |
 | solidfire_cluster_stage3_block_threshold_bytes | gauge | Number of bytes being used by the cluster at which a stage3 condition will exist. |
@@ -134,7 +134,7 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_volume_burst_iops_credit | gauge | The total number of IOP credits available to the user. When volumes are not using up to the configured maxIOPS, credits are accrued. |
 | solidfire_volume_client_queue_depth | gauge | The number of outstanding read and write operations to the volume. |
 | solidfire_volume_last_sample_read_bytes | gauge | The total number of bytes read from the volume during the last sample period. |
-| solidfire_volume_last_sample_read_ops | gauge | The total number of read operations during the last sample period
+| solidfire_volume_last_sample_read_ops | gauge | The total number of read operations during the last sample period |
 | solidfire_volume_last_sample_write_bytes | gauge | The total number of bytes written to the volume during the last sample period. |
 | solidfire_volume_latency_seconds | gauge | The average time, in seconds, to complete operations to the volume in the last 500 milliseconds. A '0' (zero) value means there is no I/O to the volume. |
 | solidfire_volume_non_zero_blocks | gauge | The total number of 4KiB blocks that contain data after the last garbage collection operation has completed. |
