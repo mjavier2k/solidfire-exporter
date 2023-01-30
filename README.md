@@ -119,7 +119,7 @@ docker run  --rm -p 9987:9987 ghcr.io/mjavier2k/solidfire-exporter:v0.6.6
 | solidfire_node_interface_in_bytes_total | counter | Bytes in on network interface. |
 | solidfire_node_interface_out_bytes_total | counter | Bytes out on network interface. |
 | solidfire_node_interface_utilization_percentage | gauge | Network interface utilization (in percent) of network interface. |
-| solidfire_node_iscsi_sessions | gauge | 
+| solidfire_node_iscsi_sessions | gauge | Number of active iscsi sessions |
 | solidfire_node_load | histogram | System load histogram
 | solidfire_node_load_bucket | histogram | 
 | solidfire_node_load_count | gauge | 
