@@ -182,19 +182,25 @@ func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context, ch chan<- pr
 	mu.Lock()
 	defer mu.Unlock()
 
-	ch <- prometheus.MustNewConstMetric(
-		MetricDescriptions.VolumeCount,
-		prometheus.CounterValue,
-		float64(len(volumes.Result.Volumes)),
-	)
+	volumeCntByStatus := map[string]int{}
 
 	for _, vol := range volumes.Result.Volumes {
 		c.volumeNamesByID[vol.VolumeID] = vol.Name
+		volumeCntByStatus[vol.Status]++
+	}
+
+	for status, count := range volumeCntByStatus {
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.VolumeCount,
+			prometheus.CounterValue,
+			float64(count),
+			status,
+		)
 	}
 	return nil
 }
-func (c *SolidfireCollector) collectNodeMeta(ctx context.Context, ch chan<- prometheus.Metric) error {
 
+func (c *SolidfireCollector) collectNodeMeta(ctx context.Context, ch chan<- prometheus.Metric) error {
 	nodes, err := c.client.ListAllNodes(ctx)
 	if err != nil {
 		return err
@@ -410,6 +416,7 @@ func (c *SolidfireCollector) collectVolumeStats(ctx context.Context, ch chan<- p
 	}
 	return nil
 }
+
 func (c *SolidfireCollector) collectClusterCapacity(ctx context.Context, ch chan<- prometheus.Metric) error {
 	clusterCapacity, err := c.client.GetClusterCapacity(ctx)
 	if err != nil {
@@ -562,6 +569,7 @@ func (c *SolidfireCollector) collectClusterCapacity(ctx context.Context, ch chan
 		clusterThinProvisioningFactor*clusterDeDuplicationFactor*clusterCompressionFactor)
 	return nil
 }
+
 func (c *SolidfireCollector) collectClusterFaults(ctx context.Context, ch chan<- prometheus.Metric) error {
 	ClusterActiveFaults, err := c.client.ListClusterFaults(ctx)
 	if err != nil {
@@ -588,6 +596,7 @@ func (c *SolidfireCollector) collectClusterFaults(ctx context.Context, ch chan<-
 	}
 	return nil
 }
+
 func (c *SolidfireCollector) collectClusterNodeStats(ctx context.Context, ch chan<- prometheus.Metric) error {
 	ClusterNodeStats, err := c.client.ListNodeStats(ctx)
 	if err != nil {
@@ -752,6 +761,7 @@ func (c *SolidfireCollector) collectClusterNodeStats(ctx context.Context, ch cha
 	}
 	return nil
 }
+
 func (c *SolidfireCollector) collectVolumeQosHistograms(ctx context.Context, ch chan<- prometheus.Metric) error {
 	VolumeQoSHistograms, err := c.client.ListVolumeQoSHistograms(ctx)
 	if err != nil {
@@ -871,6 +881,7 @@ func (c *SolidfireCollector) collectVolumeQosHistograms(ctx context.Context, ch 
 	}
 	return nil
 }
+
 func (c *SolidfireCollector) collectClusterStats(ctx context.Context, ch chan<- prometheus.Metric) error {
 	clusterStats, err := c.client.GetClusterStats(ctx)
 	if err != nil {
@@ -1192,6 +1203,7 @@ func (c *SolidfireCollector) collectClusterFullThreshold(ctx context.Context, ch
 	)
 	return nil
 }
+
 func (c *SolidfireCollector) collectDriveDetails(ctx context.Context, ch chan<- prometheus.Metric) error {
 	ListDrives, err := c.client.ListDrives(ctx)
 	if err != nil {
@@ -1233,6 +1245,7 @@ func (c *SolidfireCollector) collectDriveDetails(ctx context.Context, ch chan<- 
 	}
 	return nil
 }
+
 func (c *SolidfireCollector) collectISCSISessions(ctx context.Context, ch chan<- prometheus.Metric) error {
 	ListISCSISessions, err := c.client.ListISCSISessions(ctx)
 	if err != nil {
@@ -1294,6 +1307,7 @@ func (c *SolidfireCollector) collectInitiators(ctx context.Context, ch chan<- pr
 	)
 	return nil
 }
+
 func (c *SolidfireCollector) collectVolumeAccessGroups(ctx context.Context, ch chan<- prometheus.Metric) error {
 	volumeAccessGroups, err := c.client.ListVolumeAccessGroups(ctx)
 	if err != nil {
