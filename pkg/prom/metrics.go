@@ -65,7 +65,7 @@ type Descriptions struct {
 	ClusterUsedMetadataSpaceInSnapshotsBytes *prometheus.Desc
 	ClusterUsedSpaceBytes                    *prometheus.Desc
 	ClusterZeroBlocks                        *prometheus.Desc
-	//The following metrics are Calculated by us:
+	// The following metrics are Calculated by us:
 	ClusterCompressionFactor      *prometheus.Desc
 	ClusterDeDuplicationFactor    *prometheus.Desc
 	ClusterEfficiencyFactor       *prometheus.Desc
@@ -140,7 +140,7 @@ type Descriptions struct {
 	DriveCapacityBytes *prometheus.Desc
 
 	NodeISCSISessions *prometheus.Desc
-	//NodeISCSIVolumes       *prometheus.Desc
+	// NodeISCSIVolumes       *prometheus.Desc
 
 	InitiatorCount         *prometheus.Desc
 	AccountCount           *prometheus.Desc
@@ -936,7 +936,7 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	d.VolumeCount = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_volume_count"),
 		"The total number of volumes in cluster",
-		nil,
+		[]string{"status"},
 		nil,
 	)
 
