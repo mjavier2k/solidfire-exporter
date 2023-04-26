@@ -252,5 +252,26 @@ func newMockedClient(t *testing.T, mockErrs mockErrors) *testutils.MockSolidfire
 	require.NoError(t, json.Unmarshal(bytes, &listVolumeAccessGroupsResponse))
 	mockSfClient.On(string(call), mock.Anything).Return(listVolumeAccessGroupsResponse, mockErrs[call])
 
+	listAsyncResultsResponse := solidfire.ListAsyncResultsResponse{}
+	call = solidfire.RPCListAsyncResults
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listAsyncResultsResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listAsyncResultsResponse, mockErrs[call])
+
+	listBulkVolumeJobsResponse := solidfire.ListBulkVolumeJobsResponse{}
+	call = solidfire.RPCListBulkVolumeJobs
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listBulkVolumeJobsResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listBulkVolumeJobsResponse, mockErrs[call])
+
+	listVirtualVolumeTasksResponse := solidfire.ListVirtualVolumeTasksResponse{}
+	call = solidfire.RPCListVirtualVolumeTasks
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listVirtualVolumeTasksResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listVirtualVolumeTasksResponse, mockErrs[call])
+
 	return mockSfClient
 }

@@ -67,3 +67,15 @@ func (m *MockSolidfireClient) ListVolumeAccessGroups(ctx context.Context) (solid
 	args := m.Called(ctx)
 	return args.Get(0).(solidfire.ListVolumeAccessGroupsResponse), args.Error(1)
 }
+func (m *MockSolidfireClient) ListVirtualVolumeTasks(ctx context.Context) (solidfire.ListVirtualVolumeTasksResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListVirtualVolumeTasksResponse), args.Error(1)
+}
+func (m *MockSolidfireClient) ListAsyncResults(ctx context.Context) (solidfire.ListAsyncResultsResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListAsyncResultsResponse), args.Error(1)
+}
+func (m *MockSolidfireClient) ListBulkVolumeJobs(ctx context.Context) (solidfire.ListBulkVolumeJobsResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListBulkVolumeJobsResponse), args.Error(1)
+}

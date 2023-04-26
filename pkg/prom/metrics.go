@@ -148,6 +148,9 @@ type Descriptions struct {
 	VolumeCount            *prometheus.Desc
 	VolumeAccessGroupCount *prometheus.Desc
 	VolumeAccessGroupLun   *prometheus.Desc
+	VirtualVolumeTasks     *prometheus.Desc
+	BulkVolumeJobs         *prometheus.Desc
+	AsyncResults           *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -964,6 +967,24 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	d.VolumeAccessGroupCount = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "cluster_volume_access_group_count"),
 		"The total number of volume access groups in cluster",
+		nil,
+		nil,
+	)
+	d.VirtualVolumeTasks = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_volume_virtual_volume_task_count"),
+		"The total number of active virtual volume tasks in cluster",
+		nil,
+		nil,
+	)
+	d.BulkVolumeJobs = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_volume_bulk_volume_job_count"),
+		"The total number of active bulk volume jobs in cluster",
+		nil,
+		nil,
+	)
+	d.AsyncResults = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "cluster_volume_async_result_count"),
+		"The total number of active async results in cluster",
 		nil,
 		nil,
 	)

@@ -79,6 +79,8 @@ solidfire_cluster_used_metadata_space_bytes 7.221248e+06
 solidfire_cluster_used_metadata_space_in_snapshots_bytes 7.221248e+06
 solidfire_cluster_used_space_bytes 3.47282402e+08
 solidfire_cluster_volume_access_group_count 1
+solidfire_cluster_volume_async_result_count 1
+solidfire_cluster_volume_bulk_volume_job_count 1
 solidfire_cluster_write_bytes_total 1.21720639488e+11
 solidfire_cluster_write_latency_seconds 0
 solidfire_cluster_write_latency_seconds_total 0
@@ -146,6 +148,7 @@ solidfire_volume_burst_iops_credit{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_client_queue_depth{volume_id="1",volume_name="test-volume1"} 0
 solidfire_volume_client_queue_depth{volume_id="2",volume_name="test-volume2"} 0
 solidfire_cluster_volume_count{status="active"} 2
+solidfire_cluster_volume_virtual_volume_task_count 1
 solidfire_volume_last_sample_read_bytes{volume_id="1",volume_name="test-volume1"} 0
 solidfire_volume_last_sample_read_bytes{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_last_sample_read_ops{volume_id="1",volume_name="test-volume1"} 0
@@ -369,6 +372,8 @@ solidfire_cluster_used_metadata_space_bytes 7.221248e+06
 solidfire_cluster_used_metadata_space_in_snapshots_bytes 7.221248e+06
 solidfire_cluster_used_space_bytes 3.47282402e+08
 solidfire_cluster_volume_access_group_count 1
+solidfire_cluster_volume_async_result_count 1
+solidfire_cluster_volume_bulk_volume_job_count 1
 solidfire_cluster_write_bytes_total 1.21720639488e+11
 solidfire_cluster_write_latency_seconds 0
 solidfire_cluster_write_latency_seconds_total 0
@@ -428,6 +433,7 @@ solidfire_node_write_latency_seconds_total{node_id="1",node_name="n01"} 0
 solidfire_node_write_ops_total{node_id="1",node_name="n01"} 1.3089387e+07
 solidfire_up 0
 solidfire_cluster_volume_count{status="active"} 2
+solidfire_cluster_volume_virtual_volume_task_count 1
 solidfire_volume_qos_below_min_iops_percentage_bucket{volume_id="1",volume_name="test-volume1",le="19"} 32
 solidfire_volume_qos_below_min_iops_percentage_bucket{volume_id="1",volume_name="test-volume1",le="39"} 6
 solidfire_volume_qos_below_min_iops_percentage_bucket{volume_id="1",volume_name="test-volume1",le="59"} 4

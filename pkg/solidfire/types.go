@@ -52,6 +52,9 @@ type Interface interface {
 	ListAccounts(ctx context.Context) (ListAccountsResponse, error)
 	ListInitiators(ctx context.Context) (ListInitiatorsResponse, error)
 	ListVolumeAccessGroups(ctx context.Context) (ListVolumeAccessGroupsResponse, error)
+	ListVirtualVolumeTasks(ctx context.Context) (ListVirtualVolumeTasksResponse, error)
+	ListAsyncResults(ctx context.Context) (ListAsyncResultsResponse, error)
+	ListBulkVolumeJobs(ctx context.Context) (ListBulkVolumeJobsResponse, error)
 }
 type RPCBody struct {
 	Method RPC       `json:"method"`
@@ -111,6 +114,17 @@ type ListInitiatorsParams struct {
 }
 
 type ListVolumeAccessGroupsParams struct {
+	// No params needed
+}
+type ListVirtualVolumeTasksParams struct {
+	// No params needed
+}
+
+type ListAsyncResultsParams struct {
+	// No params needed
+}
+
+type ListBulkVolumeJobsParams struct {
 	// No params needed
 }
 
@@ -540,5 +554,82 @@ type ListVolumeAccessGroupsResponse struct {
 			VolumeAccessGroupID int           `json:"volumeAccessGroupID"`
 			Volumes             []interface{} `json:"volumes"`
 		} `json:"volumeAccessGroups"`
+	} `json:"result"`
+}
+
+type ListVirtualVolumeTasksResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		Tasks []struct {
+			Cancelled            bool   `json:"cancelled"`
+			CloneVirtualVolumeID string `json:"cloneVirtualVolumeID"`
+			Operation            string `json:"operation"`
+			ParentMetadata       struct {
+				SFProfileID           string `json:"SFProfileId"`
+				SFgenerationID        string `json:"SFgenerationId"`
+				VMWContainerID        string `json:"VMW_ContainerId"`
+				VMWGosType            string `json:"VMW_GosType"`
+				VMWVVolName           string `json:"VMW_VVolName"`
+				VMWVVolNamespace      string `json:"VMW_VVolNamespace"`
+				VMWVVolType           string `json:"VMW_VVolType"`
+				VMWVMID               string `json:"VMW_VmID"`
+				VMWVvolAllocationType string `json:"VMW_VvolAllocationType"`
+				VMWVvolProfile        string `json:"VMW_VvolProfile"`
+			} `json:"parentMetadata"`
+			ParentTotalSize     int64  `json:"parentTotalSize"`
+			ParentUsedSize      int    `json:"parentUsedSize"`
+			Status              string `json:"status"`
+			VirtualVolumeHostID string `json:"virtualVolumeHostID"`
+			VirtualVolumeTaskID string `json:"virtualVolumeTaskID"`
+			VirtualvolumeID     string `json:"virtualvolumeID"`
+		} `json:"tasks"`
+	} `json:"result"`
+}
+
+type ListBulkVolumeJobsResponse struct {
+	ID     int64 `json:"id"`
+	Result struct {
+		BulkVolumeJobs []struct {
+			Attributes struct {
+				BlocksPerTransfer int64  `json:"blocksPerTransfer"`
+				FirstPendingLba   int64  `json:"firstPendingLba"`
+				NLbas             int64  `json:"nLbas"`
+				NextLba           int64  `json:"nextLba"`
+				PendingLbas       string `json:"pendingLbas"`
+				PercentComplete   int64  `json:"percentComplete"`
+				StartLba          int64  `json:"startLba"`
+			} `json:"attributes"`
+			BulkVolumeID    int64  `json:"bulkVolumeID"`
+			CreateTime      string `json:"createTime"`
+			ElapsedTime     int64  `json:"elapsedTime"`
+			Format          string `json:"format"`
+			Key             string `json:"key"`
+			PercentComplete int64  `json:"percentComplete"`
+			RemainingTime   int64  `json:"remainingTime"`
+			Script          string `json:"script"`
+			SnapshotID      int64  `json:"snapshotID"`
+			SrcVolumeID     int64  `json:"srcVolumeID"`
+			Status          string `json:"status"`
+			Type            string `json:"type"`
+		} `json:"bulkVolumeJobs"`
+	} `json:"result"`
+}
+
+type ListAsyncResultsResponse struct {
+	ID     int64 `json:"id"`
+	Result struct {
+		AsyncHandles []struct {
+			AsyncResultID int64  `json:"asyncResultID"`
+			Completed     bool   `json:"completed"`
+			CreateTime    string `json:"createTime"`
+			Data          struct {
+				CloneID  int64  `json:"cloneID"`
+				Message  string `json:"message"`
+				VolumeID int64  `json:"volumeID"`
+			} `json:"data"`
+			LastUpdateTime string `json:"lastUpdateTime"`
+			ResultType     string `json:"resultType"`
+			Success        bool   `json:"success"`
+		} `json:"asyncHandles"`
 	} `json:"result"`
 }

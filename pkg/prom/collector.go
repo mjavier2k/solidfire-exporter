@@ -172,6 +172,9 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.ClusterAdminCount
 	ch <- MetricDescriptions.InitiatorCount
 	ch <- MetricDescriptions.VolumeAccessGroupCount
+	ch <- MetricDescriptions.VirtualVolumeTasks
+	ch <- MetricDescriptions.BulkVolumeJobs
+	ch <- MetricDescriptions.AsyncResults
 }
 
 func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context, ch chan<- prometheus.Metric) error {
@@ -1323,6 +1326,51 @@ func (c *SolidfireCollector) collectVolumeAccessGroups(ctx context.Context, ch c
 	return nil
 }
 
+func (c *SolidfireCollector) collectVirtualVolumeTasks(ctx context.Context, ch chan<- prometheus.Metric) error {
+	vvt, err := c.client.ListVirtualVolumeTasks(ctx)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	defer mu.Unlock()
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.VirtualVolumeTasks,
+		prometheus.CounterValue,
+		float64(len(vvt.Result.Tasks)),
+	)
+	return nil
+}
+
+func (c *SolidfireCollector) collectBulkVolumeJobs(ctx context.Context, ch chan<- prometheus.Metric) error {
+	btj, err := c.client.ListBulkVolumeJobs(ctx)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	defer mu.Unlock()
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.BulkVolumeJobs,
+		prometheus.CounterValue,
+		float64(len(btj.Result.BulkVolumeJobs)),
+	)
+	return nil
+}
+
+func (c *SolidfireCollector) collectAsyncResults(ctx context.Context, ch chan<- prometheus.Metric) error {
+	ar, err := c.client.ListAsyncResults(ctx)
+	if err != nil {
+		return err
+	}
+	mu.Lock()
+	defer mu.Unlock()
+	ch <- prometheus.MustNewConstMetric(
+		MetricDescriptions.AsyncResults,
+		prometheus.CounterValue,
+		float64(len(ar.Result.AsyncHandles)),
+	)
+	return nil
+}
+
 func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	var up float64 = 0
 	defer func() { ch <- prometheus.MustNewConstMetric(MetricDescriptions.upDesc, prometheus.GaugeValue, up) }()
@@ -1376,6 +1424,15 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	})
 	metricsGroup.Go(func() error {
 		return c.collectVolumeAccessGroups(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectVirtualVolumeTasks(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectBulkVolumeJobs(ctx, ch)
+	})
+	metricsGroup.Go(func() error {
+		return c.collectAsyncResults(ctx, ch)
 	})
 	if err := metricsGroup.Wait(); err != nil {
 		log.Errorln(err)

@@ -520,6 +520,135 @@ func TestClient_ListInitiators(t *testing.T) {
 	}
 }
 
+func TestClient_ListVirtualVolumeTasks(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListVirtualVolumeTasks))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    string
+		wantErr bool
+	}{
+		{
+			want: "a1b72df7-66a6-489a-86e4-538d0dbe05bf",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListVirtualVolumeTasks,
+					Params: solidfire.ListVirtualVolumeTasksParams{},
+				}).
+				Reply(200).
+				BodyString(string(fixture))
+			gotRaw, err := sfClient.ListVirtualVolumeTasks(context.Background())
+			got := gotRaw.Result.Tasks[0].VirtualVolumeTaskID
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListVirtualVolumeTasks() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListVirtualVolumeTasks() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClient_ListAsyncResults(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListAsyncResults))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    int64
+		wantErr bool
+	}{
+		{
+			want: 47,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListAsyncResults,
+					Params: solidfire.ListAsyncResultsParams{},
+				}).
+				Reply(200).
+				BodyString(string(fixture))
+			gotRaw, err := sfClient.ListAsyncResults(context.Background())
+			got := gotRaw.Result.AsyncHandles[0].AsyncResultID
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListAsyncResults() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListAsyncResults() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestClient_ListBulkVolumeJobs(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListBulkVolumeJobs))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    int64
+		wantErr bool
+	}{
+		{
+			want: 2,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			//gock.Observe(gock.DumpRequest)
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListBulkVolumeJobs,
+					Params: solidfire.ListBulkVolumeJobsParams{},
+				}).
+				Reply(200).
+				BodyString(string(fixture))
+			gotRaw, err := sfClient.ListBulkVolumeJobs(context.Background())
+			got := gotRaw.Result.BulkVolumeJobs[0].BulkVolumeID
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client.ListBulkVolumeJobs() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client.ListBulkVolumeJobs() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestClient_ListVolumeAccessGroups(t *testing.T) {
 	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListVolumeAccessGroups))
 	if err != nil {

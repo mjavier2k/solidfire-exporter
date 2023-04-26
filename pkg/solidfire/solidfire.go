@@ -32,6 +32,9 @@ const (
 	RPCListAccounts            RPC = "ListAccounts"
 	RPCListInitiators          RPC = "ListInitiators"
 	RPCListVolumeAccessGroups  RPC = "ListVolumeAccessGroups"
+	RPCListVirtualVolumeTasks  RPC = "ListVirtualVolumeTasks"
+	RPCListBulkVolumeJobs      RPC = "ListBulkVolumeJobs"
+	RPCListAsyncResults        RPC = "ListAsyncResults"
 )
 
 func NewSolidfireClient() (*Client, error) {
@@ -381,6 +384,72 @@ func (s *Client) ListVolumeAccessGroups(ctx context.Context) (ListVolumeAccessGr
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListVolumeAccessGroupsResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListVirtualVolumeTasks(ctx context.Context) (ListVirtualVolumeTasksResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListVirtualVolumeTasks,
+		Params: ListVirtualVolumeTasksParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListVirtualVolumeTasksResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListAsyncResults(ctx context.Context) (ListAsyncResultsResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListAsyncResults,
+		Params: ListAsyncResultsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListAsyncResultsResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListBulkVolumeJobs(ctx context.Context) (ListBulkVolumeJobsResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListBulkVolumeJobs,
+		Params: ListBulkVolumeJobsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListBulkVolumeJobsResponse{}
 	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {
