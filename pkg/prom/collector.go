@@ -1364,20 +1364,7 @@ func (c *SolidfireCollector) collectBulkVolumeJobs(ctx context.Context, ch chan<
 		return err
 	}
 
-	// ch <- prometheus.MustNewConstMetric(
-	// 	MetricDescriptions.BulkVolumeJobStatus,
-	// 	prometheus.GaugeValue,
-	// 	float64(strCompare(bulkVolumeJobs.Result., "Type")),
-	// 	"Type",
-	// )
-
 	for _, jobs := range bulkVolumeJobs.Result.BulkVolumeJobs {
-		// if sessions[session.NodeID] == nil {
-		// 	sessions[session.NodeID] = make(map[int]float64)
-		// }
-		// sessions[session.NodeID][session.VolumeID]++
-		//  jobs.Type
-
 		ch <- prometheus.MustNewConstMetric(
 			MetricDescriptions.BulkVolumeJobPerecentage,
 			prometheus.CounterValue,

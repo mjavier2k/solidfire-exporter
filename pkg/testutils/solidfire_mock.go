@@ -55,3 +55,8 @@ func (m *MockSolidfireClient) ListVolumeStats(ctx context.Context) (solidfire.Li
 	args := m.Called(ctx)
 	return args.Get(0).(solidfire.ListVolumeStatsResponse), args.Error(1)
 }
+
+func (m *MockSolidfireClient) ListBulkVolumeJobs(ctx context.Context) (solidfire.ListBulkVolumeJobsResponse, error) {
+	args := m.Called(ctx)
+	return args.Get(0).(solidfire.ListBulkVolumeJobsResponse), args.Error(1)
+}

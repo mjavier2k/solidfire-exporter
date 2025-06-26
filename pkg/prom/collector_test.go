@@ -231,5 +231,12 @@ func newMockedClient(t *testing.T, mockErrs mockErrors) *testutils.MockSolidfire
 	require.NoError(t, json.Unmarshal(bytes, &listVolumeStatsResponse))
 	mockSfClient.On(string(call), mock.Anything).Return(listVolumeStatsResponse, mockErrs[call])
 
+	listBulkVolumeJobsResponse := solidfire.ListBulkVolumeJobsResponse{}
+	call = solidfire.RPCListBulkVolumeJobs
+	bytes, err = ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, call))
+	require.NoError(t, err)
+	require.NoError(t, json.Unmarshal(bytes, &listBulkVolumeJobsResponse))
+	mockSfClient.On(string(call), mock.Anything).Return(listBulkVolumeJobsResponse, mockErrs[call])
+
 	return mockSfClient
 }

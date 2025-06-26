@@ -282,6 +282,8 @@ solidfire_volume_write_ops_total{volume_id="1",volume_name="test-volume1"} 1.308
 solidfire_volume_write_ops_total{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_zero_blocks{volume_id="1",volume_name="test-volume1"} 323315
 solidfire_volume_zero_blocks{volume_id="2",volume_name="test-volume2"} 976640
+solidfire_bulk_volume_job_percentage{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",status="running",volume_id="3"} 8
+solidfire_bulk_volume_job_status{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",source_volume_id="3",status="running"} 1
 `), "\n")
 
 var CollectOutputVolumeListErr = strings.Split(strings.TrimSpace(`
@@ -520,4 +522,6 @@ solidfire_volume_qos_write_block_sizes_bytes_bucket{volume_id="2",volume_name="t
 solidfire_volume_qos_write_block_sizes_bytes_bucket{volume_id="2",volume_name="test-volume2",le="+Inf"} 0
 solidfire_volume_qos_write_block_sizes_bytes_sum{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_qos_write_block_sizes_bytes_count{volume_id="2",volume_name="test-volume2"} 0
+solidfire_bulk_volume_job_percentage{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",status="running",volume_id="3"} 8
+solidfire_bulk_volume_job_status{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",source_volume_id="3",status="running"} 1
 `), "\n")
