@@ -141,6 +141,10 @@ type Descriptions struct {
 
 	NodeISCSISessions *prometheus.Desc
 	//NodeISCSIVolumes       *prometheus.Desc
+
+	//ListBulkVolumeJob
+	BulkVolumeJobStatus      *prometheus.Desc
+	BulkVolumeJobPerecentage *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -923,6 +927,20 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 		prometheus.BuildFQName(namespace, "", "node_iscsi_sessions"),
 		"The total number of iscsi sessions per node and volume",
 		[]string{"node_id", "node_name", "volume_id", "volume_name"},
+		nil,
+	)
+
+	d.BulkVolumeJobStatus = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "bulk_volume_job_status"),
+		"The status of bulk volume read or write operation that is occurring in the system.  0 = Preparing, 1 = Running, 2 = Complete, 3 = Failed.",
+		[]string{"bulk_volume_id", "created_time", "format", "key", "script", "source_volume_id", "status"},
+		nil,
+	)
+
+	d.BulkVolumeJobPerecentage = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "bulk_volume_job_percentage"),
+		"The percentage completed of bulk volume read or write operation that is occurring in the system.",
+		[]string{"bulk_volume_id", "created_time", "format", "key", "script", "volume_id", "status"},
 		nil,
 	)
 

@@ -48,6 +48,21 @@ func strCompare(str1 string, str2 string) int {
 	return 0
 }
 
+func bulkVolumeJobStatusToInt(state string) int {
+	switch state {
+	case "preparing":
+		return 0
+	case "running":
+		return 1
+	case "complete":
+		return 2
+	case "failed":
+		return 3
+	default:
+		return -1 // unknown state
+	}
+}
+
 func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.upDesc
 
@@ -166,6 +181,9 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.DriveCapacityBytes
 
 	ch <- MetricDescriptions.NodeISCSISessions
+
+	ch <- MetricDescriptions.BulkVolumeJobStatus
+	ch <- MetricDescriptions.BulkVolumeJobPerecentage
 }
 
 func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context) error {
@@ -1219,6 +1237,7 @@ func (c *SolidfireCollector) collectDriveDetails(ctx context.Context, ch chan<- 
 	}
 	return nil
 }
+
 func (c *SolidfireCollector) collectISCSISessions(ctx context.Context, ch chan<- prometheus.Metric) error {
 	ListISCSISessions, err := c.client.ListISCSISessions(ctx)
 	if err != nil {
@@ -1296,6 +1315,10 @@ func (c *SolidfireCollector) Collect(ch chan<- prometheus.Metric) {
 	metricsGroup.Go(func() error {
 		return c.collectISCSISessions(ctx, ch)
 	})
+	metricsGroup.Go(func() error {
+		return c.collectBulkVolumeJobs(ctx, ch)
+	})
+
 	if err := metricsGroup.Wait(); err != nil {
 		log.Errorln(err)
 		return
@@ -1333,4 +1356,55 @@ func MicrosecondsToSeconds(microSeconds float64) float64 {
 
 func MillisecondsToSeconds(milliseconds float64) float64 {
 	return milliseconds * 1e-3
+}
+
+func (c *SolidfireCollector) collectBulkVolumeJobs(ctx context.Context, ch chan<- prometheus.Metric) error {
+	bulkVolumeJobs, err := c.client.ListBulkVolumeJobs(ctx)
+	if err != nil {
+		return err
+	}
+
+	// ch <- prometheus.MustNewConstMetric(
+	// 	MetricDescriptions.BulkVolumeJobStatus,
+	// 	prometheus.GaugeValue,
+	// 	float64(strCompare(bulkVolumeJobs.Result., "Type")),
+	// 	"Type",
+	// )
+
+	for _, jobs := range bulkVolumeJobs.Result.BulkVolumeJobs {
+		// if sessions[session.NodeID] == nil {
+		// 	sessions[session.NodeID] = make(map[int]float64)
+		// }
+		// sessions[session.NodeID][session.VolumeID]++
+		//  jobs.Type
+
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.BulkVolumeJobPerecentage,
+			prometheus.CounterValue,
+			float64(jobs.PercentComplete),
+			strconv.Itoa(jobs.BulkVolumeID),
+			jobs.CreateTime,
+			jobs.Format,
+			jobs.Key,
+			jobs.Script,
+			strconv.Itoa(jobs.SrcVolumeID),
+			jobs.Status,
+		)
+
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.BulkVolumeJobStatus,
+			prometheus.CounterValue,
+			float64(bulkVolumeJobStatusToInt(jobs.Status)),
+			strconv.Itoa(jobs.BulkVolumeID),
+			jobs.CreateTime,
+			jobs.Format,
+			jobs.Key,
+			jobs.Script,
+			strconv.Itoa(jobs.SrcVolumeID),
+			jobs.Status,
+		)
+
+	}
+
+	return nil
 }

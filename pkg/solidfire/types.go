@@ -49,6 +49,7 @@ type Interface interface {
 	ListVolumeQoSHistograms(ctx context.Context) (ListVolumeQoSHistogramsResponse, error)
 	ListVolumes(ctx context.Context) (ListVolumesResponse, error)
 	ListVolumeStats(ctx context.Context) (ListVolumeStatsResponse, error)
+	ListBulkVolumeJobs(ctx context.Context) (ListBulkVolumeJobsResponse, error)
 }
 type RPCBody struct {
 	Method RPC       `json:"method"`
@@ -96,6 +97,10 @@ type ListDrivesParams struct {
 }
 
 type ListISCSISessionsParams struct {
+	// No params needed
+}
+
+type ListBulkVolumeJobsParams struct {
 	// No params needed
 }
 
@@ -478,5 +483,33 @@ type ListISCSISessionsResponse struct {
 			VolumeID               int         `json:"volumeID"`
 			VolumeInstance         int64       `json:"volumeInstance"`
 		} `json:"sessions"`
+	} `json:"result"`
+}
+type ListBulkVolumeJobsResponse struct {
+	ID     int `json:"id"`
+	Result struct {
+		BulkVolumeJobs []struct {
+			Attributes struct {
+				BlocksPerTransfer int    `json:"blocksPerTransfer"`
+				FirstPendingLba   int    `json:"firstPendingLba"`
+				NLbas             int    `json:"nLbas"`
+				NextLba           int    `json:"nextLba"`
+				PendingLbas       string `json:"pendingLbas"` // stored as string, not array
+				PercentComplete   int    `json:"percentComplete"`
+				StartLba          int    `json:"startLba"`
+			} `json:"attributes"`
+			BulkVolumeID    int    `json:"bulkVolumeID"`
+			CreateTime      string `json:"createTime"`
+			ElapsedTime     int    `json:"elapsedTime"`
+			Format          string `json:"format"`
+			Key             string `json:"key"`
+			PercentComplete int    `json:"percentComplete"`
+			RemainingTime   int    `json:"remainingTime"`
+			Script          string `json:"script"`
+			SnapshotID      int    `json:"snapshotID"`
+			SrcVolumeID     int    `json:"srcVolumeID"`
+			Status          string `json:"status"`
+			Type            string `json:"type"`
+		} `json:"bulkVolumeJobs"`
 	} `json:"result"`
 }
