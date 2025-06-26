@@ -183,7 +183,7 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 	ch <- MetricDescriptions.NodeISCSISessions
 
 	ch <- MetricDescriptions.BulkVolumeJobStatus
-	ch <- MetricDescriptions.BulkVolumeJobPerecentage
+	ch <- MetricDescriptions.BulkVolumeJobPercentage
 }
 
 func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context) error {
@@ -1366,7 +1366,7 @@ func (c *SolidfireCollector) collectBulkVolumeJobs(ctx context.Context, ch chan<
 
 	for _, jobs := range bulkVolumeJobs.Result.BulkVolumeJobs {
 		ch <- prometheus.MustNewConstMetric(
-			MetricDescriptions.BulkVolumeJobPerecentage,
+			MetricDescriptions.BulkVolumeJobPercentage,
 			prometheus.CounterValue,
 			float64(jobs.PercentComplete),
 			strconv.Itoa(jobs.BulkVolumeID),
