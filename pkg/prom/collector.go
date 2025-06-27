@@ -193,6 +193,7 @@ func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
 
 	ch <- MetricDescriptions.BulkVolumeJobStatus
 	ch <- MetricDescriptions.BulkVolumeJobPercentage
+	ch <- MetricDescriptions.BulkVolumeJobRemainingTime
 }
 
 func (c *SolidfireCollector) collectVolumeMeta(ctx context.Context) error {
@@ -1385,6 +1386,8 @@ func (c *SolidfireCollector) collectBulkVolumeJobs(ctx context.Context, ch chan<
 			jobs.Script,
 			strconv.Itoa(jobs.SrcVolumeID),
 			jobs.Status,
+			jobs.Type,
+			strconv.Itoa(jobs.SnapshotID),
 		)
 
 		ch <- prometheus.MustNewConstMetric(
@@ -1398,6 +1401,23 @@ func (c *SolidfireCollector) collectBulkVolumeJobs(ctx context.Context, ch chan<
 			jobs.Script,
 			strconv.Itoa(jobs.SrcVolumeID),
 			jobs.Status,
+			jobs.Type,
+			strconv.Itoa(jobs.SnapshotID),
+		)
+
+		ch <- prometheus.MustNewConstMetric(
+			MetricDescriptions.BulkVolumeJobRemainingTime,
+			prometheus.CounterValue,
+			float64(jobs.RemainingTime),
+			strconv.Itoa(jobs.BulkVolumeID),
+			jobs.CreateTime,
+			jobs.Format,
+			jobs.Key,
+			jobs.Script,
+			strconv.Itoa(jobs.SrcVolumeID),
+			jobs.Status,
+			jobs.Type,
+			strconv.Itoa(jobs.SnapshotID),
 		)
 
 	}
