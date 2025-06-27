@@ -143,8 +143,9 @@ type Descriptions struct {
 	//NodeISCSIVolumes       *prometheus.Desc
 
 	//ListBulkVolumeJob
-	BulkVolumeJobStatus     *prometheus.Desc
-	BulkVolumeJobPercentage *prometheus.Desc
+	BulkVolumeJobStatus        *prometheus.Desc
+	BulkVolumeJobPercentage    *prometheus.Desc
+	BulkVolumeJobRemainingTime *prometheus.Desc
 }
 
 func NewMetricDescriptions(namespace string) *Descriptions {
@@ -933,14 +934,21 @@ func NewMetricDescriptions(namespace string) *Descriptions {
 	d.BulkVolumeJobStatus = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "bulk_volume_job_status"),
 		"The status of bulk volume read or write operation that is occurring in the system.  0 = Preparing, 1 = Running, 2 = Complete, 3 = Failed.",
-		[]string{"bulk_volume_id", "created_time", "format", "key", "script", "source_volume_id", "status"},
+		[]string{"bulk_volume_id", "created_time", "format", "key", "script", "volume_id", "status", "type", "snapshot_id"},
 		nil,
 	)
 
 	d.BulkVolumeJobPercentage = prometheus.NewDesc(
 		prometheus.BuildFQName(namespace, "", "bulk_volume_job_percentage"),
 		"The percentage completed of bulk volume read or write operation that is occurring in the system.",
-		[]string{"bulk_volume_id", "created_time", "format", "key", "script", "volume_id", "status"},
+		[]string{"bulk_volume_id", "created_time", "format", "key", "script", "volume_id", "status", "type", "snapshot_id"},
+		nil,
+	)
+
+	d.BulkVolumeJobRemainingTime = prometheus.NewDesc(
+		prometheus.BuildFQName(namespace, "", "bulk_volume_job_remaining_time_seconds"),
+		"The remaining time in seconds of bulk volume read or write operation that is occurring in the system.",
+		[]string{"bulk_volume_id", "created_time", "format", "key", "script", "volume_id", "status", "type", "snapshot_id"},
 		nil,
 	)
 

@@ -5,6 +5,9 @@ import (
 )
 
 var CollectOutputHappyPath = strings.Split(strings.TrimSpace(`
+solidfire_bulk_volume_job_remaining_time_seconds{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",snapshot_id="509",status="running",type="read",volume_id="3"} 506
+solidfire_bulk_volume_job_percentage{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",snapshot_id="509",status="running",type="read",volume_id="3"} 8
+solidfire_bulk_volume_job_status{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",snapshot_id="509",status="running",type="read",volume_id="3"} 1
 solidfire_cluster_active_block_space_bytes 4.977419581e+09
 solidfire_cluster_active_faults{code="driveAvailable",details="Node ID 1 has 1 available drive(s).",drive_id="0.000000",node_hardware_fault_id="0.000000",node_id="1",node_name="n01",resolved="false",service_id="0.000000",severity="warning",type="drive"} 1
 solidfire_cluster_active_sessions 1
@@ -282,8 +285,6 @@ solidfire_volume_write_ops_total{volume_id="1",volume_name="test-volume1"} 1.308
 solidfire_volume_write_ops_total{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_zero_blocks{volume_id="1",volume_name="test-volume1"} 323315
 solidfire_volume_zero_blocks{volume_id="2",volume_name="test-volume2"} 976640
-solidfire_bulk_volume_job_percentage{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",status="running",volume_id="3"} 8
-solidfire_bulk_volume_job_status{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",source_volume_id="3",status="running"} 1
 `), "\n")
 
 var CollectOutputVolumeListErr = strings.Split(strings.TrimSpace(`
@@ -293,6 +294,9 @@ solidfire_up 0
 `), "\n")
 
 var CollectOutputVolumeStatsErr = strings.Split(strings.TrimSpace(`
+solidfire_bulk_volume_job_remaining_time_seconds{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",snapshot_id="509",status="running",type="read",volume_id="3"} 506
+solidfire_bulk_volume_job_percentage{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",snapshot_id="509",status="running",type="read",volume_id="3"} 8
+solidfire_bulk_volume_job_status{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",snapshot_id="509",status="running",type="read",volume_id="3"} 1
 solidfire_cluster_active_block_space_bytes 4.977419581e+09
 solidfire_cluster_active_faults{code="driveAvailable",details="Node ID 1 has 1 available drive(s).",drive_id="0.000000",node_hardware_fault_id="0.000000",node_id="1",node_name="n01",resolved="false",service_id="0.000000",severity="warning",type="drive"} 1
 solidfire_cluster_active_sessions 1
@@ -522,6 +526,4 @@ solidfire_volume_qos_write_block_sizes_bytes_bucket{volume_id="2",volume_name="t
 solidfire_volume_qos_write_block_sizes_bytes_bucket{volume_id="2",volume_name="test-volume2",le="+Inf"} 0
 solidfire_volume_qos_write_block_sizes_bytes_sum{volume_id="2",volume_name="test-volume2"} 0
 solidfire_volume_qos_write_block_sizes_bytes_count{volume_id="2",volume_name="test-volume2"} 0
-solidfire_bulk_volume_job_percentage{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",status="running",volume_id="3"} 8
-solidfire_bulk_volume_job_status{bulk_volume_id="2",created_time="2015-05-07T14:52:17Z",format="native",key="eaffb0526d4fb47107061f09bfc9a806",script="bv_internal.py",source_volume_id="3",status="running"} 1
 `), "\n")
