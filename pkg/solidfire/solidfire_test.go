@@ -431,3 +431,47 @@ func TestClient_GetClusterFullThreshold(t *testing.T) {
 		})
 	}
 }
+
+func TestClient_ListBulkVolumeJobs(t *testing.T) {
+	fixture, err := ioutil.ReadFile(testutils.ResolveFixturePath(fixtureBasePath, solidfire.RPCListBulkVolumeJobs))
+	if err != nil {
+		t.Errorf(err.Error())
+	}
+	tests := []struct {
+		name    string
+		s       solidfire.Client
+		want    string
+		wantErr bool
+	}{
+		{
+			name: "ListBulkVolumeJobs Response should match fixture key",
+			want: "eaffb0526d4fb47107061f09bfc9a806",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer gock.Off()
+			gock.New(sfHost).
+				Post(sfRPCEndpoint).
+				MatchType("json").
+				JSON(solidfire.RPCBody{
+					ID:     1,
+					Method: solidfire.RPCListBulkVolumeJobs,
+					Params: solidfire.ListBulkVolumeJobsParams{}}).
+				Reply(200).
+				BodyString(string(fixture))
+
+			gotRaw, err := sfClient.ListBulkVolumeJobs(context.Background())
+			got := gotRaw.Result.BulkVolumeJobs[0].Key
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Client..ListBulkVolumeJobs() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Client..ListBulkVolumeJobs() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

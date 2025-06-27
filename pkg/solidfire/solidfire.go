@@ -29,6 +29,7 @@ const (
 	RPCListVolumeQoSHistograms RPC = "ListVolumeQoSHistograms"
 	RPCListVolumes             RPC = "ListVolumes"
 	RPCListVolumeStats         RPC = "ListVolumeStats"
+	RPCListBulkVolumeJobs      RPC = "ListBulkVolumeJobs"
 )
 
 func NewSolidfireClient() (*Client, error) {
@@ -312,6 +313,28 @@ func (s *Client) ListISCSISessions(ctx context.Context) (ListISCSISessionsRespon
 
 	payloadBytes, err := json.Marshal(&payload)
 	r := ListISCSISessionsResponse{}
+	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
+
+	if err != nil {
+		return r, err
+	}
+	err = json.Unmarshal(bodyBytes, &r)
+
+	if err != nil {
+		return r, err
+	}
+	return r, nil
+}
+
+func (s *Client) ListBulkVolumeJobs(ctx context.Context) (ListBulkVolumeJobsResponse, error) {
+	payload := &RPCBody{
+		Method: RPCListBulkVolumeJobs,
+		Params: ListBulkVolumeJobsParams{},
+		ID:     1,
+	}
+
+	payloadBytes, err := json.Marshal(&payload)
+	r := ListBulkVolumeJobsResponse{}
 	bodyBytes, err := s.doRpcCall(ctx, payloadBytes)
 
 	if err != nil {

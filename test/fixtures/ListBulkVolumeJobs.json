@@ -1,0 +1,30 @@
+{
+  "id": 1,
+  "result": {
+    "bulkVolumeJobs": [
+        {
+          "attributes": {
+            "blocksPerTransfer": 1024,
+            "firstPendingLba": 216064,
+            "nLbas": 2441472,
+            "nextLba": 226304,
+            "pendingLbas": "[220160, 223232, 221184, 224256, 217088, 225280, 222208, 218112, 219136, 216064]",
+            "percentComplete": 8,
+            "startLba": 0
+          },
+          "bulkVolumeID": 2,
+          "createTime": "2015-05-07T14:52:17Z",
+          "elapsedTime": 44,
+          "format": "native",
+          "key": "eaffb0526d4fb47107061f09bfc9a806",
+          "percentComplete": 8,
+          "remainingTime": 506,
+          "script": "bv_internal.py",
+          "snapshotID": 509,
+          "srcVolumeID": 3,
+          "status": "running",
+          "type": "read"
+       }
+     ]
+   }
+}
