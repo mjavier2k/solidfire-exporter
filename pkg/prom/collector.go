@@ -16,6 +16,30 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 )
 
+type BulkVolumeJobStatus int
+
+const (
+	StatusPreparing BulkVolumeJobStatus = iota
+	StatusRunning
+	StatusComplete
+	StatusFailed
+)
+
+func bulkVolumeJobStatusToInt(state string) BulkVolumeJobStatus {
+	switch state {
+	case "preparing":
+		return StatusPreparing
+	case "running":
+		return StatusRunning
+	case "complete":
+		return StatusComplete
+	case "failed":
+		return StatusFailed
+	default:
+		return -1
+	}
+}
+
 type SolidfireCollector struct {
 	client          solidfire.Interface
 	timeout         time.Duration
@@ -46,21 +70,6 @@ func strCompare(str1 string, str2 string) int {
 		return 1
 	}
 	return 0
-}
-
-func bulkVolumeJobStatusToInt(state string) int {
-	switch state {
-	case "preparing":
-		return 0
-	case "running":
-		return 1
-	case "complete":
-		return 2
-	case "failed":
-		return 3
-	default:
-		return -1 // unknown state
-	}
 }
 
 func (c *SolidfireCollector) Describe(ch chan<- *prometheus.Desc) {
